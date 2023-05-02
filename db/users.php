@@ -1,8 +1,6 @@
 <?php 
 
     $users = array();
-    $activeUser= $_SESSION['activeUser'];
-
     $users[0]['email'] = 'admin@gmail.com' ;
     $users[0]['password'] = 'adminchik' ;
 

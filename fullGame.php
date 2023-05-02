@@ -20,7 +20,25 @@
           padding: 0;
       }
       main{
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      button{
+
+          transition: 0.5s;
+          font-weight: bold;
+          font-size: 30px;
+          border: 4px solid #FBBB43;
+          background-color: transparent;
+          color: white;
+          border-radius: 30px;
+          width: 60px;
+          height: 60px;
+          padding: 0;
+
+      }
+      button:hover{
+        transition: 0.5s;
+        background-color: #FBBB43;
       }
       .container {
           display: flex;
@@ -34,21 +52,33 @@
         justify-content: space-between;
       }
       .about {
-          width: 30%;
+          width: 35%;
           display: flex;
           flex-direction: column;
       }
       .game-card{
           height: 700px;
+          width: 400px;
       }
       .game-card img{
           height: 500px;
       }
+      .little-container{
+        display: flex;
+        justify-content: space-between;
+        width: 500px;
+      }
 
 </style>
       <main>
+      <script>
+      function goBack() {
+        window.history.back();
+      }
+      </script>
         <div class="container">
-
+          <div class="little-container">
+            <button onclick="goBack()"><</button>
             <div class="game-card">
               <img src="<?=$games[$i]['Photo']?>" alt="">
               <div class="min-info">
@@ -71,6 +101,7 @@
               </div>
 
             </div>
+          </div>
 
             <div class="about">
   
