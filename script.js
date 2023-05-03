@@ -13,3 +13,6 @@ function activeDeactive(){
 
     genre.classList.add('genre-active');
 }
+
+
+

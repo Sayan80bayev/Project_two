@@ -8,12 +8,24 @@
 <body>
 
     <!-- header -->
-    <div class="header">
+    <div class="header" id="header">
         <img src="images/logo.png" alt="PC Games Store">
-            <ul>
+            <!-- <ul>
                 <li><a href="login/login.php">Logout</a></li>
                 <li><a href="#">Cart</a></li>
-            </ul>
+            </ul> -->
+
+                <input type="button" value="" id="openButton">
+                <!-- <div class="wrapper">
+                    <button class="close"></button>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
+                </div> -->
     </div>
     <!-- main -->
     <main>
@@ -94,13 +106,123 @@
                             </div>
                 <?php
                     }
-                } 
+                }
                 ?>
-
-
             </div>
-        <!-- </div> -->
+                <div class="genre-container">
+                    <h2>Special offers</h2>
+                </div>
+
+
+                <!-- SLIDER -->
+                    <div class="slider">
+
+                            <?php 
+                            $counter = 0;
+                            $flag = 0;
+                            for($i = 0; $i < count($games); $i++) { 
+                                if($games[$i]['New-price'] != $games[$i]['Old-price']){
+                                    if($counter==0){
+                            ?>
+                                        <div class="card active">
+                                            <img src="<?=$games[$i]['Photo']?>" alt="">
+                                            <div class="title">
+                                                <a href="fullGame.php?id=<?=$games[$i]['id'] ?>">
+                                                    <h2><?= $games[$i]['Name']?></h2>
+                                                </a>
+                                                <p><?= $games[$i]['Genre']?></p>
+                                                    <p style = 
+                                                        "text-decoration: line-through;
+                                                        color: gray;">
+                                                        <?= $games[$i]['Old-price']?>
+                                                    </p>
+                                                    <p style = "
+                                                        font-weight: bold;
+                                                        color: green;">
+                                                        <?= $games[$i]['New-price']?>
+                                                    </p>
+                                            </div>
+                                        </div>
+                            <?php 
+                                        $counter=1;
+                                    }
+                                    else{
+                            ?>
+                                        <div class="card">
+                                            <img src="<?=$games[$i]['Photo']?>" alt="">
+                                            <div class="title">
+                                                <a href="fullGame.php?id=<?=$games[$i]['id'] ?>">
+                                                    <h2><?= $games[$i]['Name']?></h2>
+                                                </a>
+                                                <p><?= $games[$i]['Genre']?></p>
+                                                    <p style = 
+                                                        "text-decoration: line-through;
+                                                        color: gray;">
+                                                        <?= $games[$i]['Old-price']?>
+                                                    </p>
+                                                    <p style = "
+                                                        font-weight: bold;
+                                                        color: green;">
+                                                        <?= $games[$i]['New-price']?>
+                                                    </p>
+                                            </div>
+                                        </div>
+                            <?php
+                                } 
+                            }
+                        }
+                            ?>
+                <?php
+                ?>
+                </div>
     </main>
+    <script>
+        const parentElement = document.getElementById('header');
+        const oldElemnet = document.getElementById('openButton');
+
+        oldElemnet.addEventListener('click' , menuButton);
+
+        
+        const newElement = document.createElement('div');
+        newElement.innerHTML = `
+            <div class='wrapper'>
+            <input type="button" onclick="closeButton()" id='closeButton'>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="login/login.php">Logout</a></li>
+                <li><a href="#">Feedback</a></li>
+            </ul>
+            </div>
+        `;
+        newElement.addEventListener('click', closeButton)
+
+        function menuButton(){
+            parentElement.className = 'height header';
+            parentElement.removeChild(oldElemnet);
+            parentElement.appendChild(newElement);
+        }
+        function closeButton(){
+            parentElement.className = 'header';
+            parentElement.removeChild(newElement);
+            parentElement.appendChild(oldElemnet);
+        }
+
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                cards.forEach(c => {
+                    if(c !== card){
+                        c.classList.remove('active');
+                    }
+                });
+
+                card.classList.add('active');
+            });
+        });
+    </script>
     <footer>
         <ul>
             <li><a href="">About us</a></li>
