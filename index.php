@@ -46,6 +46,7 @@
             <?php
 
                 include 'db/games.php';
+                // commernt
 
                 for($i = 0 ; $i < count($games) ; $i++){
                     if( isset($_GET['cat']) && !empty($_GET['cat'])){
