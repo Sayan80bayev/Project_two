@@ -23,7 +23,10 @@
             </div>
     </div>
     <!-- main -->
-    <main>
+    <main>  
+
+            <!-- text above -->
+
             <div class="genre-container">      
                 <h2>All games</h2>
                 <ul>
@@ -35,9 +38,13 @@
                 </ul>
 
             </div>
+
+
+            <!-- game-container -->
             <div class="game-container">
                 
             <?php
+
                 include 'db/games.php';
 
                 for($i = 0 ; $i < count($games) ; $i++){
