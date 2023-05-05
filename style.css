@@ -11,7 +11,7 @@ body{
     color: white;
 }
 .height{
-    height: 100%;
+    height: 500px;
 }
 ul{
     list-style: none;
@@ -179,7 +179,9 @@ main{
     padding: 20px;
     visibility: hidden;
     opacity: 0;
-    transition: 1s ease-in-out;
+    transition: 1s;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0) );
+
 }
 
 .card .title h2{
@@ -204,4 +206,29 @@ footer{
 }
 footer ul{
     margin: auto;
+}
+
+.left-side{
+    height: 50px;
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+}
+.searchBar{
+    width: 350px;
+    display: flex;
+    border: 3px solid orange;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 0;
+}
+.searchBar input{
+    padding: 10px;
+    font-size: 20px;
+    margin: 0;
+    width: 70%;
+}
+.searchBar button{
+    margin: 0;
+    width: 30%;
 }

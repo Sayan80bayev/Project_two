@@ -59,6 +59,14 @@
                 <input type="password" id="password" name="password">
                 <p id="passError" class='error'></p>
             </div>
+            <div class="facebook">
+                <img src="../images/Facebook.png" alt="">
+                <p>Sign with Facebook</p>
+            </div>
+            <div class="google">
+                <img src="../images/Google.png" alt="">
+                <p>Sign with Google</p>
+            </div>
             <input type="button" onclick="formCheck()" value="Login" class='button'>
             <p class='error'>
             <!-- error message -->
@@ -68,6 +76,7 @@
                 }
                 ?>
             </p>
+            <p style="margin: 0 70px;">Haven't registered yet? -> <a href="#">click here</a></p>
         </form>
         
         <script>
@@ -99,7 +108,7 @@
                 const errorPass = document.getElementById('passError');
                 if (passInput.value !== '') {
                     if (passInput.value.length < 6) {
-                        errorPass.textContent = "at least 6 characters";
+                        errorPass.textContent = "At least 6 characters";
                         return false;
                     } else {
                         errorPass.textContent = '';
