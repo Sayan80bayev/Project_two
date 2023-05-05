@@ -14,18 +14,13 @@
                 <li><a href="login/login.php">Logout</a></li>
                 <li><a href="#">Cart</a></li>
             </ul> -->
-
+            <div class="left-side" id="left-side">
+                <div class="searchBar">
+                    <input id="search" type="search" placeholder="Search..." />
+                    <button>Go</button>
+                </div>    
                 <input type="button" value="" id="openButton">
-                <!-- <div class="wrapper">
-                    <button class="close"></button>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Gallery</a></li>
-                        <li><a href="#">Feedback</a></li>
-                    </ul>
-                </div> -->
+            </div>
     </div>
     <!-- main -->
     <main>
@@ -177,34 +172,34 @@
                 </div>
     </main>
     <script>
-        const parentElement = document.getElementById('header');
+        const parentElement = document.getElementById('left-side');
         const oldElemnet = document.getElementById('openButton');
 
         oldElemnet.addEventListener('click' , menuButton);
 
         
-        const newElement = document.createElement('div');
-        newElement.innerHTML = `
-            <div class='wrapper'>
-            <input type="button" onclick="closeButton()" id='closeButton'>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Support</a></li>
-                <li><a href="login/login.php">Logout</a></li>
-                <li><a href="#">Feedback</a></li>
-            </ul>
-            </div>
-        `;
-        newElement.addEventListener('click', closeButton)
+        // const newElement = document.createElement('div');
+        // newElement.innerHTML = `
+        //     <div class='wrapper'>
+        //     <input type="button" onclick="closeButton()" id='closeButton'>
+        //     <ul>
+        //         <li><a href="#">Home</a></li>
+        //         <li><a href="#">About</a></li>
+        //         <li><a href="#">Support</a></li>
+        //         <li><a href="login/login.php">Logout</a></li>
+        //         <li><a href="#">Feedback</a></li>
+        //     </ul>
+        //     </div>
+        // `;
+        // newElement.addEventListener('click', closeButton)
 
         function menuButton(){
-            parentElement.className = 'height header';
+            parentElement.className = 'height left-side';
             parentElement.removeChild(oldElemnet);
             parentElement.appendChild(newElement);
         }
         function closeButton(){
-            parentElement.className = 'header';
+            parentElement.className = 'left-side';
             parentElement.removeChild(newElement);
             parentElement.appendChild(oldElemnet);
         }
