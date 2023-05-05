@@ -10,9 +10,14 @@ body{
     margin: 0;
     color: white;
 }
+/* display-flex */
+.carousel-line, .btn-container, .left-side,.searchBar, .menu-btn,
+ .menu ul, .genre-container, .game-container, .min-info, .game-card,
+  .slider, footer, ul, .header, .info, .container , .about , .little-container{
+    display: flex;
+}
 ul{
     list-style: none;
-    display: flex;
     align-items: center;
     justify-content: space-between;
     width: 50%;
@@ -20,48 +25,9 @@ ul{
 h2{
     font-size: 30px;
 }
-#openButton{
-    width: 50px;
-    background: transparent;
-    border: none;
-    background-image: url(images/icon.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-#closeButton{
-    width: 70px;
-    height: 70px;
-    background: transparent;
-    border: none;
-    background-image: url(images/close.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.wrapper{
-    display: flex;
-    position: relative;
-    top:-50px;
-    left: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    transition: 1s;
-    flex-direction: column;
-    align-items: center;
-    width: 300px;
-    height: 100%;
-    background-color: rgba(0, 0, 0);
-
-}
-.wrapper ul{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    height: 70%;
-}
 .header{
     background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7 ) );
     justify-content: space-between;
-    display: flex;
     margin: 0;
     padding: 16px;
     position: fixed; top: 0; left: 0; right: 0; z-index: 999;
@@ -69,160 +35,25 @@ h2{
 .header > img{
     height: 50px;
 }
-.header ul{
-    width: 7%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    list-style: none;
-    padding: 8px;
-    margin: 0;
-}
-
 a{
     text-decoration: none;
     font-size: 16px;
     color: white;
 }
-
-main{
-    padding-top: 70px;
-}
-.genre-active{
-    background-color: rgba(255, 175, 45, 0.785);
-    padding: 5px;
-    border: 2px solid #FBBB43;
-    border-radius: 10px;
-}
-.genre-container{
-    width: 80%;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-}
-.game-container{
-    /* padding: 10px 70px 10px 70px; */
-    margin: auto;
-    margin-top: 40px;
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-.game-card {
-    overflow: hidden;
-    height: 475px;
-    display: flex;
-    flex-direction: column;
-    border: 2px solid white;
-    border-radius: 20px;
-    /* height: 500px; */
-    width: 20%;
-    padding:0;
-    text-align: center;
-    margin-bottom: 50px;
-    background-color: #141111;
-}
-.game-container> div:hover {
-    transition: 0.5s;
-    border: 2px solid #FBBB43;
-}
-.game-card img {
-    /* width: 100%; */
-    height: 400px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-  
-.game-card h2 {
-    font-size: 17px;
-    margin: 0;
-    color: white;
-}  
-.min-info{
-    height: 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-}
-.game-card p {
-    margin: 2px;
-    font-size: 12px;
-    color:  white;
-    /* margin-bottom: 0.5rem; */
-}
-.slider{
-    margin: auto;
-    margin-top: 40px;
-    display: flex;
-    gap: 15px;
-    width: 80%;
-}
-
-.card{
-    border: 2px solid rgba(251, 187, 67, 0.8);
-    flex: 1;
-    height: 600px;
-    overflow: hidden;
-    border-radius: 15px;
-    transition: 1s ease-in-out;
-    cursor: pointer;
-    position: relative;
-}
-
-.card img{
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-}
-
-.title{
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    padding: 20px;
-    visibility: hidden;
-    opacity: 0;
-    transition: 1s;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0) );
-}
-
-.card .title h2{
-    font-size: 16px
-}
-
-.card .title p{
-    font-size: 16px;
-}
-
-.active{
-    flex-grow: 5;
-}
-
-.active .title{
-    visibility: visible;
-    opacity: 1;
-}
-footer{
-    height: 200px;
-    display: flex;
-}
-footer ul{
-    margin: auto;
-}
-
 .left-side{
+    align-items: center;
     height: 50px;
     width: 30%;
     display: flex;
     justify-content: space-between;
 }
+.searchBar, .slider-card, .game-card{
+    border: 2px solid white;
+    border-radius: 20px;
+}
+
 .searchBar{
     width: 350px;
-    display: flex;
-    border: 2px solid white;
     border-radius: 15px;
     overflow: hidden;
     padding: 0;
@@ -240,7 +71,7 @@ footer ul{
     margin: 0;
     outline: none;
     border: none;
-    flex: 1;
+    color: #000;
 }
 .searchBar button{
     transition: 0.5s;
@@ -250,18 +81,207 @@ footer ul{
 .searchBar button:hover{
     background-color: #FBBB43;
     transition: 0.5 s;
-    color: black;
 }
 .searchBar:hover{
-        background-color: white;
-        color: black;
-        transition: 0.3s;
+    background-color: white;
+    transition: 0.3s;
 }
+.searchBar:hover button{
+    color: #000;
+}
+.menu-btn {
+    position: relative;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .menu-icon {
+    width: 30px;
+    height: 2px;
+    background-color: #fff;
+    display: block;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .menu-icon::before,
+  .menu-icon::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .menu-icon::before {
+    top: -10px;
+  }
+  
+  .menu-icon::after {
+    top: 10px;
+  }
+  
+  .menu-btn.active .menu-icon {
+    transform: rotate(45deg);
+  }
+  
+  .menu-btn.active .menu-icon::before {
+    transform: translateY(10px) rotate(90deg);
+  }
+  
+  .menu-btn.active .menu-icon::after {
+    transform: translateY(-10px) rotate(-90deg);
+  }
+  
+  .menu {
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    right: -250px;
+    height: 100vh;
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s ease-in-out;
+  }
+  .menu ul{
+    margin: 35vh auto 0 ;
+    padding: 0%;
+    align-items: stretch;
+    text-align: center;
+    flex-direction: column;
+  }
+  .menu li{
+    padding: 0;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .menu.active {
+    transform: translateX(-250px);
+  }
+  .menu li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+main{
+    padding-top: 70px;
+    width: 80%;
+    margin: auto;
+}
+.genre-container{
+    justify-content: space-between;
+}
+.genre-active{
+    background-color: rgba(255, 175, 45, 0.785);
+    padding: 5px;
+    border: 2px solid #FBBB43;
+    border-radius: 10px;
+}
+.game-container{
+    margin: auto;
+    margin-top: 40px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.game-card {
+    overflow: hidden;
+    height: 475px;
+    flex-direction: column;
+    width: 20%;
+    padding:0;
+    text-align: center;
+    margin-bottom: 50px;
+    background-color: #141111;
+}
+.game-container> div:hover {
+    transition: 0.5s;
+    border: 2px solid #FBBB43;
+}
+.game-card img {
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+  
+.game-card h2 {
+    font-size: 17px;
+    margin: 0;
+}  
+.min-info{
+    height: 30%;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+.game-card p {
+    margin: 2px;
+    font-size: 12px;
+}
+.slider{
+    margin: auto;
+    margin-top: 40px;
+    gap: 15px;
+}
+
+.slider-card{
+    flex: 1;
+    height: 600px;
+    overflow: hidden;
+    transition: 1s ease-in-out;
+    cursor: pointer;
+    position: relative;
+}
+
+.slider-card img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.title{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    visibility: hidden;
+    opacity: 0;
+    transition: 1s;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0) );
+    font-size: 16px
+}
+.active{
+    flex-grow: 5;
+    border-color: orange;
+}
+
+.active .title{
+    visibility: visible;
+    opacity: 1;
+}
+footer{
+    height: 200px;
+}
+footer ul{
+    margin: auto;
+}
+
 .carousel{
-    /* display: flex; */
     overflow: hidden;
     margin: auto;
-    /* justify-content: center; */
     width: 80%;
 }
 .carousel-line{
@@ -274,14 +294,6 @@ footer ul{
     width: 100%;
 }
 .btn-container{
-    display: flex;
     width: 100%;
     justify-content: space-between;
-}
-.btn-container button{
-    border: none;
-    background-color: transparent;
-    color: white;
-    font-weight: bold;
-    font-size: 50px;
 }

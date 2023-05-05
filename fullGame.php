@@ -6,12 +6,13 @@
 </head>
 <body>
 <style>
-    <?php
-    include 'db/games.php';
-      for($i =0 ; $i<count($games); $i++){
-        if(isset($_GET['id']) && !empty($_GET['id'])){
-          if($games[$i]['id']==$_GET['id']){
-    ?>
+  /* here is php code */
+  <?php
+        include 'db/games.php';
+          for($i =0 ; $i<count($games); $i++){
+            if(isset($_GET['id']) && !empty($_GET['id'])){
+              if($games[$i]['id']==$_GET['id']){
+        ?>
       body {
           height: 100vh;
           background-color: black;
@@ -23,10 +24,9 @@
       }
       main{
         background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1), rgba(0, 0, 0, 1 ) );
-        /* height: 200%; */
+        width: 100%;
       }
       button{
-
           transition: 0.5s;
           font-weight: bold;
           font-size: 30px;
@@ -44,20 +44,16 @@
         background-color: #FBBB43;
       }
       .container {
-        flex-wrap: wrap;
-          display: flex;
+          flex-wrap: wrap;
           width: 100%;
-          height: 100;
           justify-content: space-evenly;
           align-items:center;
       }
       .info{
-        display: flex;
         justify-content: space-between;
       }
       .about {
           width: 35%;
-          display: flex;
           flex-direction: column;
       }
       .game-card{
@@ -71,16 +67,14 @@
         font-size: 20px;
       }
       .little-container{
-        display: flex;
         justify-content: space-between;
-        width: 500px;
+        width: 380px;
       }
       .carousel, .genre-container{
         width: 66%;
         overflow: hidden;
       }
       .carousel img{
-        /* height: 570px; */
         border-radius: 20px;
       }
       .btn-container{
@@ -89,37 +83,35 @@
       }
 </style>
       <main>
-      <script>
-      function goBack() {
-        window.history.back();
-      }
-      </script>
+        <!-- container-start -->
         <div class="container">
+          <!-- little-container start -->
           <div class="little-container">
+
             <button onclick="goBack()"><</button>
+
             <div class="game-card">
               <img src="<?=$games[$i]['Photo']?>" alt="">
+
               <div class="min-info">
                 <h2><?= $games[$i]['Name']?></h2>
                 <p><?= $games[$i]['Genre']?></p>
 
-                <?php
-                    if($games[$i]['New-price']!=$games[$i]['Old-price']){
-                ?>
+                <?php if($games[$i]['New-price']!=$games[$i]['Old-price']){ ?>
                       <p style = "text-decoration: line-through; color: gray;"><?= $games[$i]['Old-price']?></p>
                       <p style = " font-weight: bold; color: green; font-size: 30px"><?= $games[$i]['New-price']?></p>
                 <?php
-                      }
-                      else{
+                  }
+                  else{
                 ?>
                       <p ><?= $games[$i]['New-price']?></p>
-                <?php
-                      }
-                ?>
+                <?php } ?>
+                
               </div>
-
             </div>
+
           </div>
+          <!-- little-container end -->
 
             <div class="about">
   
@@ -136,15 +128,9 @@
                 </div>
                 <div class="carousel">
                     <div class="carousel-line">
-                    <?php
-                            // for($i = 0 ; $i<3; $i++){
-                                ?>
                             <img src="<?=$games[$i]['Screenshot_1']?>" alt="">
                             <img src="<?=$games[$i]['Screenshot_2']?>" alt="">
                             <img src="<?=$games[$i]['Screenshot_3']?>" alt="">
-                        <?php
-                            // }
-                        ?>
                     </div>
                     <div class="btn-container">
                         <button class="slider-prev"><</button>
@@ -155,12 +141,19 @@
                 }
             }
         }
-    ?>    </div>
+    ?>    </div> 
+          <!-- container end -->
       </main>
+
       <script>
+      //button-back
+      function goBack() {
+        window.history.back();
+      }
+
+      //carousel-moving
         let offset = 0;
         const sliderLine = document.querySelector('.carousel-line');
-        // const width = document.querySelector(".carousel-line img").offsetWidth;
         const width = 1003;
         console.log(width);
 

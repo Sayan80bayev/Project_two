@@ -5,17 +5,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
-<script>
-    const oldElemnet = document.getElementById('openButton');
-        oldElemnet.addEventListener('click' , menuButton);
-        const wrapper = document.querySelector("wrapper");      
-        function menuButton(){
-            wrapper.style.right = -300 +"px";
-        }
-        function closeButton(){
-            wrapper.style.right = +300 +"px";
-        }
-</script>
+
 <body>
 
     <!-- header -->
@@ -25,19 +15,22 @@
                 <div class="searchBar">
                     <input id="search" type="search" placeholder="Search..." />
                     <button>Go</button>
-                </div>    
-                <input type="button" value="" id="openButton" onclick="menuButton()">
+                </div>
+                <div class="menu-container">
+                    <div class="menu">
+                        <ul>
+                            <li><a href="">About us</a></li>
+                            <li><a href="">Contact</a></li>
+                            <li><a href="">Privacy policy</a></li>
+                            <li><a href="">Terms and conditions</a></li>
+                            <li><a href="">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <button class="menu-btn">
+                        <span class="menu-icon"></span>
+                    </button>
+                </div>
             </div>
-    </div>
-    <div class='wrapper'>
-                    <input type="button" onclick="closeButton()" id='closeButton'>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Support</a></li>
-                        <li><a href="login/login.php">Logout</a></li>
-                        <li><a href="#">Feedback</a></li>
-                    </ul>
     </div>
     <!-- main -->
     <main>  
@@ -144,7 +137,7 @@
                                 if($games[$i]['New-price'] != $games[$i]['Old-price']){
                                     if($counter==0){
                             ?>
-                                        <div class="card active">
+                                        <div class="slider-card active">
                                             <img src="<?=$games[$i]['Photo']?>" alt="">
                                             <div class="title">
                                                 <a href="fullGame.php?id=<?=$games[$i]['id'] ?>">
@@ -168,7 +161,7 @@
                                     }
                                     else{
                             ?>          
-                                        <div class="card">
+                                        <div class="slider-card">
                                             <img src="<?=$games[$i]['Photo']?>" alt="">
                                             <div class="title">
                                                 <a href="fullGame.php?id=<?=$games[$i]['id'] ?>">
@@ -192,12 +185,19 @@
                             }
                         }
                             ?>
-                <?php
-                ?>
                 </div>
         </main>
     <script>
-        const cards = document.querySelectorAll('.card');
+        const menuBtn = document.querySelector('.menu-btn');
+        const menu = document.querySelector('.menu');
+
+        menuBtn.addEventListener('click', () => {
+        menuBtn.classList.toggle('active');
+        menu.classList.toggle('active');
+        });
+    </script>
+    <script>
+        const cards = document.querySelectorAll('.slider-card');
 
         cards.forEach(card => {
             card.addEventListener('click', () => {
