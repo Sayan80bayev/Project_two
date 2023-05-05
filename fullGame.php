@@ -13,6 +13,8 @@
           if($games[$i]['id']==$_GET['id']){
     ?>
       body {
+          height: 100vh;
+          background-color: black;
           background-image: url('<?=$games[$i]['Poster']?>');
           background-repeat: no-repeat;
           background-size: cover;
@@ -20,7 +22,8 @@
           padding: 0;
       }
       main{
-        background-color: rgba(0, 0, 0, 0.8);
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1), rgba(0, 0, 0, 1 ) );
+        /* height: 200%; */
       }
       button{
 
@@ -41,9 +44,10 @@
         background-color: #FBBB43;
       }
       .container {
+        flex-wrap: wrap;
           display: flex;
           width: 100%;
-          height: 100vh;
+          height: 100;
           justify-content: space-evenly;
           align-items:center;
       }
@@ -57,18 +61,32 @@
           flex-direction: column;
       }
       .game-card{
-          height: 700px;
-          width: 400px;
+          height: 500px;
+          width: 300px;
       }
       .game-card img{
-          height: 500px;
+          height: 350px;
+      }
+      .game-card h2, .game-card p{
+        font-size: 20px;
       }
       .little-container{
         display: flex;
         justify-content: space-between;
         width: 500px;
       }
-
+      .carousel, .genre-container{
+        width: 66%;
+        overflow: hidden;
+      }
+      .carousel img{
+        /* height: 570px; */
+        border-radius: 20px;
+      }
+      .btn-container{
+        position: relative;
+        top:-300px;
+      }
 </style>
       <main>
       <script>
@@ -111,13 +129,56 @@
                     echo "<div class ='info'><p>Genre: </p> <p>"  . $games[$i]['Genre'] . "</p> </div>";
                     echo "<div class ='info'><p>Price: </p> <p>" . $games[$i]['New-price'] . "</p> </div>";
                     echo "<p>About game:<br>" . $games[$i]['Description'] . "</p>";
-
+    ?>
+            </div>
+                <div class="genre-container">
+                  <h2>Screenshots</h2>
+                </div>
+                <div class="carousel">
+                    <div class="carousel-line">
+                    <?php
+                            // for($i = 0 ; $i<3; $i++){
+                                ?>
+                            <img src="<?=$games[$i]['Screenshot_1']?>" alt="">
+                            <img src="<?=$games[$i]['Screenshot_2']?>" alt="">
+                            <img src="<?=$games[$i]['Screenshot_3']?>" alt="">
+                        <?php
+                            // }
+                        ?>
+                    </div>
+                    <div class="btn-container">
+                        <button class="slider-prev"><</button>
+                        <button class="slider-next">></button>
+                    </div>
+                </div>
+    <?php
                 }
             }
         }
     ?>    </div>
-
-        </div>
       </main>
+      <script>
+        let offset = 0;
+        const sliderLine = document.querySelector('.carousel-line');
+        // const width = document.querySelector(".carousel-line img").offsetWidth;
+        const width = 1003;
+        console.log(width);
+
+        document.querySelector('.slider-next').addEventListener('click', function(){
+            offset = offset + width;
+            if (offset > width*2) {
+                offset = 0;
+            }
+            sliderLine.style.left = -offset + 'px';
+        });
+
+        document.querySelector('.slider-prev').addEventListener('click', function () {
+            offset = offset - width;
+            if (offset < 0) {
+                offset = width*2;
+            }
+            sliderLine.style.left = -offset + 'px';
+        });
+      </script>
 </body>
 </html>

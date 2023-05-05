@@ -10,9 +10,6 @@ body{
     margin: 0;
     color: white;
 }
-.height{
-    height: 500px;
-}
 ul{
     list-style: none;
     display: flex;
@@ -41,10 +38,13 @@ h2{
     background-size: cover;
 }
 .wrapper{
+    display: flex;
     position: relative;
-    top:-16px;
+    top:-50px;
+    left: 100%;
     display: flex;
     justify-content: space-evenly;
+    transition: 1s;
     flex-direction: column;
     align-items: center;
     width: 300px;
@@ -59,6 +59,7 @@ h2{
     height: 70%;
 }
 .header{
+    background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7 ) );
     justify-content: space-between;
     display: flex;
     margin: 0;
@@ -88,6 +89,7 @@ main{
     padding-top: 70px;
 }
 .genre-active{
+    background-color: rgba(255, 175, 45, 0.785);
     padding: 5px;
     border: 2px solid #FBBB43;
     border-radius: 10px;
@@ -109,40 +111,44 @@ main{
 }
 .game-card {
     overflow: hidden;
-    height: 575px;
+    height: 475px;
     display: flex;
     flex-direction: column;
-    border: 5px solid #FBBB43;
+    border: 2px solid white;
     border-radius: 20px;
     /* height: 500px; */
-    width: 26%;
+    width: 20%;
     padding:0;
     text-align: center;
     margin-bottom: 50px;
     background-color: #141111;
 }
-  
+.game-container> div:hover {
+    transition: 0.5s;
+    border: 2px solid #FBBB43;
+}
 .game-card img {
-    width: 100%;
+    /* width: 100%; */
     height: 400px;
     object-fit: cover;
     border-radius: 10px;
 }
   
 .game-card h2 {
-    font-size: 25px;
+    font-size: 17px;
     margin: 0;
     color: white;
 }  
 .min-info{
+    height: 30%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: auto;
 }
 .game-card p {
-    margin: 5px;
-    font-size: 17px;
+    margin: 2px;
+    font-size: 12px;
     color:  white;
     /* margin-bottom: 0.5rem; */
 }
@@ -171,7 +177,7 @@ main{
     height: 100%;
 }
 
-.card .title{
+.title{
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -181,7 +187,6 @@ main{
     opacity: 0;
     transition: 1s;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0) );
-
 }
 
 .card .title h2{
@@ -217,18 +222,66 @@ footer ul{
 .searchBar{
     width: 350px;
     display: flex;
-    border: 3px solid orange;
+    border: 2px solid white;
     border-radius: 15px;
     overflow: hidden;
     padding: 0;
+    transition: 0.3s;
+
+}
+
+.searchBar input, .searchBar button{
+    background: rgba(125, 125, 125, 0.2);
+    color: white;
 }
 .searchBar input{
     padding: 10px;
     font-size: 20px;
     margin: 0;
-    width: 70%;
+    outline: none;
+    border: none;
+    flex: 1;
 }
 .searchBar button{
-    margin: 0;
+    transition: 0.5s;
+    border: none;
     width: 30%;
+}
+.searchBar button:hover{
+    background-color: #FBBB43;
+    transition: 0.5 s;
+    color: black;
+}
+.searchBar:hover{
+        background-color: white;
+        color: black;
+        transition: 0.3s;
+}
+.carousel{
+    /* display: flex; */
+    overflow: hidden;
+    margin: auto;
+    /* justify-content: center; */
+    width: 80%;
+}
+.carousel-line{
+    display: flex;
+    position: relative;
+    left: 0;
+    transition: all ease 1s;
+}
+.carousel img{
+    width: 100%;
+}
+.btn-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.btn-container button{
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    font-size: 50px;
 }

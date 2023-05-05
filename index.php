@@ -5,22 +5,39 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
+<script>
+    const oldElemnet = document.getElementById('openButton');
+        oldElemnet.addEventListener('click' , menuButton);
+        const wrapper = document.querySelector("wrapper");      
+        function menuButton(){
+            wrapper.style.right = -300 +"px";
+        }
+        function closeButton(){
+            wrapper.style.right = +300 +"px";
+        }
+</script>
 <body>
 
     <!-- header -->
     <div class="header" id="header">
         <img src="images/logo.png" alt="PC Games Store">
-            <!-- <ul>
-                <li><a href="login/login.php">Logout</a></li>
-                <li><a href="#">Cart</a></li>
-            </ul> -->
             <div class="left-side" id="left-side">
                 <div class="searchBar">
                     <input id="search" type="search" placeholder="Search..." />
                     <button>Go</button>
                 </div>    
-                <input type="button" value="" id="openButton">
+                <input type="button" value="" id="openButton" onclick="menuButton()">
             </div>
+    </div>
+    <div class='wrapper'>
+                    <input type="button" onclick="closeButton()" id='closeButton'>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="login/login.php">Logout</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
     </div>
     <!-- main -->
     <main>  
@@ -59,20 +76,20 @@
                                         <h2> <?= $games[$i]['Name']?></h2>
                                     </a>    
                                     <p><?= $games[$i]['Genre']?></p>
-                        <?php
-                            if($games[$i]['New-price']!=$games[$i]['Old-price']){
-                        ?>
-                                <p style = "text-decoration: line-through; color: gray;"> <?= $games[$i]['Old-price']?></p>
-                                <p style="font-weight: bold; color: green; font-size: 20px;"> <?= $games[$i]['New-price']?></p>
-                        <?php
-                            }
-                            else{
-                        ?>
-                                <p><?= $games[$i]['New-price']?></p>
-                        <?php
-                                }
-                                
-                        ?>
+                                    <?php
+                                        if($games[$i]['New-price']!=$games[$i]['Old-price']){
+                                    ?>
+                                            <p style = "text-decoration: line-through; color: gray;"> <?= $games[$i]['Old-price']?></p>
+                                            <p style="font-weight: bold; color: green; font-size: 20px;"> <?= $games[$i]['New-price']?></p>
+                                    <?php
+                                        }
+                                        else{
+                                    ?>
+                                            <p><?= $games[$i]['New-price']?></p>
+                                    <?php
+                                            }
+                                            
+                                    ?>
                                 </div>
                             </div>
 
@@ -150,7 +167,7 @@
                                         $counter=1;
                                     }
                                     else{
-                            ?>
+                            ?>          
                                         <div class="card">
                                             <img src="<?=$games[$i]['Photo']?>" alt="">
                                             <div class="title">
@@ -178,40 +195,8 @@
                 <?php
                 ?>
                 </div>
-    </main>
+        </main>
     <script>
-        const parentElement = document.getElementById('left-side');
-        const oldElemnet = document.getElementById('openButton');
-
-        oldElemnet.addEventListener('click' , menuButton);
-
-        
-        // const newElement = document.createElement('div');
-        // newElement.innerHTML = `
-        //     <div class='wrapper'>
-        //     <input type="button" onclick="closeButton()" id='closeButton'>
-        //     <ul>
-        //         <li><a href="#">Home</a></li>
-        //         <li><a href="#">About</a></li>
-        //         <li><a href="#">Support</a></li>
-        //         <li><a href="login/login.php">Logout</a></li>
-        //         <li><a href="#">Feedback</a></li>
-        //     </ul>
-        //     </div>
-        // `;
-        // newElement.addEventListener('click', closeButton)
-
-        function menuButton(){
-            parentElement.className = 'height left-side';
-            parentElement.removeChild(oldElemnet);
-            parentElement.appendChild(newElement);
-        }
-        function closeButton(){
-            parentElement.className = 'left-side';
-            parentElement.removeChild(newElement);
-            parentElement.appendChild(oldElemnet);
-        }
-
         const cards = document.querySelectorAll('.card');
 
         cards.forEach(card => {
