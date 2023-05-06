@@ -18,12 +18,23 @@
                 </div>
                 <div class="menu-container">
                     <div class="menu">
+                        <div class="social-media">
+                            <img src="images/Facebook.png" alt="">
+                            <img src="images/Twitter.png" alt="">
+                            <img src="images/Instagramm.png" alt="">
+                        </div>
                         <ul>
+                            <span></span>
                             <li><a href="">About us</a></li>
+                            <span></span>
                             <li><a href="">Contact</a></li>
+                            <span></span>
                             <li><a href="">Privacy policy</a></li>
+                            <span></span>
                             <li><a href="">Terms and conditions</a></li>
+                            <span></span>
                             <li><a href="">FAQ</a></li>
+                            <span></span>
                         </ul>
                     </div>
                     <button class="menu-btn">
@@ -56,7 +67,6 @@
             <?php
 
                 include 'db/games.php';
-                // commernt
 
                 for($i = 0 ; $i < count($games) ; $i++){
                     if( isset($_GET['cat']) && !empty($_GET['cat'])){
@@ -99,18 +109,18 @@
                                         <h2> <?= $games[$i]['Name']?></h2>
                                     </a>    
                                     <p><?= $games[$i]['Genre']?></p>
-                        <?php
-                            if($games[$i]['New-price']!=$games[$i]['Old-price']){
-                        ?>
-                                <p style = "text-decoration: line-through; color: gray;"> <?= $games[$i]['Old-price']?></p>
-                                <p style="font-weight: bold; color: green; font-size: 20px;"> <?= $games[$i]['New-price']?></p>
-                
+                            <?php
+                                if($games[$i]['New-price']!=$games[$i]['Old-price']){
+                            ?>
+                                    <p style = "text-decoration: line-through; color: gray;"> <?= $games[$i]['Old-price']?></p>
+                                    <p style="font-weight: bold; color: green; font-size: 20px;"> <?= $games[$i]['New-price']?></p>
+                    
                             <?php
                             }
                             else{
                             ?>
 
-                                <p><?= $games[$i]['New-price']?></p>
+                                    <p><?= $games[$i]['New-price']?></p>
 
                             <?php
                             }
@@ -131,8 +141,9 @@
                     <div class="slider">
 
                             <?php 
+
                             $counter = 0;
-                            $flag = 0;
+
                             for($i = 0; $i < count($games); $i++) { 
                                 if($games[$i]['New-price'] != $games[$i]['Old-price']){
                                     if($counter==0){
@@ -195,8 +206,6 @@
         menuBtn.classList.toggle('active');
         menu.classList.toggle('active');
         });
-    </script>
-    <script>
         const cards = document.querySelectorAll('.slider-card');
 
         cards.forEach(card => {

@@ -16,11 +16,17 @@ body{
   .slider, footer, ul, .header, .info, .container , .about , .little-container{
     display: flex;
 }
+span{
+    background-color: white;
+    height: 2px;
+    width: 100%;
+    margin:10px 0 10px;
+}
 ul{
+    width: 30%;
     list-style: none;
     align-items: center;
     justify-content: space-between;
-    width: 50%;
 }
 h2{
     font-size: 30px;
@@ -99,19 +105,18 @@ a{
     border: none;
     outline: none;
     cursor: pointer;
-  }
-  
-  .menu-icon {
+}  
+.menu-icon {
     width: 30px;
     height: 2px;
     background-color: #fff;
     display: block;
     position: relative;
     transition: transform 0.3s ease-in-out;
-  }
+}
   
-  .menu-icon::before,
-  .menu-icon::after {
+.menu-icon::before,
+.menu-icon::after {
     content: '';
     width: 100%;
     height: 100%;
@@ -119,62 +124,68 @@ a{
     position: absolute;
     left: 0;
     transition: transform 0.3s ease-in-out;
-  }
+}
   
-  .menu-icon::before {
+.menu-icon::before {
     top: -10px;
-  }
+}
   
-  .menu-icon::after {
+.menu-icon::after {
     top: 10px;
-  }
+}
   
-  .menu-btn.active .menu-icon {
+.menu-btn.active .menu-icon {
     transform: rotate(45deg);
-  }
+}
   
-  .menu-btn.active .menu-icon::before {
+.menu-btn.active .menu-icon::before {
     transform: translateY(10px) rotate(90deg);
-  }
+}
   
-  .menu-btn.active .menu-icon::after {
+.menu-btn.active .menu-icon::after {
     transform: translateY(-10px) rotate(-90deg);
-  }
+}
   
-  .menu {
+.menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: 0;
     padding: 0;
     position: fixed;
     top: 0;
-    right: -250px;
+    right: -300px;
     height: 100vh;
-    width: 250px;
+    width: 300px;
     background-color: rgba(0, 0, 0, 0.8);
     transition: transform 0.3s ease-in-out;
-  }
-  .menu ul{
-    margin: 35vh auto 0 ;
+}
+.menu ul{
+    width: 90%;
+    margin: 0 auto 0 ;
     padding: 0%;
     align-items: stretch;
     text-align: center;
     flex-direction: column;
-  }
-  .menu li{
+}
+.menu li{
     padding: 0;
-    border: 2px solid white;
-    border-radius: 10px;
-    margin-bottom: 20px;
-  }
+}
   
-  .menu.active {
-    transform: translateX(-250px);
-  }
-  .menu li a {
+.menu.active {
+    transform: translateX(-300px);
+}
+.menu li a {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
-  }
-
+}
+.social-media{
+    margin: 0 auto 0;
+}
+.social-media img{
+    height: 50px;
+}
 main{
     padding-top: 70px;
     width: 80%;
@@ -205,6 +216,11 @@ main{
     margin-bottom: 50px;
     background-color: #141111;
 }
+.game-container:after {
+    content: "";
+    justify-content: flex-start;
+    flex-basis: 46.86%;
+    }
 .game-container> div:hover {
     transition: 0.5s;
     border: 2px solid #FBBB43;
@@ -272,12 +288,19 @@ main{
     opacity: 1;
 }
 footer{
+    width: 80%;
     height: 200px;
+    margin: auto;
+
 }
 footer ul{
-    margin: auto;
+    width: 100%;
+}
+footer li{
+    margin: 0;
 }
 
+/* fool-page stuff */
 .carousel{
     overflow: hidden;
     margin: auto;

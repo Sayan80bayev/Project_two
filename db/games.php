@@ -107,6 +107,7 @@
         $games[6]['Description'] ="The Witcher 3: Wild Hunt is an open-world action role-playing game that follows the adventures of Geralt of Rivia, a monster hunter known as a Witcher. The game features a vast open world, dynamic combat, and a branching narrative that changes based on player choices.";
         $games[6]['Genre'] = "RPG";
 
+        
         $games[7]['id']=8;
         $games[7]['Name'] ="Resident Evil Village";
         $games[7]['Developers'] ="Capcom";
@@ -121,6 +122,7 @@
         $games[7]['Description'] ="Resident Evil Village is a survival horror game and the eighth main installment in the Resident Evil series. The game is set a few years after the events of Resident Evil 7 and follows Ethan Winters as he tries to rescue his daughter from a village inhabited by a cult led by a mysterious woman named Mother Miranda.";
         $games[7]['Genre'] = "Survival horror";
 
+
         $games[8]['id'] = 9;
         $games[8]['Name'] = "Elden Ring";
         $games[8]['Developers'] = "FromSoftware";
@@ -134,5 +136,23 @@
         $games[8]['Poster'] = "images/Posters/ELDENRING_POSTER.jpg";
         $games[8]['Description'] = "Elden Ring is an upcoming action role-playing game developed by FromSoftware and published by Bandai Namco Entertainment. The game features an open world, similar to the Dark Souls series, and will incorporate elements of Norse mythology.";
         $games[8]['Genre'] = "RPG";
+
+
+        $games[9]['id']=10;
+        $games[9]['Name'] ="Nier Automata";
+        $games[9]['Developers'] ="PlatinumGames";
+        $games[9]['Date'] ="February 23, 2017";
+        $games[9]['Old-price'] ="$59.99";
+        $games[9]['New-price'] ="$39.99";
+        $games[9]['Photo'] ="images/NIER.jpg";
+
+        $games[9]['Screenshot_1'] = "images/Screenshots/nier_automata_1.png";
+        $games[9]['Screenshot_2'] = "images/Screenshots/nier_automata_2.png";
+        $games[9]['Screenshot_3'] = "images/Screenshots/nier_automata_3.png";
+
+        $games[9]['Description'] ="Nier Automata is an action role-playing video game developed by PlatinumGames and published by Square Enix. The game takes place in the midst of a proxy war between machines created by otherworldly invaders and the remnants of humanity, and follows the battles of a combat android and her companion. The game features a combination of melee and ranged combat, with the ability for players to switch between different weapon types.";
+        $games[9]['Genre'] = "Action";
+        $games[9]['Poster'] ="images/Posters/NIER_POSTER.jpg";
+
 
 ?>
