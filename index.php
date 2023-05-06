@@ -71,7 +71,7 @@
                 for($i = 0 ; $i < count($games) ; $i++){
                     if( isset($_GET['cat']) && !empty($_GET['cat'])){
                         if($_GET['cat'] == $games[$i]['Genre']) {
-            ?>  
+                    ?>  
                             <div class="game-card">
                                 <img src="<?=$games[$i]['Photo']?>" alt="">
                                 <div class="min-info">
@@ -81,18 +81,17 @@
                                     <p><?= $games[$i]['Genre']?></p>
                                     <?php
                                         if($games[$i]['New-price']!=$games[$i]['Old-price']){
-                                    ?>
+                                        ?>
                                             <p style = "text-decoration: line-through; color: gray;"> <?= $games[$i]['Old-price']?></p>
                                             <p style="font-weight: bold; color: green; font-size: 20px;"> <?= $games[$i]['New-price']?></p>
                                     <?php
                                         }
                                         else{
-                                    ?>
+                                        ?>
                                             <p><?= $games[$i]['New-price']?></p>
                                     <?php
-                                            }
-                                            
-                                    ?>
+                                        }
+                                        ?>
                                 </div>
                             </div>
 
@@ -100,7 +99,7 @@
                         }
                     }
                     else{
-                    ?>
+                        ?>
 
                             <div class="game-card">
                                 <img src="<?=$games[$i]['Photo']?>" alt="">
@@ -111,14 +110,14 @@
                                     <p><?= $games[$i]['Genre']?></p>
                             <?php
                                 if($games[$i]['New-price']!=$games[$i]['Old-price']){
-                            ?>
+                                ?>
                                     <p style = "text-decoration: line-through; color: gray;"> <?= $games[$i]['Old-price']?></p>
                                     <p style="font-weight: bold; color: green; font-size: 20px;"> <?= $games[$i]['New-price']?></p>
                     
                             <?php
                             }
                             else{
-                            ?>
+                                ?>
 
                                     <p><?= $games[$i]['New-price']?></p>
 
@@ -132,9 +131,11 @@
                 }
                 ?>
             </div>
-                <div class="genre-container">
-                    <h2>Special offers</h2>
-                </div>
+
+
+            <div class="genre-container">
+                <h2>Special offers</h2>
+            </div>
 
 
                 <!-- SLIDER -->
@@ -147,7 +148,7 @@
                             for($i = 0; $i < count($games); $i++) { 
                                 if($games[$i]['New-price'] != $games[$i]['Old-price']){
                                     if($counter==0){
-                            ?>
+                                ?>
                                         <div class="slider-card active">
                                             <img src="<?=$games[$i]['Photo']?>" alt="">
                                             <div class="title">
@@ -160,18 +161,16 @@
                                                         color: gray;">
                                                         <?= $games[$i]['Old-price']?>
                                                     </p>
-                                                    <p style = "
-                                                        font-weight: bold;
-                                                        color: green;">
+                                                    <p style = "font-weight: bold; color: green;">
                                                         <?= $games[$i]['New-price']?>
                                                     </p>
                                             </div>
                                         </div>
-                            <?php 
+                                 <?php 
                                         $counter=1;
                                     }
                                     else{
-                            ?>          
+                                    ?>          
                                         <div class="slider-card">
                                             <img src="<?=$games[$i]['Photo']?>" alt="">
                                             <div class="title">
@@ -179,25 +178,23 @@
                                                     <h2><?= $games[$i]['Name']?></h2>
                                                 </a>
                                                 <p><?= $games[$i]['Genre']?></p>
-                                                    <p style = 
-                                                        "text-decoration: line-through;
+                                                <p style = 
+                                                    "text-decoration: line-through;
                                                         color: gray;">
-                                                        <?= $games[$i]['Old-price']?>
-                                                    </p>
-                                                    <p style = "
-                                                        font-weight: bold;
-                                                        color: green;">
-                                                        <?= $games[$i]['New-price']?>
-                                                    </p>
+                                                    <?= $games[$i]['Old-price']?>
+                                                </p>
+                                                <p style = "font-weight: bold; color: green;">
+                                                    <?= $games[$i]['New-price']?>
+                                                </p>
                                             </div>
                                         </div>
-                            <?php
+                 <?php
                                 } 
                             }
                         }
-                            ?>
-                </div>
-        </main>
+                        ?>
+                    </div>
+    </main> 
     <script>
         const menuBtn = document.querySelector('.menu-btn');
         const menu = document.querySelector('.menu');
