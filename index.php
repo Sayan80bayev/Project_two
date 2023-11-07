@@ -66,7 +66,7 @@
                 
             <?php
 
-                include 'db/games.php';
+                require 'db/games.php';
 
                 for($i = 0 ; $i < count($games) ; $i++){
                     if( isset($_GET['cat']) && !empty($_GET['cat'])){

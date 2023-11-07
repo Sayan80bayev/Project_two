@@ -3,61 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel='stylesheet' href="styleOfLogin.css">
 </head>
 
 <body>
-
-        <!-- checking email and password -->
         <?php
-            include '../db/users.php';
-            $error='';
-
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $email = $_POST['email'];
-                $password = $_POST['password'];
-                $email_found = false;
-
-
-                // cheking email pattern in php
-                    if (!empty($email) && !empty($password) && strlen($password) >= 6) {
-                        $atIndex = strpos($email, '@');
-                        $dotIndex = strrpos($email, '.');
-                        
-                        if ($atIndex >= 1 || $dotIndex >= $atIndex + 2 || $dotIndex + 1 < strlen($email)) {
-                            foreach ($users as $user) {
-                                if ($user['email'] == $email && empty($error)) {
-                                    $email_found = true;
-                                    if ($user['password'] == $password) {
-                                        header("Location: ../index.php");
-                                    } else {
-                                        $error .= "Invalid password";
-                                    }
-                                    break;
-                                }
-                            }
-            
-                            if (!$email_found && empty($error)) {
-                                $error .= "User not found";
-                            }  
-                        }
-                    }
-            }
+            session_start();
+            $errors = $_SESSION["errors"] ?? [];
+            $status = $_SESSION["status"] ?? null;
         ?>
-
-
-
         <form action="login.php" method="POST" id="myForm">
             <h2>Login</h2>
             <div>
                 Login:
                 <input type="text" id="email" name="email">
                 <p id="emailError" class='error'></p>
+                <?php
+                if ($status == 'error' && isset($errors['login']))
+                    echo "<p class='text-danger'>{$errors['login']}</p>";
+                ?>
             </div>
             <div>
                 Password:
                 <input type="password" id="password" name="password">
                 <p id="passError" class='error'></p>
+                <?php
+                if ($status == 'error' && isset($errors['password']))
+                    echo "<p class='text-danger'>{$errors['password']}</p>";
+                ?>
             </div>
             <div class="facebook">
                 <img src="../images/Facebook.png" alt="">
@@ -70,15 +44,12 @@
             <input type="button" onclick="formCheck()" value="Login" class='button'>
             <p class='error'>
             <!-- error message -->
-            <?php
-                if(isset($error)){
-                    echo $error;
-                }
-                ?>
-            </p>
             <p style="margin: 0 70px;">Haven't registered yet? -> <a href="#">click here</a></p>
         </form>
-        
+        <?php
+            unset($_SESSION['errors']);
+            unset($_SESSION['status']);
+        ?>
         <script>
             //cheking pattern in js
             function checkLogin() {

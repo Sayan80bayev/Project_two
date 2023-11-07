@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             $_SESSION["name"] = $user[0]['name'];
             $_SESSION['status'] = 'sucsess';
-            header("Location: index.php");
+            header("Location: ../index.php");
             exit();
         } else {
             $errors["password"] = 'Invalid password';
