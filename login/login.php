@@ -1,137 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel='stylesheet' href="styleOfLogin.css">
-</head>
+<?php
+// require 'DB.php';
+session_start();
 
-<body>
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // POST variables
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $errors = [];
+    $_SESSION['status'] = '';
 
-        <!-- checking email and password -->
-        <?php
-            include '../db/users.php';
-            $error='';
+    $host = 'localhost';
+    $dbname = 'DB_test';
+    $port = 3306;
+    $user = 'root';
+    $passwordSQL = '';
 
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $email = $_POST['email'];
-                $password = $_POST['password'];
-                $email_found = false;
+    try {
+		$pdo = new PDO("mysql:host=$host;dbname=$dbname;port=$port;", $user, $passwordSQL);
+	} catch(PDOException $exception){
+		echo $exception->getMessage();
+	}
 
-
-                // cheking email pattern in php
-                    if (!empty($email) && !empty($password) && strlen($password) >= 6) {
-                        $atIndex = strpos($email, '@');
-                        $dotIndex = strrpos($email, '.');
-                        
-                        if ($atIndex >= 1 || $dotIndex >= $atIndex + 2 || $dotIndex + 1 < strlen($email)) {
-                            foreach ($users as $user) {
-                                if ($user['email'] == $email && empty($error)) {
-                                    $email_found = true;
-                                    if ($user['password'] == $password) {
-                                        header("Location: ../index.php");
-                                    } else {
-                                        $error .= "Invalid password";
-                                    }
-                                    break;
-                                }
-                            }
-            
-                            if (!$email_found && empty($error)) {
-                                $error .= "User not found";
-                            }  
-                        }
-                    }
-            }
-        ?>
-
-
-
-        <form action="login.php" method="POST" id="myForm">
-            <h2>Login</h2>
-            <div>
-                Login:
-                <input type="text" id="email" name="email">
-                <p id="emailError" class='error'></p>
-            </div>
-            <div>
-                Password:
-                <input type="password" id="password" name="password">
-                <p id="passError" class='error'></p>
-            </div>
-            <div class="facebook">
-                <img src="../images/Facebook.png" alt="">
-                <p>Sign with Facebook</p>
-            </div>
-            <div class="google">
-                <img src="../images/Google.png" alt="">
-                <p>Sign with Google</p>
-            </div>
-            <input type="button" onclick="formCheck()" value="Login" class='button'>
-            <p class='error'>
-            <!-- error message -->
-            <?php
-                if(isset($error)){
-                    echo $error;
-                }
-                ?>
-            </p>
-            <p style="margin: 0 70px;">Haven't registered yet? -> <a href="#">click here</a></p>
-        </form>
+    // pass_check
+    if (empty($password)) {
+        $errors["password"] = "Password is empty!";
+    }
+    elseif(strlen($password)<6){
+        $errors["password"] = "Min size is 6!";
+    }
+    else {
+        $hasLowercase = false;
+        $hasUppercase = false;
+        $hasDigit = false;
         
-        <script>
-            //cheking pattern in js
-            function checkLogin() {
-                const loginInput = document.getElementById('email');
-                const errorText = document.getElementById('emailError');
-                if (loginInput.value !== '') {
-                    const atIndex = loginInput.value.indexOf('@');
-                    const dotIndex = loginInput.value.lastIndexOf('.');
-
-                    if (atIndex < 1 || dotIndex < atIndex + 2 || dotIndex + 1 >= loginInput.value.length) {
-                        errorText.textContent = 'Invalid login';
-                        return false;
-                    } else {
-                        errorText.textContent = '';
-                        return true;
-                    }
-
-                } else {
-                    errorText.textContent = '';
-                    return false;
-                }
-            }
-
-
-            function checkPass() {
-                const passInput = document.getElementById('password');
-                const errorPass = document.getElementById('passError');
-                if (passInput.value !== '') {
-                    if (passInput.value.length < 6) {
-                        errorPass.textContent = "At least 6 characters";
-                        return false;
-                    } else {
-                        errorPass.textContent = '';
-                        return true;
-                    }
-                } else {
-                    errorPass.textContent = '';
-                    return false;
-                }
-            }
-
-            function formCheck() {
-                if (checkLogin() && checkPass()) {
-                    document.getElementById('myForm').submit();
-                }    
-            }
-
-            const loginInput = document.getElementById('email');
-            loginInput.addEventListener('input', checkLogin);
-
-            const passInput = document.getElementById('password');
-            passInput.addEventListener('input', checkPass);
+        for ($i = 0; $i < strlen($password); $i++) {
+            $char = $password[$i];
             
-        </script>
-</body>
-</html>
+            if ($char >= 'a' && $char <= 'z') {
+                $hasLowercase = true;
+            } elseif ($char >= 'A' && $char <= 'Z') {
+                $hasUppercase = true;
+            } elseif ($char >= '0' && $char <= '9') {
+                $hasDigit = true;
+            }
+        }
+        
+        if (!$hasLowercase) {
+            $errors['password'] .= 'Add 1 lowercase<br>';
+        }
+        if (!$hasUppercase) {
+            $errors['password'] .= 'Add 1 uppercase<br>';
+        }
+        if (!$hasDigit) {
+            $errors['password'] .= 'Add 1 digit<br>';
+        }
+    }
+
+    // querry
+    
+    $password = md5($password);
+    $query = "SELECT * FROM users WHERE email = '$email '";
+    $stmt = $pdo->query($query);
+    $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // login_check
+    if (empty($email)) {
+        $errors['login'] = 'Email is empty!';
+    }
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['login'] = "Invalid login!";
+    }
+    elseif ($user[0]["email"] != $email) {
+        $errors['login'] = "No such email!";
+    }
+
+    // $query = "SELECT * FROM users WHERE email = '$email ' AND password = '$password'";
+    // $stmt = $pdo->query($query);
+    // $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($errors)) {
+        if (count($user) > 0 && $user[0]["password"] == $password) {
+            if (isset($_POST["remember"])) {
+                setcookie("user_email", $email, time() + 30 * 24 * 60 * 60); 
+            }
+            $_SESSION["name"] = $user[0]['name'];
+            $_SESSION['status'] = 'sucsess';
+            header("Location: index.php");
+            exit();
+        } else {
+            $errors["password"] = 'Invalid password';
+            $_SESSION['status'] = 'error';
+            $_SESSION['errors'] = $errors;
+            header("Location: LoginForm.php");
+            exit();
+        }
+    } else {
+        $_SESSION['status'] = 'error';
+        $_SESSION['errors'] = $errors;
+        header("Location: LoginForm.php");
+        exit();
+    }
+}
+?>

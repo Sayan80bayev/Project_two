@@ -1,5 +1,4 @@
 <?php 
-
     $users = array();
     $users[0]['email'] = 'admin@gmail.com' ;
     $users[0]['password'] = 'adminchik' ;

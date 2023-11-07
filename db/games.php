@@ -8,11 +8,9 @@
         $games[0]['Old-price'] ="$26.95";
         $games[0]['New-price'] ="$26.95";
         $games[0]['Photo'] ="images/minecraft.jpg";
-
         $games[0]['Screenshot_1'] = "images/Screenshots/minecraft_1.png";
         $games[0]['Screenshot_2'] = "images/Screenshots/minecraft_2.png";
         $games[0]['Screenshot_3'] = "images/Screenshots/minecraft_3.png";
-
         $games[0]['Description'] ="Minecraft is a sandbox video game that allows players to build and explore virtual worlds made out of blocks. The game has various modes, including survival mode, creative mode, and adventure mode, each offering a unique gaming experience.";
         $games[0]['Genre'] = "Sandbox";
         $games[0]['Poster'] ="images/Posters/MINECRAFT_POSTER.jpg";
@@ -145,11 +143,9 @@
         $games[9]['Old-price'] ="$59.99";
         $games[9]['New-price'] ="$39.99";
         $games[9]['Photo'] ="images/NIER.jpg";
-
         $games[9]['Screenshot_1'] = "images/Screenshots/nier_automata_1.png";
         $games[9]['Screenshot_2'] = "images/Screenshots/nier_automata_2.png";
-        $games[9]['Screenshot_3'] = "images/Screenshots/nier_automata_3.png";
-
+        $games[9]['Screenshot_3'] = "images/Screenshots/nier_automata_3.png";   
         $games[9]['Description'] ="Nier Automata is an action role-playing video game developed by PlatinumGames and published by Square Enix. The game takes place in the midst of a proxy war between machines created by otherworldly invaders and the remnants of humanity, and follows the battles of a combat android and her companion. The game features a combination of melee and ranged combat, with the ability for players to switch between different weapon types.";
         $games[9]['Genre'] = "Action";
         $games[9]['Poster'] ="images/Posters/NIER_POSTER.jpg";

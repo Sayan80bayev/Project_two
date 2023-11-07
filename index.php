@@ -79,6 +79,7 @@
                                         <h2> <?= $games[$i]['Name']?></h2>
                                     </a>    
                                     <p><?= $games[$i]['Genre']?></p>
+                                    
                                     <?php
                                         if($games[$i]['New-price']!=$games[$i]['Old-price']){
                                         ?>

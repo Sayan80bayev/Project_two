@@ -64,7 +64,6 @@ a{
     overflow: hidden;
     padding: 0;
     transition: 0.3s;
-
 }
 
 .searchBar input, .searchBar button{
@@ -186,6 +185,8 @@ a{
 .social-media img{
     height: 50px;
 }
+
+/* main */
 main{
     padding-top: 70px;
     width: 80%;
@@ -195,16 +196,20 @@ main{
     justify-content: space-between;
 }
 .genre-active{
-    background-color: rgba(255, 175, 45, 0.785);
+    /* background-color: rgba(255, 175, 45, 0.785); */
     padding: 5px;
     border: 2px solid #FBBB43;
     border-radius: 10px;
 }
+
+/* game-container */
 .game-container{
     margin: auto;
     margin-top: 40px;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     flex-wrap: wrap;
+    gap: 6.3%;
+
 }
 .game-card {
     overflow: hidden;
@@ -216,11 +221,11 @@ main{
     margin-bottom: 50px;
     background-color: #141111;
 }
-.game-container:after {
+/* .game-container:after {
     content: "";
     justify-content: flex-start;
     flex-basis: 46.86%;
-    }
+    } */
 .game-container> div:hover {
     transition: 0.5s;
     border: 2px solid #FBBB43;
@@ -245,6 +250,8 @@ main{
     margin: 2px;
     font-size: 12px;
 }
+
+/* .slider */
 .slider{
     margin: auto;
     margin-top: 40px;
