@@ -9,18 +9,7 @@
         $confirm_password = $_POST['confirm_password'] ?? '';
         $errors = [];
 
-
-        $host = 'localhost';
-        $dbname = 'DB_test';
-        $port = 3306;
-        $user = 'root';
-    
-        try {
-            $pdo = new PDO("mysql:host=$host;dbname=$dbname;port=$port;", $user, '');
-        } catch(PDOException $exception){
-            echo $exception->getMessage();
-        }
-
+        require_once('../db/connection.php');
         if(empty($name)){
             $errors['name'] = 'Name is empty';
         }
@@ -71,7 +60,7 @@
 
         $password = md5($password);
 
-        $query = "INSERT INTO users (name, password, email)
+        $query = "INSERT INTO user (user_name, password, user_email)
                   VALUES(:name, :password, :email)";
         $stmt = $pdo->prepare($query);
 
@@ -89,7 +78,7 @@
         }
         if(empty($errors)) {
             $_SESSION['registered'] = 'sucsess';
-            header('Location: index.php');
+            header('Location: ../index.php');
             exit();
         }
         else{

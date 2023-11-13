@@ -9,17 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errors = [];
     $_SESSION['status'] = '';
 
-    $host = 'localhost';
-    $dbname = 'DB_test';
-    $port = 3306;
-    $user = 'root';
-    $passwordSQL = '';
+    require_once('../db/connection.php');
 
-    try {
-		$pdo = new PDO("mysql:host=$host;dbname=$dbname;port=$port;", $user, $passwordSQL);
-	} catch(PDOException $exception){
-		echo $exception->getMessage();
-	}
 
     // pass_check
     if (empty($password)) {
@@ -59,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // querry
     
     $password = md5($password);
-    $query = "SELECT * FROM users WHERE email = '$email '";
+    $query = "SELECT * FROM user WHERE user_email = '$email'";
     $stmt = $pdo->query($query);
     $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -70,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['login'] = "Invalid login!";
     }
-    elseif ($user[0]["email"] != $email) {
+    elseif ($user[0]["user_email"] != $email) {
         $errors['login'] = "No such email!";
     }
 
@@ -83,8 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_POST["remember"])) {
                 setcookie("user_email", $email, time() + 30 * 24 * 60 * 60); 
             }
-            $_SESSION["name"] = $user[0]['name'];
-            $_SESSION['status'] = 'sucsess';
+            $_SESSION["name"] = $user[0]['user_name'];
+            $_SESSION['status'] = 'success';
             header("Location: ../index.php");
             exit();
         } else {
