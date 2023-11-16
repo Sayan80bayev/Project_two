@@ -4,7 +4,4 @@
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        // echo '<pre>';
-        // print_r($games);
-        // echo '</pre>';
 ?>

@@ -327,7 +327,7 @@ footer li{
     justify-content: space-between;
 }
 .profileLink{
-    border: 2px solid #FBBB43;
+    border: none solid #FBBB43;
     height: 46px;
     width: 46px;
     background: transparent;

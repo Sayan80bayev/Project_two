@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Ноя 13 2023 г., 14:49
+-- Время создания: Ноя 16 2023 г., 06:27
 -- Версия сервера: 10.4.28-MariaDB
 -- Версия PHP: 8.2.4
 
@@ -57,7 +57,10 @@ INSERT INTO `game` (`game_id`, `game_name`, `developers`, `old_price`, `new_pric
 (7, 'The Witcher 3: Wild Hunt', 'CD Projekt Red', 39.99, 19.99, '2016-05-19', 'images/game2.jpg', 'images/Screenshots/tw3_1.png', 'images/Screenshots/tw3_2.png', 'images/Screenshots/tw3_3.png', 'The Witcher 3: Wild Hunt is an open-world action role-playing game...', 'images/Posters/TW3_POSTER.jpg', 'RPG'),
 (8, 'Resident Evil Village', 'Capcom', 59.99, 49.99, '2021-05-07', 'images/Posters/REVII_POSTER.jpg', 'images/Screenshots/re8_1.png', 'images/Screenshots/re8_2.png', 'images/Screenshots/re8_3.png', 'Resident Evil Village is a survival horror game and the eighth main installment in the Resident Evil series...', 'images/Posters/REVII_POSTER.jpg', 'Survival horror'),
 (9, 'Elden Ring', 'FromSoftware', 59.99, 49.99, '2022-01-21', 'images/game3.jpg', 'images/Screenshots/er_1.png', 'images/Screenshots/er_2.png', 'images/Screenshots/er_3.png', 'Elden Ring is an upcoming action role-playing game developed by FromSoftware and published by Bandai Namco Entertainment...', 'images/Posters/ELDENRING_POSTER.jpg', 'RPG'),
-(10, 'Nier Automata', 'PlatinumGames', 59.99, 39.99, '2017-02-23', 'images/NIER.jpg', 'images/Screenshots/nier_automata_1.png', 'images/Screenshots/nier_automata_2.png', 'images/Screenshots/nier_automata_3.png', 'Nier Automata is an action role-playing video game developed by PlatinumGames and published by Square Enix...', 'images/Posters/NIER_POSTER.jpg', 'Action');
+(10, 'Nier Automata', 'PlatinumGames', 59.99, 39.99, '2017-02-23', 'images/NIER.jpg', 'images/Screenshots/nier_automata_1.png', 'images/Screenshots/nier_automata_2.png', 'images/Screenshots/nier_automata_3.png', 'Nier Automata is an action role-playing video game developed by PlatinumGames and published by Square Enix...', 'images/Posters/NIER_POSTER.jpg', 'Action'),
+(11, 'Cyberpunk 2077', 'CD Projekt', 59.99, 39.99, '2020-12-10', 'images/cyberpunk_2077.jpg', 'images/Screenshots/cyberpunk_1.png', 'images/Screenshots/cyberpunk_2.png', 'images/Screenshots/cyberpunk_3.png', 'Cyberpunk 2077 is an action role-playing game...', 'images/Posters/CYBERPUNK_2077_POSTER.jpg', 'Action RPG'),
+(12, 'Mortal Kombat', 'NetherRealm Studios', 59.99, 59.99, '1992-10-08', 'images/mortal_kombat.jpg', 'images/Screenshots/mortal_kombat_1.png', 'images/Screenshots/mortal_kombat_2.png', 'images/Screenshots/mortal_kombat_3.png', 'Mortal Kombat is a classic fighting game known for its intense battles and iconic characters.', 'images/Posters/MORTAL_KOMBAT_POSTER.jpg', 'Fighting'),
+(13, 'Tekken', 'Bandai Namco Entertainment', 49.99, 49.99, '0000-00-00', 'images/tekken.jpg', 'images/Screenshots/tekken_1.png', 'images/Screenshots/tekken_2.png', 'images/Screenshots/tekken_3.png', 'Tekken is a popular fighting game...', 'images/Posters/TEKKEN_POSTER.jpg', 'Fighting');
 
 --
 -- Индексы сохранённых таблиц
@@ -77,7 +80,7 @@ ALTER TABLE `game`
 -- AUTO_INCREMENT для таблицы `game`
 --
 ALTER TABLE `game`
-  MODIFY `game_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `game_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

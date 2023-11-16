@@ -44,12 +44,15 @@
             <input type="button" onclick="formCheck()" value="Login" class='button'>
             <p class='error'>
             <!-- error message -->
-            <p style="margin: 0 70px;">Haven't registered yet? -> <a href="#">click here</a></p>
+            <p style="margin: 0 70px;">Haven't registered yet? -> <a href="../register/registerform.php ">click here</a></p>
         </form>
         <?php
             unset($_SESSION['errors']);
             unset($_SESSION['status']);
         ?>
+
+
+
         <script>
             //cheking pattern in js
             function checkLogin() {

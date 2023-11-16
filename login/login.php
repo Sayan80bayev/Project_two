@@ -64,11 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     elseif ($user[0]["user_email"] != $email) {
         $errors['login'] = "No such email!";
     }
-
-    // $query = "SELECT * FROM users WHERE email = '$email ' AND password = '$password'";
-    // $stmt = $pdo->query($query);
-    // $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     if (empty($errors)) {
         if (count($user) > 0 && $user[0]["password"] == $password) {
             if (isset($_POST["remember"])) {
