@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <title>Document</title>
-    <link href="style.css" rel="stylesheet">
+    <link href="http://localhost/project_two/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://localhost/project_two/css/fullPage.css">
 </head>
 <body>
 <style>
@@ -21,65 +22,6 @@
           background-size: cover;
           margin: 0;
           padding: 0;
-      }
-      main{
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1), rgba(0, 0, 0, 1 ) );
-        width: 100%;
-      }
-      button{
-          transition: 0.5s;
-          font-weight: bold;
-          font-size: 30px;
-          border: 4px solid #FBBB43;
-          background-color: transparent;
-          color: white;
-          border-radius: 30px;
-          width: 60px;
-          height: 60px;
-          padding: 0;
-
-      }
-      button:hover{
-        transition: 0.5s;
-        background-color: #FBBB43;
-      }
-      .container {
-          flex-wrap: wrap;
-          width: 100%;
-          justify-content: space-evenly;
-          align-items:center;
-      }
-      .info{
-        justify-content: space-between;
-      }
-      .about {
-          width: 35%;
-          flex-direction: column;
-      }
-      .game-card{
-          height: 500px;
-          width: 300px;
-      }
-      .game-card img{
-          height: 350px;
-      }
-      .game-card h2, .game-card p{
-        font-size: 20px;
-      }
-      .little-container{
-        justify-content: space-between;
-        width: 380px;
-      }
-      .carousel, .genre-container{
-        width: 66%;
-        overflow: hidden;
-      }
-      .carousel img{
-        border-radius: 20px;
-      }
-      .btn-container{
-        position: relative;
-        top:-300px;
       }
 </style>
       <main>

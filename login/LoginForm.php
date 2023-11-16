@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel='stylesheet' href="styleOfLogin.css">
+    <link rel='stylesheet' href="http://localhost/project_two/css/styleOfLogin.css">
 </head>
 
 <body>
@@ -15,36 +15,28 @@
         ?>
         <form action="login.php" method="POST" id="myForm">
             <h2>Login</h2>
-            <div>
+            <div  class = 'form-group'>
                 Login:
-                <input type="text" id="email" name="email">
+                <input type="text" class = 'form-control'id="email" name="email">
                 <p id="emailError" class='error'></p>
                 <?php
                 if ($status == 'error' && isset($errors['login']))
                     echo "<p class='text-danger'>{$errors['login']}</p>";
                 ?>
             </div>
-            <div>
+            <div class = 'form-group'>
                 Password:
-                <input type="password" id="password" name="password">
+                <input type="password" class = 'form-control'id="password" name="password">
                 <p id="passError" class='error'></p>
                 <?php
                 if ($status == 'error' && isset($errors['password']))
                     echo "<p class='text-danger'>{$errors['password']}</p>";
                 ?>
             </div>
-            <div class="facebook">
-                <img src="../images/Facebook.png" alt="">
-                <p>Sign with Facebook</p>
-            </div>
-            <div class="google">
-                <img src="../images/Google.png" alt="">
-                <p>Sign with Google</p>
-            </div>
             <input type="button" onclick="formCheck()" value="Login" class='button'>
             <p class='error'>
             <!-- error message -->
-            <p style="margin: 0 70px;">Haven't registered yet? -> <a href="../register/registerform.php ">click here</a></p>
+            <p style="margin: 0 70px; width: 100%">Haven't registered yet? <a href="../register/registerform.php ">click here</a></p>
         </form>
         <?php
             unset($_SESSION['errors']);

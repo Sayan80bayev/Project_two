@@ -1,3 +1,4 @@
+
 const genres = document.querySelectorAll('.genre-container a');
 
 genres.forEach(genre => {

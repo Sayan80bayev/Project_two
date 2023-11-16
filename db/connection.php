@@ -10,4 +10,31 @@
         } catch(PDOException $exception){
                 echo $exception->getMessage();
         } 
+    function registerUser($username, $email, $password) {
+        global $pdo;
+                $password = md5($password);
+
+                $query = "INSERT INTO user (user_name, password, user_email)
+                        VALUES(:name, :password, :email)";
+                $stmt = $pdo->prepare($query);
+                try{
+                        $stmt->execute([
+                        'email' => $email,
+                        'name'=> $username,
+                        'password' => $password
+                        ]);
+                }catch(PDOException $e){
+                        $errors['login'] = "{$e->getMessage()}";
+                        return ['result' => false, 'errors' => $errors['login']];
+                }
+                return true;
+
+        }
+        function loginUser($email, $password) {
+                global $pdo;
+                $query = "SELECT * FROM user WHERE user_email = '$email'";
+                $stmt = $pdo->query($query);
+                $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $user;
+        }
 ?>

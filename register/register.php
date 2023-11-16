@@ -3,14 +3,14 @@
     
     if($_SERVER['REQUEST_METHOD']=='POST'){
 
-        $name = $_POST['name'] ?? "";
+        $username = $_POST['name'] ?? "";
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
         $confirm_password = $_POST['confirm_password'] ?? '';
         $errors = [];
 
         require_once('../db/connection.php');
-        if(empty($name)){
+        if(empty($username)){
             $errors['name'] = 'Name is empty';
         }
         // pass_check
@@ -57,26 +57,11 @@
         elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors['login'] = "Invalid login!";
         }
+        //trying to register
+        $result = registerUser($username, $email, $password);
+        $errors['login'] = $result['errors'];
 
-        $password = md5($password);
-
-        $query = "INSERT INTO user (user_name, password, user_email)
-                  VALUES(:name, :password, :email)";
-        $stmt = $pdo->prepare($query);
-
-        if(empty($errors)) {
-            try{
-                $stmt->execute([
-                    'email' => $email,
-                    'name'=> $name,
-                    'password' => $password
-                ]);
-            }catch(PDOException $e){
-                $errors['login'] = "{$e->getMessage()}";
-                $_SESSION['status'] = 'error';
-            }
-        }
-        if(empty($errors)) {
+        if($result['result'] && empty($errors)) {
             $_SESSION['registered'] = 'sucsess';
             header('Location: ../index.php');
             exit();

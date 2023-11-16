@@ -47,13 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // querry
     
     $password = md5($password);
-    $query = "SELECT * FROM user WHERE user_email = '$email'";
-    $stmt = $pdo->query($query);
-    $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    $user = loginUser($email, $password) ?? [];
     // login_check
     if (empty($email)) {
         $errors['login'] = 'Email is empty!';
@@ -64,12 +60,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     elseif ($user[0]["user_email"] != $email) {
         $errors['login'] = "No such email!";
     }
+    // querry
+
     if (empty($errors)) {
         if (count($user) > 0 && $user[0]["password"] == $password) {
             if (isset($_POST["remember"])) {
                 setcookie("user_email", $email, time() + 30 * 24 * 60 * 60); 
             }
             $_SESSION["name"] = $user[0]['user_name'];
+            $_SESSION['password'] = $user[0]['password'];
             $_SESSION['status'] = 'success';
             header("Location: ../index.php");
             exit();

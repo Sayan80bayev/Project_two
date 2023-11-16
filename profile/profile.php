@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
   <style>
     html, body {
     height: 100%;
@@ -10,7 +12,7 @@
 
     body {
       font-family: Arial, sans-serif;
-      background-color: #282c35;
+      background-color: #141111;
       /* background-image: url('../images/user/landscape-illustration-digital-art-sunset-minimalism-sky-118015-wallhere.com.png'); */
       background-repeat: no-repeat;
       background-size: cover;
@@ -27,7 +29,7 @@
     .profile {
       max-width: 600px;
       margin: 50px auto; 
-      background-color: #2c2f3e;
+      background-color: #2B2B2B;
       border: 2px solid #FBBB43;
       padding: 20px;
       border-radius: 10px;
@@ -65,26 +67,21 @@
   <main>
   <?php
       session_start();
-      if(isset($_SESSION["status"]) && $_SESSION['status'] == 'success'){
-
-  echo '<div> 
+      include '../db/checkAuth.php';
+      ?>
+      <div> 
           <div class="profile">
             <div class="mini-profile">
               <img src="../images/user/no_avatar.jpg" alt="Avatar" class="avatar">
-              <h1>'.$_SESSION["name"].'</h1>
+              <h1><?=$name?></h1>
             </div>
               <div class="info">
-              <h2>Steam ID: 123456789</h2>
-              <p>Games Played: 100</p>
-              <p>Achievements Unlocked: 50</p>
+                <a href="accounteditform.php" class = "btn btn-primary">Edit account</a>
+                <a href="../logout.php" class = "btn btn-danger">Logout</a>
               <!-- Add more information as needed -->
               </div>
           </div>
-        </div>';
-      }else{
-          header("Location: ../login/LoginForm.php");
-      }
-  ?>
+        </div>
   </main>
 </body>
 </html>
