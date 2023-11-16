@@ -3,7 +3,7 @@
 <head>
     <title>Category</title>
 </head>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="http://localhost/project_two/css/style.css">
 
 <body>
     <?php include 'header.php';?>
