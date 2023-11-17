@@ -40,20 +40,15 @@ if (empty($password) || empty($new_password) ||empty($confirm_password) ) {
     if (!$hasLowercase || !$hasUppercase || !$hasDigit) {
         $_SESSION['errors']['password'] = 'Password must contain at least one lowercase letter, one uppercase letter, and one digit.';
     } else {
+
         $hashed_password = md5($new_password);
-
-        $query = "UPDATE user SET password = :new_password WHERE user_email = :email";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute([
-            'new_password' => $hashed_password,
-            'email' => $email
-        ]);
-
-        
+        $result = changePassword($email, $hashed_password);
+        if($result){
         $_SESSION['password'] = $hashed_password;
         $_SESSION['message'] = "Password succecfully has changed!";
         header('Location: accounteditform.php');
         exit;
+        }
     }
 }
 header('Location: AccountEditForm.php');

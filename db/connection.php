@@ -37,4 +37,20 @@
                 $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $user;
         }
+        function changePassword($email, $password) {
+                global $pdo;
+                $query = "UPDATE user SET password = :password WHERE user_email = :email";
+                $stmt = $pdo->prepare($query);
+                try {
+                    $stmt->execute([
+                        'password' => $password,
+                        'email' => $email
+                    ]);
+                    return true;
+                } catch (PDOException $e) {
+                    echo "Error: " . $e->getMessage();
+                    return false;
+                }
+            }
+              
 ?>
