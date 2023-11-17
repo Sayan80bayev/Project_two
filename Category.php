@@ -66,7 +66,7 @@
                         </div>
                     <?php
                     }
-                } else {
+                }else {
                     ?>
                     <div class="game-card">
                         <img src="<?= $games[$i]['photo'] ?>" alt="">
