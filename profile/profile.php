@@ -18,7 +18,7 @@
               <h1><?=$name?></h1>
             </div>
               <div class="info">
-                <a href="accounteditform.php" class = "btn btn-primary">Edit account</a>
+                <a href="accounteditform.php" class = "btn btn-primary">Change Password</a>
                 <a href="../logout.php" class = "btn btn-danger">Logout</a>
               </div>
           </div>

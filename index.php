@@ -22,6 +22,9 @@
         <div class="category">
             <?php
                 include 'category.php';
+                if($_SESSION['role']=='developer'){
+                    echo'<a href="gameAdd/AddGame.php"><h2>Add game</h2></a>';
+                }
             ?>
         </div>
         <main>
