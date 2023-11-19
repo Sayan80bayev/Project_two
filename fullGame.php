@@ -9,6 +9,7 @@
         // Start session and include games data
         session_start();
         include 'db/games.php';
+        $uses_id = $_SESSION['user_id'] ?? '';
 
         // Iterate through games data
         for ($i = 0; $i < count($games); $i++) {
@@ -119,7 +120,6 @@
                         if (isset($_SESSION['message'])){
                             echo '<h1 style="margin:auto 20px; color:red;">'. $_SESSION['message'] .'</h1>';
                         }
-                        $uses_id = $_SESSION['user_id'] ?? '';
                         $result =array_column($reviews, "user_id");
                         if (!in_array($user_id, $result))://hide the form if individual has a review
                         ?>
