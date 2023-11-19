@@ -7,7 +7,7 @@ $user = 'root';
 $passwordSQL = '';
 
 try {
-    // Create a new PDO instance for database connection
+    // Create a new PDO 
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;port=$port;", $user, $passwordSQL);
 } catch (PDOException $exception) {
     // Handle database connection exception

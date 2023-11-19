@@ -29,7 +29,7 @@
             <a href="http://localhost/project_two/index.php"><h2>Home</h2></a>
         </div>
         <main>
-            <!-- Display selected category or 'All' games -->
+            <!-- Display category -->
             <div class="genre-container">
                 <h1>
                     <?php
