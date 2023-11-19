@@ -13,8 +13,11 @@
             session_start();
             $errors = $_SESSION["errors"] ?? [];
             $status = $_SESSION["status"] ?? null;
-            if (isset($_SESSION["message"])){
+            if (isset($_SESSION["message"]) && $status =='error'){
                 echo'<p style="color:red;">'. $_SESSION["message"] .'</p>';
+            }
+            elseif(isset($_SESSION["message"]) && $status =='success'){
+                echo '<p style="color:green;">'. $_SESSION['message'] .'</p>';
             }
         ?>
             <h2>Login</h2>

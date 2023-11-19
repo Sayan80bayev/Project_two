@@ -66,12 +66,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Try to register the user
     $result = registerUser($username, $email, $password);
-    $errors['login'] = $result['errors'];
+    $errors['login'] = isset($result['errors']) ? $result['errors'] : '';
 
     // Check the result of the registration attempt
-    if ($result['result'] && empty($errors)) {
-        $_SESSION['registered'] = 'success';
-        header('Location: ../index.php');
+    if ($result && !empty($errors)) {
+        $_SESSION['message'] = "Successfully registered!";
+        $_SESSION['status'] = 'success';
+        header('Location: ../login/LoginForm.php');
         exit();
     } else {
         $_SESSION['status'] = 'error';

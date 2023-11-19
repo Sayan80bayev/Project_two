@@ -10,7 +10,18 @@
         session_start();
         include 'db/games.php';
         $uses_id = $_SESSION['user_id'] ?? '';
-
+        $reviews = getReviews($_GET['id']); //here is the game id
+        ?>
+        main{
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, .9), rgba(0, 0, 0, 1 ),rgba(0, 0, 0, 1 )
+            <?php
+            for($i = 1 ; $i <= count($reviews) ; $i=$i*2){
+                echo ',rgba(0, 0, 0, 1) ';
+            }
+            ?>
+            );
+        }
+        <?php
         // Iterate through games data
         for ($i = 0; $i < count($games); $i++) {
             if (isset($_GET['id']) && !empty($_GET['id'])) {
@@ -83,7 +94,6 @@
                             <?php
                             $user_id = $_SESSION['user_id'] ?? '';
                             $rating_color = '';                
-                            $reviews = getReviews($_GET['id']); //here is the game id
                             $index = 0;
                             if (count($reviews) == 0){
                                 echo '<h1 style="margin-left:20px">There is no review yet</h1>';

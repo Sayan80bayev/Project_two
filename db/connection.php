@@ -13,7 +13,7 @@
     function registerUser($username, $email, $password) {
         global $pdo;
                 $password = md5($password);
-
+                $errors = []; // Define $errors
                 $query = "INSERT INTO user (user_name, password, user_email)
                         VALUES(:name, :password, :email)";
                 $stmt = $pdo->prepare($query);
@@ -28,7 +28,6 @@
                         return ['result' => false, 'errors' => $errors['login']];
                 }
                 return true;
-
         }
         function loginUser($email, $password) {
                 global $pdo;
@@ -111,5 +110,12 @@
                 }
                 return true;
         };
+        function getCategory(){
+                global $pdo;
+                $query = "SELECT genre FROM game group by genre";
+                $stmt = $pdo->query($query);
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $result;
+        }
               
 ?>

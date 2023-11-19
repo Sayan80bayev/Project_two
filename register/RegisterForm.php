@@ -14,6 +14,11 @@
     <div class="container mt-5">
         <div class="col-md-6 offset-md-3">
             <form action="register.php" method="post">
+                <?php
+                    if (isset($_SESSION['message'])) {
+                        echo "<h2 style='color:succes;'>".$_SESSION['message']."</h2>";
+                    }
+                ?>
                 <h2>Registration</h2>
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -49,6 +54,7 @@
                 <?php
                     unset($_SESSION['status']);
                     unset($_SESSION['errors']);
+                    unset($_SESSION['message']);
                 ?>
             </form>
         </div>

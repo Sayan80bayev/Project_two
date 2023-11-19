@@ -8,7 +8,7 @@ require_once("../db/checkAuth.php");
 // Check if the form is submitted using POST method
 if(isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
     // Include necessary files
-    require_once("db/connection.php");
+    require_once("../db/connection.php");
 
     // Add a review and store the result in $result
     $result = addReview(
