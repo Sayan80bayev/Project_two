@@ -97,12 +97,13 @@
                     }
                 }
             }
-            ?>
+            ?>      <!-- container-end -->
                     </div> 
 
                     <!-- Reviews Section -->
                     <h2 style="width: 65%; margin: 15px auto 15px">Reviews</h2>
                     <div class="review_container">
+                        <!-- Reviews block is a separate block that shows exactly the reviews not the form -->
                         <div class="reviews-block">
                             <?php
                             // Display reviews
