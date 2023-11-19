@@ -67,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_POST["remember"])) {
                 setcookie("user_email", $email, time() + 30 * 24 * 60 * 60); 
             }
+            $_SESSION["user_id"] = $user[0]['user_id'];
             $_SESSION["name"] = $user[0]['user_name'];
             $_SESSION['password'] = $user[0]['password'];
             $_SESSION['email'] = $user[0]['user_email'];

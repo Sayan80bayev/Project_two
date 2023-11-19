@@ -8,12 +8,15 @@
 </head>
 
 <body>
+        <form action="login.php" method="POST" id="myForm">
         <?php
             session_start();
             $errors = $_SESSION["errors"] ?? [];
             $status = $_SESSION["status"] ?? null;
+            if (isset($_SESSION["message"])){
+                echo'<p style="color:red;">'. $_SESSION["message"] .'</p>';
+            }
         ?>
-        <form action="login.php" method="POST" id="myForm">
             <h2>Login</h2>
             <div  class = 'form-group'>
                 Login:
@@ -41,6 +44,7 @@
         <?php
             unset($_SESSION['errors']);
             unset($_SESSION['status']);
+            unset($_SESSION['message']);
         ?>
 
 

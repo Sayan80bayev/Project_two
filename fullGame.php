@@ -9,6 +9,7 @@
 <style>
   /* here is php code */
   <?php
+        session_start();
         include 'db/games.php';
           for($i =0 ; $i<count($games); $i++){
             if(isset($_GET['id']) && !empty($_GET['id'])){
@@ -82,11 +83,91 @@
     <?php
                 }
             }
-        }
-    ?>    </div> 
-          <!-- container end -->
+          }
+          ?>    
+          </div> 
+          <h2 style ="width:65%; margin:15px auto 15px">Reviews</h2>
+          <div class="review_container">
+              <div class="reviews-block">
+                <?php
+                  $user_id = $_SESSION['user_id'] ?? '';
+                  $rating_color = '';                 
+                  $reviews = getReviews($_GET['id']);
+                  $index = 0;
+                  if(count($reviews) == 0){
+                    echo '<h1 style="margin-left:20px">There is no review yet</h1>';
+                    $reviews = [
+                      0 => [
+                          'status' => 'null'
+                      ]
+                  ];
+                  }else{  
+                  for( $i = count($reviews)-1; $i >= 0; $i-- ){
+                      echo'<div class="review">';
+                      echo '<div class="review-title">';
+                      echo '<div class="review-prof">';
+                      echo '<img class="avatar" src="http://localhost/project_two/images/user/'.$reviews[$i]['avatar_url'].'">';
+                      echo'<h1>'. $reviews[$i]['user_name'] .'</h1>';
+                      if( $reviews[$i]['user_id'] == $user_id){
+                        echo '<a href="http://localhost/project_two/review/EditReviewFrom.php?review_id='.$reviews[$i]['review_id'].'& game_id='.$_GET['id'].'" class="button" style="height:25px; font-size:20px; margin:auto 15px">Edit</a>';
+                        $reviews[$i]['status'] = 'review has';
+                        $index = $i;
+                      }
+                      echo '</div>';
+                      if($reviews[$i]['rating'] <= 10 && $reviews[$i]['rating']>6){
+                        $rating_color = 'green';
+                      }elseif($reviews[$i]['rating'] <= 6 && $reviews[$i]['rating'] >4){
+                        $rating_color = 'yellow';
+                      }
+                      else{
+                        $rating_color = 'red';
+                      }
+                      echo'<div class = "rating '.$rating_color.'"><h1>'. $reviews[$i]['rating'] .'</h1></div>';
+                      echo '</div>';
+                      echo'<p>'. $reviews[$i]['comment'] .'</p>';
+                      echo'<p class="date">Date: '. $reviews[$i]['review_date'] .'</p>';
+                      echo'</div>';
+                  }
+                }
+                ?>
+              </div>
+              <?php
+                if(isset($_SESSION['message'])){
+                  echo '<h1 style="margin:auto 20px; color:red;">'. $_SESSION['message'] .'</h1>';
+                }
+                if($reviews[$index]['status']!='review has'):
+              ?>
+              <form method="post" action="review.php" class="review_form"> 
+                <h1>Write a review</h1>
+                <label for="rating" style="font-size:30px">Rating:</label>
+                  <select name="rating" style=" 
+                  height:30px;
+                  color: azure;
+                  border: 2px solid #FBBB43;
+                  border-radius: 10px;
+                  background: #2B2B2B;" required>
+                      <option value="10">10</option>
+                      <option value="9">9</option>
+                      <option value="8">8</option>
+                      <option value="7">7</option>
+                      <option value="6">6</option>
+                      <option value="5">5</option>
+                      <option value="4">4</option>
+                      <option value="3">3</option>
+                      <option value="2">2</option>
+                      <option value="1">1</option>
+                  </select><br>
+                  <label for="review" style="font-size:30px">Review:</label><br>
+                  <textarea name="review" rows="4" cols="50" class="review_content"></textarea><br>
+                  <input type="text" style="visibility: hidden; height:0; width:0; margin:0; padding:0;" value="<?=$_GET['id']?>" name='game_id'> 
+                  <input type="submit" value="Submit Review" class="button">
+              </form>
+              <?php endif;?>
+            </div>
+            <?php
+              unset($_SESSION['message']);
+            ?>
       </main>
-
       <script>
       //button-back
         function goBack() {
