@@ -3,7 +3,7 @@
 session_start();
 
 // Include the authentication check file
-require_once("db/checkAuth.php");
+require_once("../db/checkAuth.php");
 
 // Check if the form is submitted using POST method
 if(isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST"){

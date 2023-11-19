@@ -123,7 +123,7 @@
                         $result =array_column($reviews, "user_id");
                         if (!in_array($user_id, $result))://hide the form if individual has a review
                         ?>
-                        <form method="post" action="review.php" class="review_form"> 
+                        <form method="post" action="review/review.php" class="review_form"> 
                             <h1>Write a review</h1>
                             <label for="rating" style="font-size:30px">Rating:</label>
                             <select name="rating" style="height:30px; color: azure; border: 2px solid #FBBB43;
