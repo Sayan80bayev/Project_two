@@ -119,8 +119,9 @@
                         if (isset($_SESSION['message'])){
                             echo '<h1 style="margin:auto 20px; color:red;">'. $_SESSION['message'] .'</h1>';
                         }
+                        $uses_id = $_SESSION['user_id'] ?? '';
                         $result =array_column($reviews, "user_id");
-                        if (!in_array($_SESSION['user_id'], $result))://hide the form if individual has a review
+                        if (!in_array($user_id, $result))://hide the form if individual has a review
                         ?>
                         <form method="post" action="review.php" class="review_form"> 
                             <h1>Write a review</h1>
