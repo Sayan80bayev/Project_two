@@ -19,7 +19,6 @@
               <div class="info">
                 <a href="accounteditform.php" class = "btn btn-primary">Edit account</a>
                 <a href="../logout.php" class = "btn btn-danger">Logout</a>
-              <!-- Add more information as needed -->
               </div>
           </div>
         </div>

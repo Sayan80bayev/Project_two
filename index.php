@@ -194,7 +194,7 @@
                 moveSliderNext();
             }
             isUserInteracted = false; // Reset the flag after the automatic movement
-        }, 7000); // Change 2000 to 3000 for a 3-second interval
+        }, 7000);
     </script>
 
 </body>

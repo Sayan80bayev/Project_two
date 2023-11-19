@@ -3,7 +3,6 @@
 <head>
     <title>Registration</title>
 </head>
-<!-- <link rel="stylesheet" href="../style.css"> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel='stylesheet' href="http://localhost/project_two/css/styleOfLogin.css">
 <body>
