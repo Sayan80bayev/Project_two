@@ -81,16 +81,11 @@
                         <div class="reviews-block">
                             <?php
                             $user_id = $_SESSION['user_id'] ?? '';
-                            $rating_color = '';                 
-                            $reviews = getReviews($_GET['id']);
+                            $rating_color = '';                
+                            $reviews = getReviews($_GET['id']); //here is the game id
                             $index = 0;
                             if (count($reviews) == 0){
                                 echo '<h1 style="margin-left:20px">There is no review yet</h1>';
-                                $reviews = [
-                                    0 => [
-                                        'status' => 'null'
-                                    ]
-                                ];
                             } else {
                                 for ($i = count($reviews)-1; $i >= 0; $i--) {
                                     echo '<div class="review">';
@@ -124,7 +119,7 @@
                         if (isset($_SESSION['message'])){
                             echo '<h1 style="margin:auto 20px; color:red;">'. $_SESSION['message'] .'</h1>';
                         }
-                        if ($reviews[$index]['status'] != 'review has'):
+                        if (!array_search($user_id, array_column($reviews, 'user_id'))):
                         ?>
                         <form method="post" action="review.php" class="review_form"> 
                             <h1>Write a review</h1>
