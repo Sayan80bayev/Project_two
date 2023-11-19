@@ -1,3 +1,4 @@
+<!-- Selecting games from DB -->
 <?php
         require_once 'connection.php';
         $query = "SELECT * FROM game";

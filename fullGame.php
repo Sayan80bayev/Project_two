@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Document</title>
+    <!-- Include CSS files -->
     <link href="http://localhost/project_two/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="http://localhost/project_two/css/fullPage.css">
     <style>
@@ -12,17 +13,20 @@
         $uses_id = $_SESSION['user_id'] ?? '';
         $reviews = getReviews($_GET['id']); //here is the game id
         ?>
-        main{
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, .9), rgba(0, 0, 0, 1 ),rgba(0, 0, 0, 1 )
+
+        main {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, .9), rgba(0, 0, 0, 1),rgba(0, 0, 0, 1)
             <?php
+            // Add additional stops in the gradient based on the count of reviews
             for($i = 1 ; $i <= count($reviews) ; $i=$i*2){
                 echo ',rgba(0, 0, 0, 1) ';
             }
             ?>
             );
         }
+
         <?php
-        // Iterate through games data
+        // Iterate through games data to set background image
         for ($i = 0; $i < count($games); $i++) {
             if (isset($_GET['id']) && !empty($_GET['id'])) {
                 if ($games[$i]['game_id'] == $_GET['id']) {
@@ -43,6 +47,7 @@
                         <!-- little-container start -->
                         <div class="little-container">
                             <button onclick="goBack()"><</button>
+                            <!-- Game Card -->
                             <div class="game-card">
                                 <img src="<?=$games[$i]['photo']?>" alt="">
                                 <div class="min-info">
@@ -58,8 +63,11 @@
                             </div>
                         </div>
                         <!-- little-container end -->
+
+                        <!-- Game Details Section -->
                         <div class="about">
                             <?php
+                            // Display game details
                             echo "<h2>" . $games[$i]['game_name'] . "</h2>";
                             echo "<div class ='info'><p> Date: </p> <p>" . $games[$i]['release_date'] . "</p> </div>";
                             echo "<div class ='info'><p> Developers:</p> <p>" . $games[$i]['developers'] . "</p></div>";
@@ -68,9 +76,12 @@
                             echo "<p>About game:<br>" . $games[$i]['description'] . "</p>";
                             ?>
                         </div>
+
                         <div class="genre-container">
                             <h2>Screenshots</h2>
                         </div>
+
+                        <!-- Image Carousel Section -->
                         <div class="carousel">
                             <div class="carousel-line">
                                 <img src="<?=$games[$i]['screenshot_1']?>" alt="">
@@ -88,10 +99,13 @@
             }
             ?>
                     </div> 
+
+                    <!-- Reviews Section -->
                     <h2 style="width: 65%; margin: 15px auto 15px">Reviews</h2>
                     <div class="review_container">
                         <div class="reviews-block">
                             <?php
+                            // Display reviews
                             $user_id = $_SESSION['user_id'] ?? '';
                             $rating_color = '';                
                             $index = 0;
@@ -105,11 +119,13 @@
                                     echo '<img class="avatar" src="http://localhost/project_two/images/user/'.$reviews[$i]['avatar_url'].'">';
                                     echo'<h1>'. $reviews[$i]['user_name'] .'</h1>';
                                     if ($reviews[$i]['user_id'] == $user_id){
+                                        // Display edit button for user's own review
                                         echo '<a href="http://localhost/project_two/review/EditReviewFrom.php?review_id='.$reviews[$i]['review_id'].'& game_id='.$_GET['id'].'" class="button" style="height:25px; font-size:20px; margin:auto 15px">Edit</a>';
                                         $reviews[$i]['status'] = 'review has';
                                         $index = $i;
                                     }
                                     echo '</div>';
+                                    // Set rating color based on the rating value
                                     if ($reviews[$i]['rating'] <= 10 && $reviews[$i]['rating'] > 6){
                                         $rating_color = 'green';
                                     } elseif ($reviews[$i]['rating'] <= 6 && $reviews[$i]['rating'] > 4){
@@ -128,11 +144,13 @@
                         </div>
                         <?php
                         if (isset($_SESSION['message'])){
+                            // Display a message if there's any session message
                             echo '<h1 style="margin:auto 20px; color:red;">'. $_SESSION['message'] .'</h1>';
                         }
                         $result =array_column($reviews, "user_id");
                         if (!in_array($user_id, $result))://hide the form if individual has a review
                         ?>
+                        <!-- Review Form Section -->
                         <form method="post" action="review/review.php" class="review_form"> 
                             <h1>Write a review</h1>
                             <label for="rating" style="font-size:30px">Rating:</label>
