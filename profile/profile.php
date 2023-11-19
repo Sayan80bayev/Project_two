@@ -9,11 +9,12 @@
   <?php
       session_start();
       include '../db/checkAuth.php';
+      $avatar = $_SESSION['avatar_url'] ?? 'no-avatar.jpg';
       ?>
       <div> 
           <div class="profile">
             <div class="mini-profile">
-              <img src="../images/user/no_avatar.jpg" alt="Avatar" class="avatar">
+              <img src='../images/user/<?=$avatar?>' alt="Avatar" class="avatar">
               <h1><?=$name?></h1>
             </div>
               <div class="info">

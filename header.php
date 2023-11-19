@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    $avatar = $_SESSION['avatar_url'] ?? 'no_avatar.jpg';
+?>
+
 <div class="header" id="header">
         <img src="images/logo.png" alt="PC Games Store">
         <div class="left-side" id="left-side">
@@ -5,7 +10,7 @@
                 <input id="search" type="search" placeholder="Search..." />
                 <button>Go</button>
             </div>
-            <a class="profileLink" href="profile/profile.php"><img src="images/user/no_avatar.jpg" alt=""></a>
+            <a class="profileLink" href="profile/profile.php"><img src="images/user/<?=$avatar?>" alt=""></a>
             <div class="menu-container">
                 <div class="menu">
                     <div class="social-media">
