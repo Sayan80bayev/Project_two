@@ -195,6 +195,7 @@ a {
     width: 300px;
     background-color: rgba(0, 0, 0, 0.8);
     transition: transform 0.3s ease-in-out;
+    z-index: -9999;
 }
 
 .menu ul {
@@ -231,7 +232,6 @@ a {
 main {
     width: 950px;
     margin: auto;
-
 }
 .genre-container {
     justify-content: space-between;

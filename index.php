@@ -25,7 +25,8 @@
             <?php
                 // Include category file and display 'Add game' link for developers
                 include 'category.php';
-                if($_SESSION['role']=='developer'){
+                $role = $_SESSION['role'] ?? '';
+                if($role=='developer'){
                     echo'<a href="gameAdd/AddGame.php"><h2>Add game</h2></a>';
                 }
             ?>
@@ -42,31 +43,33 @@
                         <div class="poster">
                             <img src="<?= $games[$i]['poster'] ?>" alt="">
                             <div class="title">
-                                <!-- Link to full game details -->
-                                <a href="fullGame.php?id=<?= $games[$i]['game_id'] ?>">
-                                    <?= $games[$i]['game_name'] ?>
-                                </a>
-                                <p><?= $games[$i]['genre'] ?></p>
-                                <?php
-                                // Display prices with appropriate styles
-                                if ($games[$i]['new_price'] != $games[$i]['old_price']) {
-                                ?>
-                                    <p class="price" style="text-decoration: line-through; color: gray;">
-                                        <?= $games[$i]['old_price'] ?>
-                                    </p>
-                                    <p class="price" style="font-weight: bold; color: green;">
-                                        <?= $games[$i]['new_price'] ?>
-                                    </p>
-                                <?php
-                                } elseif ($games[$i]['new_price'] == 0.00) {
-                                    $games[$i]['new_price'] = 'Free';
-                                    echo '<p class="price" style="font-weight: bold; color: green; font-size: 20px;">' . $games[$i]['new_price'] . '</p>';
-                                } else {
-                                ?>
-                                    <p class="price"><?= $games[$i]['new_price'] ?></p>
-                                <?php
-                                }
-                                ?>
+                                <div class="content">
+                                    <!-- Link to full game details -->
+                                    <a href="fullGame.php?id=<?= $games[$i]['game_id'] ?>">
+                                        <?= $games[$i]['game_name'] ?>
+                                    </a>
+                                    <p><?= $games[$i]['genre'] ?></p>
+                                    <?php
+                                    // Display prices with appropriate styles
+                                    if ($games[$i]['new_price'] != $games[$i]['old_price']) {
+                                    ?>
+                                        <p class="price" style="text-decoration: line-through; color: gray;">
+                                            <?= $games[$i]['old_price'] ?>
+                                        </p>
+                                        <p class="price" style="font-weight: bold; color: green;">
+                                            <?= $games[$i]['new_price'] ?>
+                                        </p>
+                                    <?php
+                                    } elseif ($games[$i]['new_price'] == 0.00) {
+                                        $games[$i]['new_price'] = 'Free';
+                                        echo '<p class="price" style="font-weight: bold; color: green; font-size: 20px;">' . $games[$i]['new_price'] . '</p>';
+                                    } else {
+                                    ?>
+                                        <p class="price"><?= $games[$i]['new_price'] ?></p>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     <?php

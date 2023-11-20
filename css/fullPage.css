@@ -1,4 +1,5 @@
 main{
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1), rgba(0, 0, 0, 1 ), rgba(0, 0, 0, 1) );
     width: 100%;
     margin: 0;
   }
