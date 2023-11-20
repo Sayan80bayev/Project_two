@@ -15,7 +15,7 @@
             $reviews = getReviews($_GET['id']); //here is the game id
         ?>
         main{
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 1 ),rgba(0, 0, 0, 1 )
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, .9), rgba(0, 0, 0, 1 ),rgba(0, 0, 0, 1 )
             <?php
             for($i = 1 ; $i <= count($reviews) ; $i++){
                 echo ',rgba(0, 0, 0, 1) ';

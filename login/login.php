@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             $_SESSION["user_id"] = $user[0]['user_id'];
-            $_SESSION["name"] = $user[0]['user_name'];
+            $_SESSION["user_name"] = $user[0]['user_name'];
             $_SESSION['password'] = $user[0]['password'];
             $_SESSION['email'] = $user[0]['user_email'];
             $_SESSION['avatar_url'] = $user[0]['avatar_url'];

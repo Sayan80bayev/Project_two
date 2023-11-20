@@ -1,6 +1,6 @@
 <?php
     //A php.code that checks for status
-    if(isset($_SESSION['name']))
+    if(isset($_SESSION['user_name']))
         $name = $_SESSION['user_name'];
     else {
         $_SESSION['message'] = 'First you need to login!';

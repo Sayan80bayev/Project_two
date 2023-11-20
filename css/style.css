@@ -389,11 +389,10 @@ footer li {
 .big-container{
     display: flex;
     padding-top: 90px;
-    margin-right: 150px;
+    margin-right: 160px;
 }
 .category{
-    /* margin: 15px auto; */
-    width: 160px;
+    width: 120px;
     margin: 0 30px 15px 40px;
 }
 .category h1{
