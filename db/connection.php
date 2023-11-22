@@ -20,16 +20,17 @@ function registerUser($username, $email, $password)
     global $pdo;
     $password = md5($password); // Using MD5 for password hashing
     $errors = []; // Define $errors
-    $query = "INSERT INTO user (user_name, password, user_email)
-            VALUES(:name, :password, :email)";
+    $query = "INSERT INTO user (user_name, password, user_email, registration_date)
+            VALUES(:name, :password, :email , :registration_date)";
     $stmt = $pdo->prepare($query);
-
+    date_default_timezone_set('Asia/Almaty');
     try {
         // Execute the prepared statement with parameters
         $stmt->execute([
             'email' => $email,
             'name' => $username,
-            'password' => $password
+            'password' => $password,
+            'registration_date' => date("Y-m-d H:i:s", time())
         ]);
     } catch (PDOException $e) {
         // Handle any exception during user registration

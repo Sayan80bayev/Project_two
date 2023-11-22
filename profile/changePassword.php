@@ -7,7 +7,7 @@ $password = $_POST['password'] ?? '';
 $new_password = $_POST['new_password'] ?? '';
 $confirm_password = $_POST['confirm_password'] ?? '';
 
-// Retrieve the hashed password from the session
+// Take the hashed password from the session
 $passwordCheck = $_SESSION['password'];
 
 if (empty($password) || empty($new_password) || empty($confirm_password)) {
