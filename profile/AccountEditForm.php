@@ -15,6 +15,10 @@
     // Start the session and check if the user is authenticated
     session_start();
     include '../db/checkAuth.php';
+    //Token generation
+    $csrfToken = bin2hex(random_bytes(32));
+    $_SESSION['csrf_token'] = $csrfToken;
+    // echo''. $_SESSION['csrf_token'] .'';
     ?>
 
     <div class="container mt-5">
@@ -47,6 +51,8 @@
                     <label for="confirm_password">Confirm-password:</label>
                     <input type="password" class="form-control" name="confirm_password" id="confirm_password">
                 </div>
+                <!-- Token input -->
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <?php
                 // Display password-related errors
                 if (isset($errors["password"]))
@@ -62,6 +68,7 @@
     <?php
     // Unset errors session variable
     unset($_SESSION['errors']);
+    unset($_SESSION['csrf-token']);
     ?>
 </body>
 

@@ -34,13 +34,12 @@
                 <h1>
                     <?php
                     if (!empty($_GET['cat'])) {
-                        $cat = $_GET['cat'];
+                        $cat = htmlspecialchars(urldecode($_GET['cat']));
                         echo "$cat";
                     } else echo 'All';
                     ?> games
                 </h1>
             </div>
-
             <!-- Display games based on the selected category -->
             <div class="game-container">
                 <?php

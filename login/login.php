@@ -71,12 +71,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_POST["remember"])) {
                 setcookie("user_email", $email, time() + 30 * 24 * 60 * 60); // Remember user email for 30 days
             }
-
-            $_SESSION["user_id"] = $user[0]['user_id'];
-            $_SESSION["user_name"] = $user[0]['user_name'];
-            $_SESSION['password'] = $user[0]['password'];
-            $_SESSION['email'] = $user[0]['user_email'];
-            $_SESSION['avatar_url'] = $user[0]['avatar_url'];
+            //DEFENCE
+            $_SESSION["user_id"] = htmlspecialchars($user[0]['user_id']);
+            //Protected one
+            $_SESSION["user_name"] = htmlspecialchars($user[0]['user_name']);
+            //Exposed one
+            // $_SESSION["user_name"] = $user[0]['user_name'];
+            $_SESSION['password'] = htmlspecialchars($user[0]['password']);
+            $_SESSION['email'] = htmlspecialchars($user[0]['user_email']);
+            $_SESSION['avatar_url'] = htmlspecialchars($user[0]['avatar_url']);
             $_SESSION['role'] = $user[0]['role'];
             $_SESSION['status'] = 'success';
 

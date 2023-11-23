@@ -17,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate username
     if (empty($username)) {
         $errors['name'] = 'Name is empty';
+    }elseif(!preg_match("/^[a-zA-Z0-9]+$/",$username)){
+        $errors['name'] = 'Incorrect isername use only latin letters and numbers';
     }
 
     // Validate password
@@ -65,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Try to register the user
-    $result = registerUser($username, $email, $password);
+    $result = registerUser(htmlspecialchars($username), htmlspecialchars($email), htmlspecialchars($password));
     $errors['login'] = isset($result['errors']) ? $result['errors'] : '';
 
     // Check the result of the registration attempt
