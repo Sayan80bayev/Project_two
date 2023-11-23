@@ -7,8 +7,8 @@ body {
   display: flex;
   align-items: center;
   font-family: Arial, sans-serif;
-  background-color: #141111;
-  color: white;
+  background-color: #0b0e14;
+  color: #f8e6de;
   backdrop-filter: blur(5px);
 }
 
@@ -16,9 +16,9 @@ form {
   width: 400px;
   margin: auto;
   padding: 20px;
-  border: 3px solid orange;
+  border: 3px solid #ED500A;
   border-radius: 20px;
-  background-color: #2B2B2B;
+  background-color: #0b0e14;
 }
 .facebook, .button, .google{
   width: 100%;
@@ -75,14 +75,15 @@ input {
   display: block;
   width: 100%;
   padding: 10px;
-  background-color: orange;
-  color: #fff;
+  background-color: #ED500A;
+  color: #f8e6de;
   border: none;
   border-radius: 5px;
   font-size: 16px;
 }
 
 .button:hover {
+  transition: 0.5s;
   background-color: rgb(145, 94, 0);
 }
 

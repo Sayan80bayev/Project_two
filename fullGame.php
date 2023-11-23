@@ -141,7 +141,7 @@
             <form method="post" action="review/review.php" class="review_form"> 
                 <h1>Write a review</h1>
                 <label for="rating" style="font-size:30px">Rating:</label>
-                <select name="rating" style="height:30px; color: azure; border: 2px solid #FBBB43;
+                <select name="rating" style="height:30px; color: azure; border: 2px solid #ED500A;
                     border-radius: 10px; background: #2B2B2B;" required>
                     <?php
                     for ($i = 10; $i >= 1; $i--) {

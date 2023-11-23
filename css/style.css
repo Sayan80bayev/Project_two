@@ -4,12 +4,12 @@
 }
 
 body {
-    background-color: #141111;
+    background-color: #0b0e14;
     font-family: 'Nunito-VariableFont_wght';
     font-weight: 700;
     padding: 0;
     margin: 0;
-    color: white;
+    color: #f8e6de;
 }
 .carousel-line,
 .btn-container,
@@ -33,7 +33,7 @@ ul,
 }
 
 span {
-    background-color: white;
+    background-color: #f8e6de;
     height: 2px;
     width: 100%;
     margin: 10px 0 10px;
@@ -67,11 +67,15 @@ h2 {
 }
 
 a {
+    transition: 0.5s;
     text-decoration: none;
     font-size: 16px;
-    color: white;
+    color: #f8e6de;
 }
-
+a :hover{
+    transition: 0.5s;
+    color: #ED500A;
+}
 .left-side {
     align-items: center;
     height: 50px;
@@ -83,7 +87,7 @@ a {
 .searchBar,
 .slider-card,
 .game-card {
-    border: 2px solid white;
+    border: 2px solid #f8e6de;
     border-radius: 20px;
 }
 
@@ -98,7 +102,7 @@ a {
 .searchBar input,
 .searchBar button {
     background: rgba(125, 125, 125, 0.2);
-    color: white;
+    color: #f8e6de;
 }
 
 .searchBar input {
@@ -117,12 +121,12 @@ a {
 }
 
 .searchBar button:hover {
-    background-color: #FBBB43;
+    background-color: #ED500A;
     transition: 0.5s;
 }
 
 .searchBar:hover {
-    background-color: white;
+    background-color: #f8e6de;
     transition: 0.3s;
 }
 
@@ -145,7 +149,7 @@ a {
 .menu-icon {
     width: 30px;
     height: 4px;
-    background-color: #fff;
+    background-color: #f8e6de;
     display: block;
     position: relative;
     transition: transform 0.3s ease-in-out;
@@ -156,7 +160,7 @@ a {
     content: '';
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    background-color: #f8e6de;
     position: absolute;
     left: 0;
     transition: transform 0.3s ease-in-out;
@@ -216,7 +220,7 @@ a {
 }
 
 .menu li a {
-    color: #fff;
+    color: #f8e6de;
     text-decoration: none;
     font-size: 18px;
 }
@@ -241,7 +245,7 @@ main {
 }
 .genre-active {
     padding: 5px;
-    border: 2px solid #FBBB43;
+    border: 2px solid #ED500A;
     border-radius: 10px;
 }
 
@@ -260,12 +264,12 @@ main {
     padding: 0;
     text-align: center;
     margin-bottom: 50px;
-    background-color: #141111;
+    background-color: #0b0e14;
 }
 
 .game-container> div:hover {
     transition: 0.5s;
-    border: 2px solid #FBBB43;
+    border: 2px solid #ED500A;
 }
 
 .game-card img {
@@ -327,7 +331,7 @@ main {
 
 .active {
     flex-grow: 5;
-    border-color: orange;
+    border-color: #ED500A;
 }
 
 .active .title {
@@ -371,7 +375,7 @@ footer li {
 }
 
 .profileLink {
-    border: none solid #FBBB43;
+    border: none solid #ED500A;
     height: 46px;
     width: 46px;
     background: transparent;

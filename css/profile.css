@@ -6,11 +6,11 @@ html, body {
 
     body {
       font-family: Arial, sans-serif;
-      background-color: #141111;
+      background-color: #0b0e14;
       /* background-image: url('../images/user/landscape-illustration-digital-art-sunset-minimalism-sky-118015-wallhere.com.png'); */
       background-repeat: no-repeat;
       background-size: cover;
-      color: #fff;
+      color: #f8e6de;
       margin: 0;
     }
     main{
@@ -23,8 +23,8 @@ html, body {
     .profile {
       max-width: 600px;
       margin: 50px auto; 
-      background-color: #2B2B2B;
-      border: 2px solid #FBBB43;
+      background-color: #0b0e14;
+      border: 2px solid #ED500A;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
