@@ -1,41 +1,32 @@
 <?php
-// require 'DB.php';
+// Start a session to store user data and status
 session_start();
 
+// Check if the form is submitted using POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // POST variables
+    // Retrieve POST variables
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $errors = [];
-    $_SESSION['status'] = '';
+    $errors = []; // Array to store validation errors
+    $_SESSION['status'] = ''; // Initialize session status
 
-    $host = 'localhost';
-    $dbname = 'DB_test';
-    $port = 3306;
-    $user = 'root';
-    $passwordSQL = '';
+    // Include database connection file
+    require_once('../db/connection.php');
 
-    try {
-		$pdo = new PDO("mysql:host=$host;dbname=$dbname;port=$port;", $user, $passwordSQL);
-	} catch(PDOException $exception){
-		echo $exception->getMessage();
-	}
-
-    // pass_check
+    // Validate password
     if (empty($password)) {
         $errors["password"] = "Password is empty!";
-    }
-    elseif(strlen($password)<6){
-        $errors["password"] = "Min size is 6!";
-    }
-    else {
+    } elseif (strlen($password) < 6) {
+        $errors["password"] = "Minimum size is 6!";
+    } else {
+        // Check if password contains at least one lowercase, one uppercase, and one digit
         $hasLowercase = false;
         $hasUppercase = false;
         $hasDigit = false;
-        
+
         for ($i = 0; $i < strlen($password); $i++) {
             $char = $password[$i];
-            
+
             if ($char >= 'a' && $char <= 'z') {
                 $hasLowercase = true;
             } elseif ($char >= 'A' && $char <= 'Z') {
@@ -44,7 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $hasDigit = true;
             }
         }
-        
+
+        // Provide specific error messages for missing character types
         if (!$hasLowercase) {
             $errors['password'] .= 'Add 1 lowercase<br>';
         }
@@ -56,38 +48,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // querry
-    
+    // Hash the password using MD5
     $password = md5($password);
-    $query = "SELECT * FROM users WHERE email = '$email '";
-    $stmt = $pdo->query($query);
-    $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // login_check
+    // Attempt to login user and retrieve user data
+    $user = loginUser($email, $password) ?? [];
+
+    // Validate email and check if user exists
     if (empty($email)) {
         $errors['login'] = 'Email is empty!';
-    }
-    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['login'] = "Invalid login!";
-    }
-    elseif ($user[0]["email"] != $email) {
+    } elseif ($user[0]["user_email"] != $email) {
         $errors['login'] = "No such email!";
     }
 
-    // $query = "SELECT * FROM users WHERE email = '$email ' AND password = '$password'";
-    // $stmt = $pdo->query($query);
-    // $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    // Process login results
     if (empty($errors)) {
+        // Check if user credentials are valid
         if (count($user) > 0 && $user[0]["password"] == $password) {
+            // Set user session data
             if (isset($_POST["remember"])) {
-                setcookie("user_email", $email, time() + 30 * 24 * 60 * 60); 
+                setcookie("user_email", $email, time() + 30 * 24 * 60 * 60); // Remember user email for 30 days
             }
-            $_SESSION["name"] = $user[0]['name'];
-            $_SESSION['status'] = 'sucsess';
+
+            $_SESSION["user_id"] = $user[0]['user_id'];
+            $_SESSION["user_name"] = $user[0]['user_name'];
+            $_SESSION['password'] = $user[0]['password'];
+            $_SESSION['email'] = $user[0]['user_email'];
+            $_SESSION['avatar_url'] = $user[0]['avatar_url'];
+            $_SESSION['role'] = $user[0]['role'];
+            $_SESSION['status'] = 'success';
+
+            // Redirect to the index page upon successful login
             header("Location: ../index.php");
             exit();
         } else {
+            // Invalid password
             $errors["password"] = 'Invalid password';
             $_SESSION['status'] = 'error';
             $_SESSION['errors'] = $errors;
@@ -95,6 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
     } else {
+        // Validation errors occurred
         $_SESSION['status'] = 'error';
         $_SESSION['errors'] = $errors;
         header("Location: LoginForm.php");

@@ -1,103 +1,84 @@
 <?php
-    session_start();   
-    
-    if($_SERVER['REQUEST_METHOD']=='POST'){
+// Start the session
+session_start();   
 
-        $name = $_POST['name'] ?? "";
-        $email = $_POST['email'] ?? '';
-        $password = $_POST['password'] ?? '';
-        $confirm_password = $_POST['confirm_password'] ?? '';
-        $errors = [];
+// Check if the form is submitted using POST method
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve form data
+    $username = $_POST['name'] ?? "";
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
+    $errors = [];
 
+    // Include the database connection file
+    require_once('../db/connection.php');
 
-        $host = 'localhost';
-        $dbname = 'DB_test';
-        $port = 3306;
-        $user = 'root';
-    
-        try {
-            $pdo = new PDO("mysql:host=$host;dbname=$dbname;port=$port;", $user, '');
-        } catch(PDOException $exception){
-            echo $exception->getMessage();
-        }
+    // Validate username
+    if (empty($username)) {
+        $errors['name'] = 'Name is empty';
+    }
 
-        if(empty($name)){
-            $errors['name'] = 'Name is empty';
-        }
-        // pass_check
-        if($password!=$confirm_password){
-            $errors['password'] = 'Passwords do not match! ';
-        }
-        if (empty($password)) {
-            $errors["password"] = "Password is empty!";
-        }
-        elseif(strlen($password)<6){
-            $errors["password"] = "Min size is 6!";
-        }
-        else {
-            $hasLowercase = false;
-            $hasUppercase = false;
-            $hasDigit = false;
-            
-            for ($i = 0; $i < strlen($password); $i++) {
-                $char = $password[$i];
-                
-                if ($char >= 'a' && $char <= 'z') {
-                    $hasLowercase = true;
-                } elseif ($char >= 'A' && $char <= 'Z') {
-                    $hasUppercase = true;
-                } elseif ($char >= '0' && $char <= '9') {
-                    $hasDigit = true;
-                }
-            }
-            
-            if (!$hasLowercase) {
-                $errors['password'] .= 'Add 1 lowercase<br>';
-            }
-            if (!$hasUppercase) {
-                $errors['password'] .= 'Add 1 uppercase<br>';
-            }
-            if (!$hasDigit) {
-                $errors['password'] .= 'Add 1 digit<br>';
+    // Validate password
+    if ($password != $confirm_password) {
+        $errors['password'] = 'Passwords do not match! ';
+    }
+
+    if (empty($password)) {
+        $errors["password"] = "Password is empty!";
+    } elseif (strlen($password) < 6) {
+        $errors["password"] = "Min size is 6!";
+    } else {
+        // Check for password strength
+        $hasLowercase = false;
+        $hasUppercase = false;
+        $hasDigit = false;
+
+        for ($i = 0; $i < strlen($password); $i++) {
+            $char = $password[$i];
+
+            if ($char >= 'a' && $char <= 'z') {
+                $hasLowercase = true;
+            } elseif ($char >= 'A' && $char <= 'Z') {
+                $hasUppercase = true;
+            } elseif ($char >= '0' && $char <= '9') {
+                $hasDigit = true;
             }
         }
-        // email check
-        if (empty($email)) {
-            $errors['login'] = 'Email is empty!';
-        }
-        elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['login'] = "Invalid login!";
-        }
 
-        $password = md5($password);
-
-        $query = "INSERT INTO users (name, password, email)
-                  VALUES(:name, :password, :email)";
-        $stmt = $pdo->prepare($query);
-
-        if(empty($errors)) {
-            try{
-                $stmt->execute([
-                    'email' => $email,
-                    'name'=> $name,
-                    'password' => $password
-                ]);
-            }catch(PDOException $e){
-                $errors['login'] = "{$e->getMessage()}";
-                $_SESSION['status'] = 'error';
-            }
+        if (!$hasLowercase) {
+            $errors['password'] .= 'Add 1 lowercase<br>';
         }
-        if(empty($errors)) {
-            $_SESSION['registered'] = 'sucsess';
-            header('Location: index.php');
-            exit();
+        if (!$hasUppercase) {
+            $errors['password'] .= 'Add 1 uppercase<br>';
         }
-        else{
-            $_SESSION['status'] = 'error';
-            $_SESSION['errors'] = $errors;
-            header("Location: RegisterForm.php");
-            exit();
+        if (!$hasDigit) {
+            $errors['password'] .= 'Add 1 digit<br>';
         }
     }
 
+    // Validate email
+    if (empty($email)) {
+        $errors['login'] = 'Email is empty!';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['login'] = "Invalid login!";
+    }
+
+    // Try to register the user
+    $result = registerUser($username, $email, $password);
+    $errors['login'] = isset($result['errors']) ? $result['errors'] : '';
+
+    // Check the result of the registration attempt
+    if ($result && !empty($errors)) {
+        $_SESSION['message'] = "Successfully registered!";
+        $_SESSION['status'] = 'success';
+        header('Location: ../login/LoginForm.php');
+        exit();
+    } else {
+        $_SESSION['status'] = 'error';
+        $_SESSION['errors'] = $errors;
+        header("Location: RegisterForm.php");
+        exit();
+    }
+}
 ?>

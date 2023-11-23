@@ -4,7 +4,7 @@
     <title>Registration</title>
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="../login/styleOfLogin.css">
+<link rel="stylesheet" href="http://localhost/project_two/css/styleOfLogin.css">
 <body>
     <?php 
         session_start();
@@ -12,9 +12,14 @@
         $errors = $_SESSION['errors'] ?? [];
     ?>
     <div class="container mt-5">
-        <h2 class = "offset-md-5">Registration</h2>
         <div class="col-md-6 offset-md-3">
             <form action="register.php" method="post">
+                <?php
+                    if (isset($_SESSION['message'])) {
+                        echo "<h2 style='color:succes;'>".$_SESSION['message']."</h2>";
+                    }
+                ?>
+                <h2>Registration</h2>
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" class="form-control" name="name" id="name" >
@@ -43,12 +48,13 @@
                     if ($status == 'error' && isset($errors['password']))
                     echo "<p class='text-danger'>{$errors['password']}</p>";
                 ?>
-                <button type="submit" class="btn btn-primary offset-md-4">Registration</button>
+                <button type="submit" class="button">Registration</button>
                 <p class = "offset-md-2">Already have registered ? click <a href="../login/LoginForm.php">here</a></p>
 
                 <?php
                     unset($_SESSION['status']);
                     unset($_SESSION['errors']);
+                    unset($_SESSION['message']);
                 ?>
             </form>
         </div>

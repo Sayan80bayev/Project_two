@@ -1,0 +1,145 @@
+main{
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1),rgba(0, 0, 0, 1 ), rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) );
+    width: 100%;
+    margin: 0;
+  }
+  button{
+      transition: 0.5s;
+      font-weight: bold;
+      font-size: 30px;
+      border: 4px solid #FBBB43;
+      background-color: transparent;
+      color: white;
+      border-radius: 30px;
+      width: 60px;
+      height: 60px;
+      padding: 0;
+
+  }
+  button:hover{
+    transition: 0.5s;
+    background-color: #FBBB43;
+  }
+  .container {
+      padding: 70px 0 0 0 ;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: space-evenly;
+      align-items:center;
+  }
+  .info{
+    justify-content: space-between;
+  }
+  .about {
+      width: 35%;
+      flex-direction: column;
+  }
+  .game-card{
+      height: 500px;
+      width: 300px;
+  }
+  .game-card img{
+      height: 350px;
+  }
+  .game-card h2, .game-card p{
+    font-size: 20px;
+  }
+  .little-container{
+    justify-content: space-between;
+    width: 380px;
+  }
+  .carousel, .genre-container{
+    width: 66%;
+    overflow: hidden;
+  }
+  .carousel img{
+    border-radius: 20px;
+  }
+  .btn-container{
+    position: relative;
+    top:-300px;
+  }
+  .review_container{
+    border-radius: 30px;
+    background-color: #2B2B2B;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+  .review{
+    margin: 20px;
+    border-radius: 30px;
+    /* display: flex; */
+    background-color: #000;
+    padding: 20px;
+  }
+  .review div{
+    display: flex;
+    justify-content: space-between;
+  }
+  .review-prof{
+    /* width: 20%; */
+  }
+  .review-title h1{
+    margin: 0;
+    padding: 0;
+  }
+  .avatar{
+    height: 50px;
+    border-radius: 25px;
+    margin-right: 15px;
+  }
+  .rating{
+    margin: 0;
+    height: 50px;
+    width: 50px;
+    border-radius: 25px; 
+  }
+  .rating h1{
+    margin: auto;
+  }
+  .red{
+    background-color: red;
+  }
+  .yellow{
+    background-color: yellow;
+  }
+  .green{
+    background-color: green;
+  }
+  .date{
+    font-size: 10px;
+  }
+  .review_form{
+    background-color: #000;
+    border-radius: 30px;
+    margin:auto 20px;
+    padding: 20px;
+  }
+  .review_content{
+    color: azure;
+    border: 2px solid #FBBB43;
+    border-radius: 10px;
+    background: #2B2B2B;
+    width: 50%;
+    height: 140px;
+  }
+  .button {
+    height: 40px;
+    display: block;
+    /* width: 100%; */
+    padding: 10px;
+    background-color: orange;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+
+  }
+  
+  .button:hover {
+    transition: 0.3s;
+    background-color: rgb(145, 94, 0);
+  }
