@@ -32,14 +32,14 @@ ul,
     display: flex;
 }
 
-span {
+.header span {
     background-color: #f8e6de;
     height: 2px;
     width: 100%;
     margin: 10px 0 10px;
 }
 
-ul {
+.header ul {
     width: 30%;
     list-style: none;
     align-items: center;

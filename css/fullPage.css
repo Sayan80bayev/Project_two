@@ -4,7 +4,7 @@ main {
   margin: 0;
 }
 
-button {
+.btn-container button {
   transition: 0.5s;
   font-weight: bold;
   font-size: 30px;
@@ -17,7 +17,7 @@ button {
   padding: 0;
 }
 
-button:hover {
+.btn-container button:hover {
   transition: 0.5s;
   background-color: #ED500A; 
 }
@@ -163,4 +163,62 @@ button:hover {
 .button:hover {
   transition: 0.3s;
   background-color: rgb(145, 94, 0);
+}
+.three-dots-button {
+  position: absolute;
+  transform: translate(50px, 15px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  background-color: #f8e6de; /* Adjust the color as needed */
+  border-radius: 50%;
+  margin: 1px 0;
+}
+.modal {
+  position: fixed;
+  background-color: #f8e6de;
+  border-radius: 8px;
+  text-align: center;
+  z-index: 1;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.close {
+  position: absolute;
+  color: #0b0e14;
+  top: 2px;
+  right: 7px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+  gap: 5px;
+}
+ul li a {
+  text-decoration: none;
+  color: #0b0e14;
+}
+.three-dots-button{
+  background-color: transparent;
+  border: none;
+}
+#deleteConfirmationModal {
+  display: none;
 }
