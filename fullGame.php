@@ -7,11 +7,41 @@
     <link href="http://localhost/project_two/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="http://localhost/project_two/css/fullPage.css">
     <style>
+        .slide-toggle {
+            cursor: pointer;
+        }
+        .chevron {
+            background-color: transparent;
+            fill: none;
+            stroke: #f8e6de;
+            stroke-width: 3;
+            transition: .2s all linear;
+        }
+        .slide-toggle {
+            transform-origin: center;
+            transition: transform 0.5s ease;
+        }
+        .slider-prev, .slider-next{
+            background-color: transparent;
+            border: none;
+        }
+        .slide-toggle {
+            transform: rotate(-90deg);
+        }
+        button :hover>.chevron, a :hover svg{
+            stroke: #ED500A;
+        }
+        svg:hover > path{
+            fill: #ED500A;
+            transition: .5s;
+        }
         <?php
         // Start session and include games data
         session_start();
+        // $_SESSION['lastPage'] = 'http://localhost/project_two/index.php';
             include 'db/games.php';
             $uses_id = $_SESSION['user_id'] ?? '';
+            $lastPage = $_SESSION['lastPage'] ?? 'http://localhost/project_two/index.php';
             $reviews = getReviews($_GET['id']); //here is the game id
         ?>
         main{
@@ -44,10 +74,14 @@
 
 
 <body>
+    <?php include 'header.php';?>
     <main>
         <div class="container">
             <div class="little-container">
-                <button onclick="goBack()"><</button>
+                <!-- <button onclick="goBack()"><</button> -->
+                <a href="<?=$lastPage?>">
+                <svg xmlns="http://www.w3.org/2000/svg" height="3em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" fill="#f8e6de"/></svg>
+                </a>
                 <div class="game-card">
                     <img src="<?=$games[$i]['photo']?>" alt="">
                     <div class="min-info">
@@ -75,17 +109,28 @@
             <div class="genre-container">
                 <h2>Screenshots</h2>
             </div>
-
-            <div class="carousel">
-                <div class="carousel-line">
-                    <img src="<?=$games[$i]['screenshot_1']?>" alt="">
-                    <img src="<?=$games[$i]['screenshot_2']?>" alt="">
-                    <img src="<?=$games[$i]['screenshot_3']?>" alt="">
+            <div class="carousel-container">
+                <button class="slider-prev">
+                            <!-- SVG for previous button -->
+                            <svg class="slide-toggle" direction="left" height="50" width="50">
+                                <polyline class="chevron" points="0,50 25,38 50,50" />
+                                Sorry, your browser does not support inline SVG.
+                            </svg>
+                </button>
+                <div class="carousel">
+                    <div class="carousel-line">
+                        <img src="<?=$games[$i]['screenshot_1']?>" alt="">
+                        <img src="<?=$games[$i]['screenshot_2']?>" alt="">
+                        <img src="<?=$games[$i]['screenshot_3']?>" alt="">
+                    </div>
                 </div>
-                <div class="btn-container">
-                    <button class="slider-prev"><</button>
-                    <button class="slider-next">></button>
-                </div>
+                <button class="slider-next">
+                    <!-- SVG for next button -->
+                    <svg class="slide-toggle" direction="next" height="50" width="50">
+                        <polyline class="chevron" points="0,0 25,12 50,0" />
+                        Sorry, your browser does not support inline SVG.
+                    </svg>
+                </button>
             </div>
         </div>
         <?php
@@ -108,7 +153,9 @@
                     <div class="review">
                         <div class="review-title">
                             <div class="review-prof">
-                                <img class="avatar" src="http://localhost/project_two/images/user/<?= $reviews[$i]['avatar_url'] ?>">
+                                <div class="profileLink" style="margin-right:5px">
+                                    <img src="http://localhost/project_two/images/user/<?= $reviews[$i]['avatar_url'] ?>">
+                                </div>
                                 <h1><?= $reviews[$i]['user_name'] ?></h1>
                 
                                 
@@ -137,7 +184,7 @@
                                             <span class="close" onclick="closeModal()">&times;</span>
                                             <ul>
                                                 <li><a href="http://localhost/project_two/review/EditReviewFrom.php?review_id=<?= $reviews[$i]['review_id'] ?>& game_id=<?= $_GET['id'] ?>">Edit</a></li>
-                                                <li><a href="#" onclick="confirmDelete(<?= $reviews[$i]['review_id'] ?>)">Delete</a></li>
+                                                <li><button href="" onclick="confirmDelete(<?= $reviews[$i]['review_id'] ?>)">Delete</button></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -156,8 +203,11 @@
 
             <!-- Review writing-->
             <?php
-            if (isset($_SESSION['message'])){
+            if (isset($_SESSION['message']) && $_SESSION['status']=='error'){
                 echo '<h1 style="margin:auto 20px; color:red;">'. $_SESSION['message'] .'</h1>';
+            }
+            elseif(isset($_SESSION['message']) && $_SESSION['status']=='succes'){
+                echo '<h1 style="margin:auto 20px; color:green;">'. $_SESSION['message'] .'</h1>';
             }
             $result =array_column($reviews, "user_id");
             if (!in_array($user_id, $result)):
@@ -181,13 +231,12 @@
             <?php endif;?>
         </div>
         <?php
+        unset($_SESSION['status']);
         unset($_SESSION['message']);
         ?>
+    <?php include 'footer.php';?>
     </main>
     <script>
-        function goBack() {
-            window.history.back();
-        }
 
         let offset = 0;
         const sliderLine = document.querySelector('.carousel-line');
@@ -211,17 +260,8 @@
         document.getElementById('openModalBtn').addEventListener('click', openModal);
         function openModal() {
             const modal = document.getElementById('modal');
-            const button = document.getElementById('openModalBtn');
             modal.style.display = 'flex';
-
-            // Get the position of the button
-            const buttonRect = button.getBoundingClientRect();
-
-            // Set the position of the modal based on the button's position
-            const modalHeight = modal.offsetHeight; // Get the height of the modal
-            modal.style.top = buttonRect.top - modalHeight + 'px';
-            modal.style.left = buttonRect.left + 'px';
-
+            modal.style.zIndex = '1';
         }
         function closeModal() {
             document.getElementById('modal').style.display = 'none';
@@ -233,7 +273,7 @@
         // If the user clicks "OK" in the confirmation dialog, proceed with the delete action
         if (isConfirmed) {
             // Redirect to the delete action, passing the review_id and game_id
-            window.location.href = `http://localhost/project_two/review/DeleteReview.php?review_id=${reviewId}&game_id=<?= $_GET['id'] ?>`;
+            window.location.href = `http://localhost/project_two/review/DeleteReview.php?review_id=${reviewId}&user_id=<?= $_SESSION['user_id']?>&game_id=<?= $_GET['id'] ?>`;
         }
     }
     </script>

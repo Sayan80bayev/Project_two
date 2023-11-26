@@ -51,14 +51,14 @@ if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['csrf_token']) && $_POST['
                 $_SESSION['password'] = $hashed_password;
                 $_SESSION['message'] = "Password successfully changed!";
                 unset($_SESSION['csrf-token']);
-                header('Location: accounteditform.php');
+                header('Location: changePasswordForm.php');
                 exit;
             }
         }
     }
 
     // Redirect back to the account edit form in case of errors or unsuccessful password change
-    header('Location: AccountEditForm.php');
+    header('Location: changePasswordForm.php');
 }else { 
     echo "Invalid CSRF token!";
 }

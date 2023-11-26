@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Nunito-VariableFont_wght';
-    src: url('Nunito-VariableFont_wght.ttf') format('truetype');
+    src: url('http://localhost/project_two/css/Nunito-VariableFont_wght.ttf') format('truetype');
 }
 
 body {
@@ -32,20 +32,19 @@ ul,
     display: flex;
 }
 
-.header span {
+.menu span {
     background-color: #f8e6de;
     height: 2px;
     width: 100%;
     margin: 10px 0 10px;
 }
 
-.header ul {
+.header ul , footer ul{
     width: 30%;
     list-style: none;
     align-items: center;
     justify-content: space-between;
 }
-
 h2 {
     font-size: 20px;
 }
@@ -79,7 +78,7 @@ a :hover{
 .left-side {
     align-items: center;
     height: 50px;
-    width: 35%;
+    width: 500px;
     display: flex;
     justify-content: space-between;
 }
@@ -92,6 +91,7 @@ a :hover{
 }
 
 .searchBar {
+    height: 30px;
     width: 350px;
     border-radius: 15px;
     overflow: hidden;
@@ -133,7 +133,15 @@ a :hover{
 .searchBar:hover button {
     color: #000;
 }
-
+.login{
+    border:2px solid #f8e6de;
+    border-radius: 20px;
+    height: 20px;
+    padding: 5px;
+}
+.login a{
+    margin-top: 50%;;
+}
 .menu-btn {
     position: relative;
     align-items: center;
@@ -375,17 +383,17 @@ footer li {
 }
 
 .profileLink {
-    border: none solid #ED500A;
-    height: 46px;
-    width: 46px;
+    height: 35px;
+    width: 35px;
     background: transparent;
-    border-radius: 25px;
+    border-radius: 50%;
     overflow: hidden;
     padding: 0;
 }
-
 .profileLink > img {
     height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 .price::before{
     content: "$";

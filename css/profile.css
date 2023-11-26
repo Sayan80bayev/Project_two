@@ -1,57 +1,179 @@
 html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #0b0e14;
-      /* background-image: url('../images/user/landscape-illustration-digital-art-sunset-minimalism-sky-118015-wallhere.com.png'); */
-      background-repeat: no-repeat;
-      background-size: cover;
-      color: #f8e6de;
-      margin: 0;
-    }
-    main{
-      /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1 ) ); */
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    .profile {
-      max-width: 600px;
-      margin: 50px auto; 
-      background-color: #0b0e14;
-      border: 2px solid #ED500A;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0b0e14;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #f8e6de;
+  margin: 0;
+}
 
-    .avatar {
-      max-width: 100px;
-      border-radius: 50%;
-    }
+main {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  padding-top: 90px;
+}
 
-    .info {
-      margin-top: 20px;
-    }
+.container {
+  margin: auto;
+  padding: 20px;
+  height: 500px;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  background-color: #5D6169;
+  border-radius: 30px;
+  width: 750px;
+}
 
-    .info h1, .info h2 {
-      margin-bottom: 5px;
-    }
+.profile {
+  min-width: 590px;
+  max-width: 100%;
+  height: 100%;
+}
 
-    .info p {
-      margin: 5px 0;
-    }
-    .mini-profile{
-      width: 40%;
-      display: flex;
-      justify-content: space-between;
-    }
-    .mini-profile > h1{
-      margin: auto;
-      padding: 0;
-    }
+.profile > h1 {
+  margin-top: 25%;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.info {
+  margin-top: 20px;
+}
+
+.info h1,
+.info h2 {
+  margin-bottom: 5px;
+}
+
+.info p {
+  margin: 5px 0;
+}
+
+.mini-profile {
+  /* width: 40%; */
+  display: flex;
+  align-items: center;
+}
+
+.mini-profile > h1 {
+  margin-left:10px;
+  padding: 0;
+}
+
+.activity {
+  width: 30%;
+  border-radius: 30px;
+  display: flex;
+  background-color: transparent;
+}
+
+.activity ul {
+  height: 80%;
+  padding: 5px;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  justify-content: space-between;
+}
+
+.activity li {
+  text-decoration: none;
+  color: #f8e6de;
+}
+
+.edit {
+  position: relative;
+  top: -15px;
+  left: -20px;
+}
+
+input {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+/* Common styles for text, password, and email inputs */
+/* Styles specific to file input */
+input[type="file"],
+input[type="text"] {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 10px 0;
+  padding: 8px;
+  width: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+} */
+
+/* Styles specific to the edit icon */
+.edit {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+/* Styles specific to the avatar */
+.avatar {
+  max-width: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Styles specific to the mini-profile */
+.mini-profile {
+  text-align: center;
+}
+
+.btn {
+  background-color: #6D88BE;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+/* Additional styles for submit button */
+.submit-check {
+  width: 20%;
+  margin-top: 20%;
+}
+
+.submit-check input {
+  color: #f8e6de;
+  background-color: transparent;
+}
+
+#editableNameInput {
+  max-width: 80%;
+}
+.message {
+  color: red;
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+.message h1{
+  display: inline;
+}

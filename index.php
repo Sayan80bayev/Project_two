@@ -14,6 +14,8 @@
     <!-- Header Section -->
     <?php 
         // Include header, games, and database connection files
+        session_start();
+        $_SESSION['lastPage'] = 'http://localhost/project_two/index.php';
         include 'header.php';
         include 'db/games.php';
         require_once 'db/connection.php';
@@ -155,19 +157,7 @@
             </div>
         </main>
     </div>
-
-    <!-- Footer Section -->
-    <footer>
-        <ul>
-            <!-- Footer navigation links -->
-            <li><a href="">About us</a></li>
-            <li><a href="">Contact</a></li>
-            <li><a href="">Privacy policy</a></li>
-            <li><a href="">Terms and conditions</a></li>
-            <li><a href="">FAQ</a></li>
-        </ul>
-    </footer>
-
+    <?php include 'footer.php';?>
     <!-- JavaScript for card selection and carousel movement -->
     <script>
         const cards = document.querySelectorAll('.slider-card');

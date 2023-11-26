@@ -13,30 +13,41 @@
 
     main {
         width: 1200px;
-        margin: auto;
+        margin-left: 50px ;
     }
 </style>
 
 <body>
     <?php
     // Include header and games data
+    session_start();
     include 'header.php';
     require 'db/games.php';
+    require_once 'db/connection.php';
     ?>
     <div class="big-container">
         <div class="category">
-            <?php include 'category.php'; ?>
+            <?php include 'category.php'; 
+                if($_SERVER['REQUEST_METHOD']=='POST'){
+                    $games = searchGame($_POST['search']);
+                }
+            ?>
             <a href="http://localhost/project_two/index.php"><h2>Home</h2></a>
         </div>
         <main>
+            <?php   if(!empty($games)){ ?>
             <!-- Display category -->
             <div class="genre-container">
                 <h1>
                     <?php
                     if (!empty($_GET['cat'])) {
                         $cat = htmlspecialchars(urldecode($_GET['cat']));
+                        $_SESSION['lastPage'] = 'http://localhost/project_two/CategoryGames.php?cat='.$cat;
                         echo "$cat";
-                    } else echo 'All';
+                    } else {
+                        echo 'All';
+                        $_SESSION['lastPage'] = 'http://localhost/project_two/CategoryGames.php?cat=';
+                    }
                     ?> games
                 </h1>
             </div>
@@ -107,8 +118,14 @@
                 }
                 ?>
             </div>
+        <?php
+            }else{
+        ?>
+        <h1 style="margin-left: 37.5%">Haven't found</h1>
+        <?php }?>
         </main>
     </div>
+    <?php include 'footer.php';?>
 </body>
 
 </html>

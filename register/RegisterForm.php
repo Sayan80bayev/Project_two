@@ -13,7 +13,7 @@
     ?>
     <div class="container mt-5">
         <div class="col-md-6 offset-md-3">
-            <form action="register.php" method="post">
+            <form action="register.php" method="post" enctype="multipart/form-data">
                 <?php
                     if (isset($_SESSION['message'])) {
                         echo "<h2 style='color:succes;'>".$_SESSION['message']."</h2>";
@@ -44,6 +44,14 @@
                     <label for="confirm_password">Confirm-password:</label>
                     <input type="password" class="form-control" name="confirm_password" id="confirm_password">
                 </div>
+                <div class="form-group">
+                    <label for="avatar">Input your avatar:</label>
+                    <input type="file" class="form-control" name="avatar_input" id="avatar_input">
+                </div>
+                <?php
+                    if ($status == 'error' && isset($errors['avatar']))
+                    echo "<p class='text-danger'>{$errors['avatar']}</p>";
+                ?>
                 <?php
                     if ($status == 'error' && isset($errors['password']))
                     echo "<p class='text-danger'>{$errors['password']}</p>";

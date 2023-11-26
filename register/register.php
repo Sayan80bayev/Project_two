@@ -65,9 +65,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['login'] = "Invalid login!";
     }
-
+    // avatar input
+    $avatar = $_FILES['avatar_input'];
+    $avatar_name = '';
+	if(isset($avatar['name'])){
+		$time = time();
+		$avatar_name = $time . $avatar['name'];
+		$avatar_tmp_name = $avatar['tmp_name'];
+		$avatar_destination = '../images/user/' . $avatar_name;
+		$allowed_format = ['image/png', 'image/jpg', 'image/jpeg'];
+		if(in_array($avatar['type'], $allowed_format)){
+			if($avatar['size'] < 5*1024*1024){
+				move_uploaded_file($avatar_tmp_name, $avatar_destination);
+			}
+			else{
+				$errors['avatar'] = 'Incorrect file, max size is 5mb';
+			}
+		}
+		else{
+				$errors['avatar'] = 'Incorrect file ext, only png, jpeg, jpg';
+		}
+	}
     // Try to register the user
-    $result = registerUser(htmlspecialchars($username), htmlspecialchars($email), htmlspecialchars($password));
+    $result = registerUser(htmlspecialchars($username), htmlspecialchars($email), htmlspecialchars($password), $avatar_name);
     $errors['login'] = isset($result['errors']) ? $result['errors'] : '';
 
     // Check the result of the registration attempt

@@ -5,6 +5,7 @@ session_start();
 // Check if the form is submitted using POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve POST variables
+    $lastPage = $_SESSION['lastPage'] ?? 'http://localhost/project_two/index.php';
     $email = $_POST["email"];
     $password = $_POST["password"];
     $errors = []; // Array to store validation errors
@@ -84,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['status'] = 'success';
 
             // Redirect to the index page upon successful login
-            header("Location: ../index.php");
+            header("Location: ".$lastPage);
             exit();
         } else {
             // Invalid password

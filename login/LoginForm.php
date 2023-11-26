@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form action="login.php" method="POST" id="myForm">
+    <form action="http://localhost/project_two/login/login.php" method="POST" id="myForm">
         <?php
             session_start();
             $errors = $_SESSION["errors"] ?? [];

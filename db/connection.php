@@ -15,13 +15,13 @@ try {
 }
 
 // Function to register a new user
-function registerUser($username, $email, $password)
+function registerUser($username, $email, $password, $avatar_name)
 {
     global $pdo;
     $password = md5($password); // Using MD5 for password hashing
     $errors = []; // Define $errors
-    $query = "INSERT INTO user (user_name, password, user_email, registration_date)
-            VALUES(:name, :password, :email , :registration_date)";
+    $query = "INSERT INTO user (user_name, password, user_email, registration_date, avatar_url)
+            VALUES(:name, :password, :email , :registration_date, :avatar)";
     $stmt = $pdo->prepare($query);
     date_default_timezone_set('Asia/Almaty');
     try {
@@ -30,7 +30,8 @@ function registerUser($username, $email, $password)
             'email' => $email,
             'name' => $username,
             'password' => $password,
-            'registration_date' => date("Y-m-d H:i:s", time())
+            'registration_date' => date("Y-m-d H:i:s", time()),
+            'avatar' => $avatar_name
         ]);
     } catch (PDOException $e) {
         // Handle any exception during user registration
@@ -119,7 +120,11 @@ function getUsersReview($user_id, $game_id)
     $query = "SELECT u.user_name, u.avatar_url, u.user_id, rev.review_date, rev.rating, rev.comment, rev.review_id
             FROM review as rev JOIN user as u on rev.user_id = u.user_id 
             WHERE rev.game_id = $game_id AND u.user_id = $user_id";
+    try{
     $stmt = $pdo->query($query);
+    }catch(PDOException $e){
+        return [];
+    }
     $review = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $review;
 }
@@ -156,6 +161,44 @@ function getCategory()
     global $pdo;
     $query = "SELECT genre FROM game group by genre";
     $stmt = $pdo->query($query);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function updateUser($user_id, $user_name, $avatar ){
+    global $pdo;
+    $query = "UPDATE user SET avatar_url = :avatar, user_name = :user_name WHERE user_id = $user_id";
+    $stmt = $pdo->prepare($query);
+    try{
+    $stmt->execute([
+        "avatar" => $avatar,
+        "user_name" => $user_name
+    ]);
+    } catch(PDOException $e){
+        return $e->getMessage();
+    }
+    return true;
+}
+function deleteReview($review_id){   
+    global $pdo;
+    $query = "DELETE FROM review WHERE review_id = :review_id";
+    $stmt = $pdo->prepare($query);
+    try{
+        $stmt->execute([
+            "review_id" => $review_id
+        ]);
+    }catch(PDOException $e){
+        return $e->getMessage();
+    }
+    return true;
+}
+function searchGame($search){
+    global $pdo;
+    $query = "SELECT*FROM game WHERE game_name like :search or genre like :search";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([
+        "search" => '%'.$search.'%'
+    ]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
