@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // If no changes are made, set an error message and redirect
         $_SESSION['message'] = "You haven't changed anything!";
         $_SESSION['status'] = 'error';
-        header('Location: http://localhost/project_two/review/EditReviewFrom.php?review_id='.$_GET['review_id'].'&game_id='.$_POST['game_id'].'');
+        header('Location: http://localhost/project_two/review/EditReviewFrom.php?review_id='.$_POST['review_id'].'&game_id='.$_POST['game_id'].'');
         exit;
     } else {
         // Attempt to change the review in the database
