@@ -17,6 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate and update user information
     if($currentName === $newName && empty($_FILES['new_avatar']['name'])){
         $errors['message'] = 'You havent changed anything';
+        $_SESSION['status'] = 'error';
+        $_SESSION['errors'] = $errors;
+        header('Location: accounteditform.php');
+        exit();
     }
     if (isset($_POST['new_name'])) {
         if (empty($newName)) {
@@ -29,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Handle avatar upload
-    if(isset($avatar['name'])){
+    if(isset($avatar['name']) && !empty($avatar)){
 		$time = time();
 		$avatar_name = $time.$avatar['name'];
 		$avatar_tmp_name = $avatar['tmp_name'];
