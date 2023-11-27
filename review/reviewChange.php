@@ -9,7 +9,7 @@ require_once '../db/connection.php';
 // Check if the form is submitted using POST method
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the user's existing review for the specified game
-    $reviews = getUsersReview($_SESSION['user_id'], $_POST['game_id']);
+    $reviews = getUsersReview($_SESSION['user_id'], $_POST['game_id'], $_GET['review_id']);
 
     // Check if the submitted data is the same as the existing review
     if ($reviews[0]['rating'] == $_POST['rating'] && $reviews[0]['comment'] == $_POST['review']) {

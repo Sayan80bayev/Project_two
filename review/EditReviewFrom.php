@@ -34,7 +34,7 @@
         $user_id = $_SESSION['user_id'];
         $game_id = $_GET['game_id'] ?? '';
         $review_id = $_GET['review_id'] ?? '';
-        $reviews = getUsersReview($user_id, $game_id);
+        $reviews = getUsersReview($user_id, $game_id, $review_id) ;
         if(!empty($reviews)){
     ?>
 <div class="review_container">

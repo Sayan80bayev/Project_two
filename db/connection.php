@@ -114,12 +114,12 @@ function addReview($game_id, $user_id, $rating, $review)
 }
 
 // Function to get a user's review for a specific game
-function getUsersReview($user_id, $game_id)
+function getUsersReview($user_id, $game_id, $review_id)
 {
     global $pdo;
     $query = "SELECT u.user_name, u.avatar_url, u.user_id, rev.review_date, rev.rating, rev.comment, rev.review_id
             FROM review as rev JOIN user as u on rev.user_id = u.user_id 
-            WHERE rev.game_id = $game_id AND u.user_id = $user_id";
+            WHERE rev.game_id = $game_id AND u.user_id = $user_id AND rev.review_id = $review_id";
     try{
     $stmt = $pdo->query($query);
     }catch(PDOException $e){
