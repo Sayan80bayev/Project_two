@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Handle avatar upload
-    if(isset($avatar['name']) && !empty($avatar)){
+    if(isset($avatar) && !empty($avatar) && $avatar['size'] > 0){
 		$time = time();
 		$avatar_name = $time.$avatar['name'];
 		$avatar_tmp_name = $avatar['tmp_name'];
