@@ -183,7 +183,7 @@
                                         <div class="modal-content">
                                             <span class="close" onclick="closeModal()">&times;</span>
                                             <ul>
-                                                <li><a href="http://localhost/project_two/review/EditReviewFrom.php?review_id=<?= $reviews[$i]['review_id'] ?>& game_id=<?= $_GET['id'] ?>">Edit</a></li>
+                                                <li><a href="http://localhost/project_two/review/EditReviewFrom.php?review_id=<?= $reviews[$i]['review_id'] ?>&game_id=<?= $_GET['id'] ?>">Edit</a></li>
                                                 <li><button href="" onclick="confirmDelete(<?= $reviews[$i]['review_id'] ?>)">Delete</button></li>
                                             </ul>
                                         </div>

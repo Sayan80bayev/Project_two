@@ -5,7 +5,7 @@
     $user_id = $_GET['user_id'];
     $review_id = $_GET['review_id'];
     $game_id = $_GET['game_id'];
-    $review = getUsersReview($user_id, $game_id);
+    $review = getUsersReview($user_id, $game_id, $review_id);
     if($review[0]['user_id'] == $_SESSION['user_id']){
         if(deleteReview($review_id)){
         $_SESSION['message'] = 'Succefully deleted!';

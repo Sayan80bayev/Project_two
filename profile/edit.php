@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $currentName = $_SESSION['user_name'] ?? '';
     $user_id = $_POST['user_id'];
     $avatar = $_FILES['new_avatar'] ?? [];
-    $avatar_name = '';
+    $avatar_name = $_SESSION['avatar_url'];
     
     // Validate and update user information
     if($currentName === $newName && empty($_FILES['new_avatar']['name'])){
