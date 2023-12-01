@@ -70,9 +70,6 @@
                     }
         </style>
 </head>
-
-
-
 <body>
     <?php include 'header.php';?>
     <main>
@@ -137,6 +134,7 @@
                 }
             }
         }   ?>
+        <!-- Reviews container -->
         <h2 style="width: 65%; margin: 15px auto 15px">Reviews</h2>
         <div class="review_container">
             <div class="reviews-block">
@@ -151,24 +149,23 @@
                     for ($i = count($reviews) - 1; $i >= 0; $i--) :
                     ?>
                     <div class="review">
+                        <!-- Name, avatar, rate printing -->
                         <div class="review-title">
                             <div class="review-prof">
                                 <div class="profileLink" style="margin-right:5px">
                                     <img src="http://localhost/project_two/images/user/<?= $reviews[$i]['avatar_url'] ?>">
                                 </div>
-                                <h1><?= $reviews[$i]['user_name'] ?></h1>
-                
-                                
+                                <h1><?= $reviews[$i]['user_name'] ?></h1>   
                             </div>
                             <!-- Coloring the rate -->
                             <?php
-                            if ($reviews[$i]['rating'] <= 10 && $reviews[$i]['rating'] > 6) {
-                                $rating_color = 'green';
-                            } elseif ($reviews[$i]['rating'] <= 6 && $reviews[$i]['rating'] > 4) {
-                                $rating_color = 'yellow';
-                            } else {
-                                $rating_color = 'red';
-                            }
+                                if ($reviews[$i]['rating'] <= 10 && $reviews[$i]['rating'] > 6) {
+                                    $rating_color = 'green';
+                                } elseif ($reviews[$i]['rating'] <= 6 && $reviews[$i]['rating'] > 4) {
+                                    $rating_color = 'yellow';
+                                } else {
+                                    $rating_color = 'red';
+                                }
                             ?>
                             <div>
                                 <div class="rating <?= $rating_color ?>"><h1><?= $reviews[$i]['rating'] ?></h1></div>
@@ -196,22 +193,22 @@
                         <p class="date">Date: <?= $reviews[$i]['review_date'] ?></p>
                     </div>
                     <?php
-                endfor;
-            }
+                    endfor;
+                }
                 ?>
             </div>
-
-            <!-- Review writing-->
+            <!-- Messages printing -->
             <?php
-            if (isset($_SESSION['message']) && $_SESSION['status']=='error'){
-                echo '<h1 style="margin:auto 20px; color:red;">'. $_SESSION['message'] .'</h1>';
-            }
-            elseif(isset($_SESSION['message']) && $_SESSION['status']=='succes'){
-                echo '<h1 style="margin:auto 20px; color:green;">'. $_SESSION['message'] .'</h1>';
-            }
-            $result =array_column($reviews, "user_id");
-            if (!in_array($user_id, $result)):
+                if (isset($_SESSION['message']) && $_SESSION['status']=='error'){
+                    echo '<h1 style="margin:auto 20px; color:red;">'. $_SESSION['message'] .'</h1>';
+                }
+                elseif(isset($_SESSION['message']) && $_SESSION['status']=='succes'){
+                    echo '<h1 style="margin:auto 20px; color:green;">'. $_SESSION['message'] .'</h1>';
+                }
+                $result =array_column($reviews, "user_id");
+                if (!in_array($user_id, $result)):
             ?>
+            <!-- Review writing-->
             <form method="post" action="review/review.php" class="review_form"> 
                 <h1>Write a review</h1>
                 <label for="rating" style="font-size:30px">Rating:</label>
@@ -231,13 +228,13 @@
             <?php endif;?>
         </div>
         <?php
-        unset($_SESSION['status']);
-        unset($_SESSION['message']);
+            unset($_SESSION['status']);
+            unset($_SESSION['message']);
+            include 'footer.php';
         ?>
-    <?php include 'footer.php';?>
     </main>
     <script>
-
+        //carousel scripts
         let offset = 0;
         const sliderLine = document.querySelector('.carousel-line');
         const width = 1003;
@@ -257,6 +254,8 @@
             }
             sliderLine.style.left = -offset + 'px';
         });
+
+        //modal scripts
         document.getElementById('openModalBtn').addEventListener('click', openModal);
         function openModal() {
             const modal = document.getElementById('modal');
@@ -266,6 +265,7 @@
         function closeModal() {
             document.getElementById('modal').style.display = 'none';
         }
+        //delete comfirmation
         function confirmDelete(reviewId) {
         // Use the window.confirm() method to show a confirmation dialog
         const isConfirmed = window.confirm("Are you sure you want to delete this review?");

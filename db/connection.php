@@ -202,3 +202,35 @@ function searchGame($search){
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
+
+function registerGame($game_name, $developers, $old_price, $new_price, $release_date, $photo, $screenshot_1, $screenshot_2, $screenshot_3, $description, $poster, $genre)
+{
+    global $pdo;
+    $query = "INSERT INTO `game` 
+            (`game_name`, `developers`, `old_price`, `new_price`, `release_date`, `photo`, `screenshot_1`, `screenshot_2`, `screenshot_3`, `description`, `poster`, `genre`) 
+            VALUES 
+            (:game_name, :developers, :old_price, :new_price, :release_date, :photo, :screenshot_1, :screenshot_2, :screenshot_3, :description, :poster, :genre)";
+    $stmt = $pdo->prepare($query);
+    try {
+        // Execute the prepared statement with parameters
+        $stmt->execute([
+            "game_name" => $game_name,
+            "developers" => $developers,
+            "old_price" => $old_price,
+            "new_price" => $new_price,
+            "release_date" => $release_date,
+            "photo" => $photo,
+            "screenshot_1" => $screenshot_1,
+            "screenshot_2" => $screenshot_2,
+            "screenshot_3" => $screenshot_3,
+            "description" => $description,
+            "poster" => $poster,
+            "genre" => $genre,
+        ]);
+    } catch (PDOException $e) {
+        // Handle any exception during game registration
+        return ['errors' => $e->getMessage()];
+    }
+
+    return true;
+}

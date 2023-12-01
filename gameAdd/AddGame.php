@@ -1,39 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel='stylesheet' href="http://localhost/project_two/css/styleOfLogin.css">
-</head>
-<body>
-    <?php
-        session_start();
-        if($_SESSION['role']=='developer'):
-    ?>
+<?php
+// Start the session
+session_start();
+require_once('../db/connection.php');
 
-    <form action="process_add_game.php" method="post">
-        <h2>Add a New Game</h2>
-        <div class="form-group">
-            <label for="game_name">Game Name:</label>
-            <input type="text" name="game_name" class="form-control"  required>
-        </div>
-        <input type="hidden" name="developers" value=<?=$_SESSION['user_name'] ?? '' ;?> >
-        <div class="form-group">
-            <label for="old_price">Old Price:</label>
-            <input type="number" name="old_price" class="form-control"  step="0.01" required>
-        </div>
-        <div class="form-group">
-            <label for="new_price">Sale Price:</label>
-            <input type="number" name="new_price" class="form-control"  step="0.01">
-        </div>
-        <div class="form-group">
-            <label for="genre">Genre:</label>
-            <input type="text" name="genre" class="form-control"  required>
-        </div>
-        <input type="submit" value="Add Game" class='btn btn-primary'>
-    </form>
-    <?php
-        endif;
-    ?>
-</body>
-</html>
+// Check if the form is submitted using POST method
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve form data
+    $game_name = $_POST['game_name'] ?? '';
+    $developers = $_POST['developers'] ?? '';
+    $old_price = $_POST['old_price'] ?? '';
+    $new_price = $_POST['new_price'] ?? $_POST['old_price'];
+    $release_date = $_POST['release_date'] ?? '';
+    $description = $_POST['description'] ?? '';
+    $genre = $_POST['genre'] ?? '';
+
+    // Assigning from FILES
+    $filesArray = array(
+        'photo' => $_FILES['photo'],
+        'screenshot_1' => $_FILES['screenshot_1'],
+        'screenshot_2' => $_FILES['screenshot_2'],
+        'screenshot_3' => $_FILES['screenshot_3'],
+        'poster' => $_FILES['poster']
+    );    
+    $errors = [];
+    
+    //Checking images
+    function processImage($file, $destination){
+            $time = time();
+            $maxSize = 5 * 1024 * 1024; // 5MB in bytes
+            $allowed_format = ['image/png', 'image/jpg', 'image/jpeg'];
+            $file_name = $time . $file['name'];
+            $file_tmp_name = $file['tmp_name'];
+            $file_destination = '../images/'.$destination.'/' . $file_name;
+            // Check if the file size is within the allowed limit
+            if(in_array($file['type'], $allowed_format)){
+                if ($file['size'] > $maxSize) {
+                    return 'Max size is 5mb';
+                }else{
+                    move_uploaded_file($file_tmp_name, $file_destination);
+                }
+            }
+            else{
+                return "Incorrect file ext, only png, jpeg, jpg";
+            }
+            return [true, $file_destination];
+        }
+    foreach ($filesArray as $key => $file) {
+        if(!empty($file['name'])){
+
+            $destination = ($key == 'photo' || $key == 'poster') ? 'images' : 'screenshots';
+            $result = processImage($file, $destination);
+            if ($result[0] !== true) {
+                $errors[$key] = $result;
+            }else{
+                $file = $result[1];
+            }
+        }
+    }
+    $result = '';
+    if(empty($errors)){
+        // Try to register the game
+        $result = registerGame(
+            htmlspecialchars($game_name),
+            htmlspecialchars($developers),
+            htmlspecialchars($old_price),
+            htmlspecialchars($new_price),
+            htmlspecialchars($release_date),
+            $filesArray['photo'],
+            $filesArray['screenshot_1'],
+            $filesArray['screenshot_2'],
+            $filesArray['screenshot_3'],
+            htmlspecialchars($description),
+            $filesArray['poster'],
+            htmlspecialchars($genre)
+        );
+    }
+    if ($result == true && empty($errors)) {
+        $_SESSION['message'] = 'Game successfully registered!';
+        $_SESSION['status'] = 'success';
+        header('Location: addgameform.php');
+        exit();
+    } else {
+        $_SESSION['status'] = 'error';
+        $_SESSION['errors'] = $errors;
+        $_SESSION['errors']['result'] = $result['errors'];
+        header('Location: addgameform.php');
+        exit();
+    }
+}
+?>
