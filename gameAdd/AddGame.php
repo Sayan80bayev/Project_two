@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $file_name = $time . $file['name'];
             $file_tmp_name = $file['tmp_name'];
             $file_destination = '../images/'.$destination.'/' . $file_name;
+            $file_destination_base = 'images/'.$destination.'/' . $file_name;
             // Check if the file size is within the allowed limit
             if(in_array($file['type'], $allowed_format)){
                 if ($file['size'] > $maxSize) {
@@ -43,20 +44,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             else{
                 return "Incorrect file ext, only png, jpeg, jpg";
             }
-            return [true, $file_destination];
-        }
+            return [true, $file_destination_base];
+    }
+    $photo = '';
+    $screenshot_1 = '';
+    $screenshot_2 = '';
+    $screenshot_3 = '';
+    $poster = '';
     foreach ($filesArray as $key => $file) {
-        if(!empty($file['name'])){
+        if (!empty($file['name'])) {
+            // Include the file type in the destination path
+            $destination = '';
+            
+            if ($key == 'photo' || $key == 'poster') {
+                $destination = $key;
+            } elseif (strpos($key, 'screenshot_') === 0) {
+                $destination = 'screenshots';
+            }
 
-            $destination = ($key == 'photo' || $key == 'poster') ? 'images' : 'screenshots';
             $result = processImage($file, $destination);
+
             if ($result[0] !== true) {
                 $errors[$key] = $result;
-            }else{
-                $file = $result[1];
+            } else {
+                // Update variables based on file type
+                switch ($key) {
+                    case 'photo':
+                        $photo = $result[1]; // Assuming $result[1] contains the updated file path
+                        break;
+                    case 'screenshot_1':
+                        $screenshot_1 = $result[1];
+                        break;
+                    case 'screenshot_2':
+                        $screenshot_2 = $result[1];
+                        break;
+                    case 'screenshot_3':
+                        $screenshot_3 = $result[1];
+                        break;
+                    case 'poster':
+                        $poster = $result[1];
+                        break;
+                    default:
+                        // Handle any other cases if needed
+                        break;
+                }
             }
         }
     }
+
+
+
     $result = '';
     if(empty($errors)){
         // Try to register the game
@@ -66,12 +103,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             htmlspecialchars($old_price),
             htmlspecialchars($new_price),
             htmlspecialchars($release_date),
-            $filesArray['photo'],
-            $filesArray['screenshot_1'],
-            $filesArray['screenshot_2'],
-            $filesArray['screenshot_3'],
+            $photo,
+            $screenshot_1,
+            $screenshot_2,
+            $screenshot_3,
             htmlspecialchars($description),
-            $filesArray['poster'],
+            $poster,
             htmlspecialchars($genre)
         );
     }
