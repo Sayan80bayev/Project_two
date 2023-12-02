@@ -65,7 +65,7 @@
     function deleteGame($game_id){
         global $pdo;
         $query = "
-        DELETE FROM `review` WHERE `game_id` =:game_id;
+        DELETE FROM `review` WHERE `game_id` =:game_id
         DELETE FROM `game` WHERE `game_id` =:game_id;";
         $stmt = $pdo->prepare($query);
         try{
