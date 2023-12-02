@@ -65,15 +65,17 @@
     function deleteGame($game_id){
         global $pdo;
         $query = "
-        DELETE FROM `review` WHERE `game_id` =:game_id
-        DELETE FROM `game` WHERE `game_id` =:game_id;";
+        SET FOREIGN_KEY_CHECKS=0;
+        DELETE FROM `review` WHERE `game_id` =:game_id;
+        DELETE FROM `game` WHERE `game_id` =:game_id;
+        SET FOREIGN_KEY_CHECKS=1;";
         $stmt = $pdo->prepare($query);
         try{
             $stmt->execute([
                 "game_id" => $game_id
             ]);
         }catch(PDOException $e){
-            return false;
+            return [false, $e];
         }
         return true;
     }

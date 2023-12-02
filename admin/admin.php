@@ -219,7 +219,7 @@
                     </form>
                     <td>
                         <form action="delete/deleteGame.php" method="post">
-                            <input type="hidden" value="<?=$game['game_id']?>">
+                            <input type="hidden" name="game_id" value="<?=$game['game_id']?>">
                             <input type="submit" value="Delete">
                         </form>
                     </td>
