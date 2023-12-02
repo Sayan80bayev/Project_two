@@ -22,8 +22,8 @@
     // Include header and games data
     session_start();
     include 'header.php';
-    require 'db/games.php';
     require_once 'db/connection.php';
+    $games = getGames();
     ?>
     <div class="big-container">
         <div class="category">

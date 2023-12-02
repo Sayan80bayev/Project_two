@@ -15,21 +15,21 @@
 
     function getUsers(){
         global $pdo;
-        $query = "SELECT*FROM user";
+        $query = "SELECT*FROM users";
         $stmt = $pdo->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
     function getReviews(){
         global $pdo;
-        $query = "SELECT*FROM review";
+        $query = "SELECT*FROM reviews";
         $stmt = $pdo->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
     function getGames(){
         global $pdo;
-        $query = "SELECT*FROM game";
+        $query = "SELECT*FROM games";
         $stmt = $pdo->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -37,8 +37,8 @@
     function deleteUser($user_id){
         global $pdo;
         $query = "
-        DELETE FROM `review` WHERE `user_id` =:user_id;
-        DELETE FROM `user` WHERE `user_id` =:user_id;";
+        DELETE FROM `reviews` WHERE `user_id` =:user_id;
+        DELETE FROM `users` WHERE `user_id` =:user_id;";
         $stmt = $pdo->prepare($query);
         try{
             $stmt->execute([
@@ -51,7 +51,7 @@
     }
     function deleteReview($review_id){
         global $pdo;
-        $query = "DELETE FROM `review` WHERE `review_id` =:review_id;";
+        $query = "DELETE FROM `reviews` WHERE `review_id` =:review_id;";
         $stmt = $pdo->prepare($query);
         try{
             $stmt->execute([
@@ -66,8 +66,8 @@
         global $pdo;
         $query = "
         SET FOREIGN_KEY_CHECKS=0;
-        DELETE FROM `review` WHERE `game_id` =:game_id;
-        DELETE FROM `game` WHERE `game_id` =:game_id;
+        DELETE FROM `reviews` WHERE `game_id` =:game_id;
+        DELETE FROM `games` WHERE `game_id` =:game_id;
         SET FOREIGN_KEY_CHECKS=1;";
         $stmt = $pdo->prepare($query);
         try{
@@ -82,7 +82,7 @@
     function updateUser($user_id, $user_name, $user_email, $avatar_url, $password, $role) {
         global $pdo;
         $query = "
-            UPDATE user 
+            UPDATE users
             SET user_name = :user_name,
                 user_email = :user_email,
                 avatar_url = :avatar_url,
@@ -108,7 +108,7 @@
     function updateGame($game_id, $game_name, $developers, $old_price, $new_price, $release_date, $photo, $screenshot_1, $screenshot_2, $screenshot_3, $description, $poster, $genre) {
         global $pdo;
         $query = "
-            UPDATE game
+            UPDATE games
             SET game_name = :game_name,
                 developers = :developers,
                 old_price = :old_price,
@@ -148,7 +148,7 @@
     function updateReview($review_id, $game_id, $user_id, $rating, $comment) {
         global $pdo;
         $query = "
-            UPDATE review
+            UPDATE reviews
             SET game_id = :game_id,
                 user_id = :user_id,
                 rating = :rating,

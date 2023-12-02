@@ -17,8 +17,8 @@
         session_start();
         $_SESSION['lastPage'] = 'http://localhost/project_two/index.php';
         include 'header.php';
-        include 'db/games.php';
         require_once 'db/connection.php';
+        $games = getGames();
     ?>
 
     <!-- Main Content -->

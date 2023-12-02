@@ -39,7 +39,8 @@
         // Start session and include games data
         session_start();
         // $_SESSION['lastPage'] = 'http://localhost/project_two/index.php';
-            include 'db/games.php';
+            require_once 'db/connection.php';
+            $games = getGames();
             $uses_id = $_SESSION['user_id'] ?? '';
             $lastPage = $_SESSION['lastPage'] ?? 'http://localhost/project_two/index.php';
             $reviews = getReviews($_GET['id']); //here is the game id

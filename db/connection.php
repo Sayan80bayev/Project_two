@@ -14,13 +14,20 @@ try {
     echo $exception->getMessage();
 }
 
+function getGames(){
+    global $pdo;    
+    $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo, g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, gr.genre_name as genre FROM games as g JOIN genres as gr ON gr.genre_id=g.genre";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 // Function to register a new user
 function registerUser($username, $email, $password, $avatar_name)
 {
     global $pdo;
     $password = md5($password); // Using MD5 for password hashing
     $errors = []; // Define $errors
-    $query = "INSERT INTO user (user_name, password, user_email, registration_date, avatar_url)
+    $query = "INSERT INTO users (user_name, password, user_email, registration_date, avatar_url)
             VALUES(:name, :password, :email , :registration_date, :avatar)";
     $stmt = $pdo->prepare($query);
     date_default_timezone_set('Asia/Almaty');
@@ -46,7 +53,7 @@ function registerUser($username, $email, $password, $avatar_name)
 function loginUser($email, $password)
 {
     global $pdo;
-    $query = "SELECT * FROM user WHERE user_email = '$email'";
+    $query = "SELECT * FROM users WHERE user_email = '$email'";
     $stmt = $pdo->query($query);
     $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $user;
@@ -56,7 +63,7 @@ function loginUser($email, $password)
 function changePassword($email, $password)
 {
     global $pdo;
-    $query = "UPDATE user SET password = :password WHERE user_email = :email";
+    $query = "UPDATE users SET password = :password WHERE user_email = :email";
     $stmt = $pdo->prepare($query);
 
     try {
@@ -79,7 +86,7 @@ function getReviews($game_id)
 {
     global $pdo;
     $query = "SELECT u.user_name, u.avatar_url, u.user_id, rev.review_date, rev.rating, rev.comment , rev.review_id
-            FROM review as rev JOIN user as u on rev.user_id = u.user_id 
+            FROM reviews as rev JOIN users as u on rev.user_id = u.user_id 
             WHERE rev.game_id = $game_id";
     $stmt = $pdo->query($query);
     $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -90,7 +97,7 @@ function getReviews($game_id)
 function addReview($game_id, $user_id, $rating, $review)
 {
     global $pdo;
-    $query = "INSERT INTO `review` (`game_id`, `user_id`, `rating`, `comment`, `review_date`) 
+    $query = "INSERT INTO `reviews` (`game_id`, `user_id`, `rating`, `comment`, `review_date`) 
             VALUES (:game_id, :user_id, :rating, :comment, :review_date)";
     $stmt = $pdo->prepare($query);
 
@@ -118,7 +125,7 @@ function getUsersReview($user_id, $game_id, $review_id)
 {
     global $pdo;
     $query = "SELECT u.user_name, u.avatar_url, u.user_id, rev.review_date, rev.rating, rev.comment, rev.review_id
-            FROM review as rev JOIN user as u on rev.user_id = u.user_id 
+            FROM reviews as rev JOIN users as u on rev.user_id = u.user_id 
             WHERE rev.game_id = $game_id AND u.user_id = $user_id AND rev.review_id = $review_id";
     try{
     $stmt = $pdo->query($query);
@@ -133,7 +140,7 @@ function getUsersReview($user_id, $game_id, $review_id)
 function changeReview($game_id, $user_id, $review_id, $rating, $comment)
 {
     global $pdo;
-    $query = "UPDATE review SET comment = :comment , rating= :rating
+    $query = "UPDATE reviews SET comment = :comment , rating= :rating
             WHERE game_id = :game_id AND user_id = :user_id
             AND  review_id = :review_id";
     $stmt = $pdo->prepare($query);
@@ -159,7 +166,7 @@ function changeReview($game_id, $user_id, $review_id, $rating, $comment)
 function getCategory()
 {
     global $pdo;
-    $query = "SELECT genre FROM game group by genre";
+    $query = "SELECT genre_name FROM genres";
     $stmt = $pdo->query($query);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
@@ -167,7 +174,7 @@ function getCategory()
 
 function updateUser($user_id, $user_name, $avatar ){
     global $pdo;
-    $query = "UPDATE user SET avatar_url = :avatar, user_name = :user_name WHERE user_id = $user_id";
+    $query = "UPDATE users SET avatar_url = :avatar, user_name = :user_name WHERE user_id = $user_id";
     $stmt = $pdo->prepare($query);
     try{
     $stmt->execute([
@@ -181,7 +188,7 @@ function updateUser($user_id, $user_name, $avatar ){
 }
 function deleteReview($review_id){   
     global $pdo;
-    $query = "DELETE FROM review WHERE review_id = :review_id";
+    $query = "DELETE FROM reviews WHERE review_id = :review_id";
     $stmt = $pdo->prepare($query);
     try{
         $stmt->execute([
@@ -194,7 +201,7 @@ function deleteReview($review_id){
 }
 function searchGame($search){
     global $pdo;
-    $query = "SELECT*FROM game WHERE game_name like :search or genre like :search";
+    $query = "SELECT*FROM games WHERE game_name like :search or genre like :search";
     $stmt = $pdo->prepare($query);
     $stmt->execute([
         "search" => '%'.$search.'%'
@@ -206,7 +213,7 @@ function searchGame($search){
 function registerGame($game_name, $developers, $old_price, $new_price, $release_date, $photo, $screenshot_1, $screenshot_2, $screenshot_3, $description, $poster, $genre)
 {
     global $pdo;
-    $query = "INSERT INTO `game` 
+    $query = "INSERT INTO `games` 
             (`game_name`, `developers`, `old_price`, `new_price`, `release_date`, `photo`, `screenshot_1`, `screenshot_2`, `screenshot_3`, `description`, `poster`, `genre`) 
             VALUES 
             (:game_name, :developers, :old_price, :new_price, :release_date, :photo, :screenshot_1, :screenshot_2, :screenshot_3, :description, :poster, :genre)";

@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'screenshot_1' => $_FILES['screenshot_1'],
         'screenshot_2' => $_FILES['screenshot_2'],
         'screenshot_3' => $_FILES['screenshot_3'],
-        'poster' => $_FILES['poster']
+        'posters' => $_FILES['poster']
     );    
     $errors = [];
     
@@ -50,13 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $screenshot_1 = '';
     $screenshot_2 = '';
     $screenshot_3 = '';
-    $poster = '';
+    $posters = '';
     foreach ($filesArray as $key => $file) {
         if (!empty($file['name'])) {
             // Include the file type in the destination path
             $destination = '';
             
-            if ($key == 'photo' || $key == 'poster') {
+            if ($key == 'photo' || $key == 'posters') {
                 $destination = $key;
             } elseif (strpos($key, 'screenshot_') === 0) {
                 $destination = 'screenshots';
@@ -81,8 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     case 'screenshot_3':
                         $screenshot_3 = $result[1];
                         break;
-                    case 'poster':
-                        $poster = $result[1];
+                    case 'posters':
+                        $posters = $result[1];
                         break;
                     default:
                         // Handle any other cases if needed
@@ -93,7 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
 //update
-
     $result = '';
     if(empty($errors)){
         // Try to register the game
@@ -108,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $screenshot_2,
             $screenshot_3,
             htmlspecialchars($description),
-            $poster,
+            $posters,
             htmlspecialchars($genre)
         );
     }
