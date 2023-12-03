@@ -78,7 +78,7 @@
     <input type="text" id="old_price" name="old_price" >
 
     <label for="new_price">Sale Price:</label>
-    <input type="text" id="new_price" name="new_price">
+    <input type="text" id="new_price" name="new_price" value="">
 
     <label for="release_date">Release Date:</label>
     <input type="date" id="release_date" name="release_date" >

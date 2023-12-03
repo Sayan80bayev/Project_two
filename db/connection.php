@@ -16,7 +16,7 @@ try {
 
 function getGames(){
     global $pdo;    
-    $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo, g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, gr.genre_name as genre FROM games as g JOIN genres as gr ON gr.genre_id=g.genre";
+    $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo, g.screenshot_1, g.screenshot_2, g.screenshot_3, g.description,g.poster, gr.genre_name as genre FROM games as g JOIN genres as gr ON gr.genre_id=g.genre";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $game_name = $_POST['game_name'] ?? '';
     $developers = $_POST['developers'] ?? '';
     $old_price = $_POST['old_price'] ?? '';
-    $new_price = $_POST['new_price'] ?? $_POST['old_price'];
+    $new_price = ($_POST['new_price'] == '0.00') ? $new_price : $old_price;
     $release_date = $_POST['release_date'] ?? '';
     $description = $_POST['description'] ?? '';
     $genre = $_POST['genre'] ?? '';
