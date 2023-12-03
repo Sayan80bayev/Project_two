@@ -155,6 +155,7 @@ a :hover{
 }
 
 .menu-icon {
+    border-radius: 2px;
     width: 30px;
     height: 4px;
     background-color: #f8e6de;
@@ -165,6 +166,8 @@ a :hover{
 
 .menu-icon::before,
 .menu-icon::after {
+    border-radius: 2px;
+
     content: '';
     width: 100%;
     height: 100%;
@@ -411,7 +414,9 @@ footer li {
 .category h1{
     margin: 0;
 }
-.category h2{
+.category a{
     margin: 20px 0 0 0;
+}
+.category h2{
     font-size: 15px;
 }

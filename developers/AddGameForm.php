@@ -27,6 +27,7 @@
       grid-template-columns: repeat(2, 1fr);
       grid-gap: 20px;
       margin: auto;
+      height: 100%;
     }
 
     label {
@@ -56,7 +57,11 @@
   </style>
 </head>
 <body>
-  <?php session_start();?>
+  <?php 
+    session_start();
+    require_once('../db/checkDev.php');
+    require_once('../db/connection.php');
+  ?>
   <form action="addGame.php" method="post" enctype="multipart/form-data">
     
     <label for="game_name">Game Name:</label>
@@ -92,8 +97,14 @@
 
 
     <label for="genre">Genre:</label>
-    <input type="text" id="genre" name="genre">
-
+    <select name="genre">
+                    <?php
+                    $genres = getGernres();
+                    foreach($genres as $genre )  {
+                        echo '<option value="' . $genre['genre_id'] . '">' . $genre['genre_name'] . '</option>';
+                    }
+                    ?>
+    </select>
     <button type="submit">Add Game</button>
     <?php
   $status = $_SESSION['status']?? '';

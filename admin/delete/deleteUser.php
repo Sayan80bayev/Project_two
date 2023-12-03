@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require_once '../../db/checkAdmin.php';
     require_once '../adminConnection.php';
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $result = deleteUser($_POST['user_id']);

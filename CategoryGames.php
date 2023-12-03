@@ -41,7 +41,7 @@
                 <h1>
                     <?php
                     if (!empty($_GET['cat'])) {
-                        $cat = htmlspecialchars(urldecode($_GET['cat']));
+                        $cat = htmlspecialchars($_GET['cat']);
                         $_SESSION['lastPage'] = 'http://localhost/project_two/CategoryGames.php?cat='.$cat;
                         echo "$cat";
                     } else {

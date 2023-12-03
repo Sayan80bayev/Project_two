@@ -1,6 +1,7 @@
 <?php
 // Start the session
 session_start();
+require_once('../db/checkDev.php');
 require_once('../db/connection.php');
 
 // Check if the form is submitted using POST method
@@ -14,6 +15,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = $_POST['description'] ?? '';
     $genre = $_POST['genre'] ?? '';
 
+    $errors = [];
+    if (empty($old_price)) {
+        $errors['old_price'] = ' Price cannot be empty';
+    }
+    if (empty($game_name)) {
+        $errors['Name'] = ' Name cannot be empty';
+    }
+    if (empty($release_date)) {
+        $errors['Date'] = ' Date cannot be empty';
+    }
+    if (empty($description)) {
+        $errors['Description'] = ' Description cannot be empty';
+    }
+    if (empty($genre)) {
+        $errors['Genre'] = ' Genre cannot be empty';
+    }
     // Assigning from FILES
     $filesArray = array(
         'photo' => $_FILES['photo'],
@@ -22,12 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'screenshot_3' => $_FILES['screenshot_3'],
         'posters' => $_FILES['poster']
     );    
-    $errors = [];
     
     //Checking images
     function processImage($file, $destination){
             $time = time();
-            $maxSize = 5 * 1024 * 1024; // 5MB in bytes
+            $maxSize = 20 * 1024 * 1024; // 20MB in bytes
             $allowed_format = ['image/png', 'image/jpg', 'image/jpeg'];
             $file_name = $time . $file['name'];
             $file_tmp_name = $file['tmp_name'];
@@ -36,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Check if the file size is within the allowed limit
             if(in_array($file['type'], $allowed_format)){
                 if ($file['size'] > $maxSize) {
-                    return 'Max size is 5mb';
+                    return 'Max size is 20mb';
                 }else{
                     move_uploaded_file($file_tmp_name, $file_destination);
                 }
@@ -119,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $_SESSION['status'] = 'error';
         $_SESSION['errors'] = $errors;
-        $_SESSION['errors']['result'] = $result['errors'];
+        $_SESSION['errors']['result'] = $result ?? '';
         header('Location: addgameform.php');
         exit();
     }

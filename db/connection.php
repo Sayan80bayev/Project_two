@@ -201,7 +201,7 @@ function deleteReview($review_id){
 }
 function searchGame($search){
     global $pdo;
-    $query = "SELECT*FROM games WHERE game_name like :search or genre like :search";
+    $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo, g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, gr.genre_name as genre FROM games as g JOIN genres as gr ON gr.genre_id=g.genre WHERE g.game_name like :search or genre like :search";
     $stmt = $pdo->prepare($query);
     $stmt->execute([
         "search" => '%'.$search.'%'
@@ -236,8 +236,16 @@ function registerGame($game_name, $developers, $old_price, $new_price, $release_
         ]);
     } catch (PDOException $e) {
         // Handle any exception during game registration
-        return ['errors' => $e->getMessage()];
+        return $e->getMessage();
     }
 
     return true;
-}
+    }
+    function getGernres(){
+            global $pdo;
+            $query = "SELECT*FROM genres";
+            $stmt = $pdo->query($query);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+    }
+

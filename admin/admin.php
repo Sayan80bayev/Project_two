@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php 
+    session_start();
+    require_once '../db/checkAdmin.php';
+    ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Админ-панель</title>
@@ -74,7 +78,7 @@
     <div class="tab" onclick="openTab('reviews')">Отзывы</div>
     <div class="tab" onclick="openTab('games')">Игры</div>
 </div>
-<?php           session_start();
+<?php           
                 if (isset($_SESSION['message']) && $_SESSION['status']=='error'){
                     echo '<h1 style="margin:auto 20px; color:red;">'. $_SESSION['message'] .'</h1>';
                 }
