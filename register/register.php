@@ -67,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     // avatar input
     $avatar = $_FILES['avatar_input'];
-    $avatar_name = '';
-	if(isset($avatar['name'])){
+    $avatar_name = 'no-avatar.jpg';
+	if(isset($avatar['name']) && !empty($avatar['name'])){
 		$time = time();
 		$avatar_name = $time . $avatar['name'];
 		$avatar_tmp_name = $avatar['tmp_name'];

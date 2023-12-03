@@ -4,20 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game Form</title>
+  <link rel="stylesheet" href="http://localhost/project_two/css/style.css">
   <style>
     body {
+      background-color: #0b0e14;
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
       margin: 0;
       padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
+      color: #f8e6de;
+
     }
 
-    form {
-      background-color: #fff;
+    .game_add {
+      background-color: #1D2128;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -27,6 +30,7 @@
       grid-template-columns: repeat(2, 1fr);
       grid-gap: 20px;
       margin: auto;
+      margin-top: 70px;
       height: 100%;
     }
 
@@ -41,9 +45,9 @@
       box-sizing: border-box;
     }
 
-    button {
+    .game_add button {
       grid-column: span 2; /* Make the button span both columns */
-      background-color: #4caf50;
+      background-color: #B87333;
       color: #fff;
       padding: 10px;
       border: none;
@@ -51,8 +55,8 @@
       cursor: pointer;
     }
 
-    button:hover {
-      background-color: #45a049;
+    .game_add button:hover {
+      background-color: #ED500A;
     }
   </style>
 </head>
@@ -61,8 +65,9 @@
     session_start();
     require_once('../db/checkDev.php');
     require_once('../db/connection.php');
+    include '../header.php';
   ?>
-  <form action="addGame.php" method="post" enctype="multipart/form-data">
+  <form action="addGame.php" method="post" enctype="multipart/form-data" class ="game_add">
     
     <label for="game_name">Game Name:</label>
     <input type="text" id="game_name" name="game_name" >

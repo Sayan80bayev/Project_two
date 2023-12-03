@@ -15,7 +15,7 @@
 
     function getUsers(){
         global $pdo;
-        $query = "SELECT*FROM users";
+        $query = "SELECT u.user_id, u.user_name, u.password,u.registration_date, u.user_email, u.avatar_url, r.role_name as role, r.role_id FROM users as u JOIN roles as r on u.role = r.role_id";
         $stmt = $pdo->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -29,7 +29,10 @@
     }
     function getGames(){
         global $pdo;
-        $query = "SELECT*FROM games";
+        $query = "SELECT g.`game_id`, g.`game_name`, g.`developers`, g.`old_price`, g.`new_price`, g.`release_date`, g.`photo`, g.`screenshot_1`, g.`screenshot_2`, g.`screenshot_3`, g.`description`, g.`poster`, gr.`genre_name` as genre
+        FROM games AS g
+        JOIN genres AS gr ON g.`genre` = gr.`genre_id`;
+        " ;
         $stmt = $pdo->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -169,6 +172,17 @@
         }
         return true;
     }
-    
+    function getRoles(){
+        global $pdo;
+        $query = "SELECT*FROM roles";
+        $stmt =$pdo->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    function getGenres(){
+        global $pdo;
+        $query = "SELECT*FROM genres";
+        $stmt =$pdo->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
 ?>

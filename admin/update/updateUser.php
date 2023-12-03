@@ -9,7 +9,7 @@
             $result = updateUser($_POST['user_id'], $_POST['user_name'], $_POST['user_email'], $_POST['avatar_url'], md5($_POST['password']), $_POST['role']);
         }
         if($result){
-            $_SESSION['status'] = "succes";
+            $_SESSION['status'] = "success";
             $_SESSION['message'] = 'Successfully updated!';
             header("Location: http://localhost/project_two/admin/admin.php");
             exit;

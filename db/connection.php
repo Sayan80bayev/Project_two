@@ -53,11 +53,22 @@ function registerUser($username, $email, $password, $avatar_name)
 function loginUser($email, $password)
 {
     global $pdo;
-    $query = "SELECT * FROM users WHERE user_email = '$email'";
-    $stmt = $pdo->query($query);
+
+    $query = "SELECT u.user_id, u.user_name, u.password, u.user_email, u.avatar_url, r.role_name as role
+              FROM users as u
+              JOIN roles as r on u.role = r.role_id
+              WHERE u.user_email = :email AND u.password = :password";
+
+    $stmt = $pdo->prepare($query);
+
+    // Assuming $password is already hashed
+    $stmt->execute([':email' => $email, ':password' => $password]);
+
     $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     return $user;
 }
+
 
 // Function to change user password
 function changePassword($email, $password)
@@ -248,4 +259,5 @@ function registerGame($game_name, $developers, $old_price, $new_price, $release_
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
     }
-
+    
+?>
