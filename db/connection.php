@@ -259,5 +259,12 @@ function registerGame($game_name, $developers, $old_price, $new_price, $release_
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
     }
-    
+    function getUsersAllReviews($user_id){
+        global $pdo;
+        $query = "SELECT u.user_name, u.avatar_url, u.user_id, rev.review_date, rev.rating, rev.comment, rev.review_id, rev.game_id
+        FROM reviews as rev JOIN users as u on rev.user_id = u.user_id 
+        WHERE u.user_id = $user_id ";
+        $stmt = $pdo-> query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 ?>

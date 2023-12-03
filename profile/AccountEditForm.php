@@ -19,7 +19,7 @@
         $name = $_SESSION['user_name'] ?? ''; // Replace with your actual session variable for the user's name
         $errors = $_SESSION['errors'] ?? [];
         $status = $_SESSION['status'] ?? '';
-        $succes = $_SESSION['succes'] ?? [];
+        $succes = $_SESSION['success'] ?? [];
         ?>
 
         <div class="message">
@@ -76,7 +76,7 @@
     include '../footer.php'; 
     unset($_SESSION['errors']);
     unset($_SESSION['status']);
-    unset($_SESSION['succes']);
+    unset($_SESSION['success']);
     ?>
 </body>
 

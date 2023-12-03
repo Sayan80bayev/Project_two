@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }else{
         updateUser($user_id, $currentName, $avatar_name);
         $_SESSION['status'] = 'succes';
-        $_SESSION['succes']['message'] = 'Update!' ;
+        $_SESSION['success']['message'] = 'Update!' ;
         // Redirect to the profile page after updating
         header('Location: accounteditform.php');
         exit();
