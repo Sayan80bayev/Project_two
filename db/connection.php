@@ -212,7 +212,7 @@ function deleteReview($review_id){
 }
 function searchGame($search){
     global $pdo;
-    $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo, g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, gr.genre_name as genre FROM games as g JOIN genres as gr ON gr.genre_id=g.genre WHERE g.game_name like :search or genre like :search";
+    $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo, g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, gr.genre_name FROM games as g JOIN genres as gr ON gr.genre_id=g.genre WHERE g.game_name like :search or gr.genre_name like :search";
     $stmt = $pdo->prepare($query);
     $stmt->execute([
         "search" => '%'.$search.'%'
