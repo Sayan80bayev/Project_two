@@ -267,4 +267,10 @@ function registerGame($game_name, $developers, $old_price, $new_price, $release_
         $stmt = $pdo-> query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    function getLibraryGames($user_id){
+        global $pdo;
+        $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo, g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, g.description, gr.genre_name as genre FROM games as g JOIN genres as gr ON gr.genre_id=g.genre JOIN library as l ON g.game_id = l.game_id WHERE l.user_id = $user_id" ;
+        $stmt = $pdo->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 ?>

@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Структура таблицы `game`
 --
 
-CREATE TABLE `game` (
+CREATE TABLE `games` (
   `game_id` int(11) NOT NULL,
   `game_name` varchar(256) NOT NULL,
   `developers` varchar(256) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE `game` (
 -- Дамп данных таблицы `game`
 --
 
-INSERT INTO `game` (`game_id`, `game_name`, `developers`, `old_price`, `new_price`, `release_date`, `photo`, `screenshot_1`, `screenshot_2`, `screenshot_3`, `description`, `poster`, `genre`) VALUES
+INSERT INTO `games` (`game_id`, `game_name`, `developers`, `old_price`, `new_price`, `release_date`, `photo`, `screenshot_1`, `screenshot_2`, `screenshot_3`, `description`, `poster`, `genre`) VALUES
 (1, 'Minecraft', 'Mojang Studios', 26.95, 26.95, '2011-11-18', 'images/photo/minecraft.jpg', 'images/Screenshots/minecraft_1.png', 'images/Screenshots/minecraft_2.png', 'images/Screenshots/minecraft_3.png', 'Minecraft is a sandbox video game...', 'images/Posters/MINECRAFT_POSTER.jpg', 'Sandbox'),
 (2, 'Grand Theft Auto V', 'Rockstar North', 29.99, 14.99, '2013-09-17', 'images/photo/GTAV4K.jpg', 'images/Screenshots/gtav_1.png', 'images/Screenshots/gtav_2.png', 'images/Screenshots/gtav_3.png', 'Grand Theft Auto V is an action-adventure game...', 'images/Posters/GTAV_POSTER.jpg', 'Action'),
 (3, 'The Elder Scrolls V: Skyrim', 'Bethesda Game Studios', 19.99, 9.99, '2011-11-11', 'images/photo/Skyrim.jpg', 'images/Screenshots/skyrim_1.png', 'images/Screenshots/skyrim_2.png', 'images/Screenshots/skyrim_3.png', 'The Elder Scrolls V: Skyrim is an open-world action role-playing game...', 'images/Posters/SKYRIM_POSTER.jpg', 'RPG'),
