@@ -3,6 +3,8 @@
 
 <head>
     <title>Document</title>
+    <link rel="icon" type="image/svg+xml" href="http://localhost/project_two/images/gamepad-solid.svg">
+
     <!-- Include CSS files -->
     <link href="http://localhost/project_two/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="http://localhost/project_two/css/fullPage.css">
@@ -40,30 +42,17 @@
         session_start();
         // $_SESSION['lastPage'] = 'http://localhost/project_two/index.php';
             require_once 'db/connection.php';
-            $games = getGames();
+            $game = getGameById($_GET['id']);
             $uses_id = $_SESSION['user_id'] ?? '';
             $lastPage = $_SESSION['lastPage'] ?? 'http://localhost/project_two/index.php';
             $reviews = getReviews($_GET['id']); //here is the game id
-        ?>
-        main{
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, .9), rgba(0, 0, 0, 1 ),rgba(0, 0, 0, 1 )
-            <?php
-            for($i = 1 ; $i <= count($reviews) ; $i++){
-                echo ',rgba(0, 0, 0, 1) ';
-            }
-            ?>
-            );
-        }
-        <?php
         // Iterate through games data
-        for ($i = 0; $i < count($games); $i++) {
             if (isset($_GET['id']) && !empty($_GET['id'])) {
-                if ($games[$i]['game_id'] == $_GET['id']) {
                     ?>
                     body {
                         height: 100vh;
                         /* background-color: black; */
-                        background-image: url('<?=$games[$i]['poster']?>');
+                        background-image: url('<?=$game['poster']?>');
                         background-repeat: no-repeat;
                         background-size: cover;
                         margin: 0;
@@ -80,27 +69,26 @@
                 <svg xmlns="http://www.w3.org/2000/svg" height="3em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" fill="#f8e6de"/></svg>
                 </a>
                 <div class="game-card">
-                    <img src="<?=$games[$i]['photo']?>" alt="">
+                    <img src="<?=$game['photo']?>" alt="">
                     <div class="min-info">
-                        <h2><?= $games[$i]['game_name']?></h2>
-                        <p><?= $games[$i]['genre']?></p>
-                        <?php if($games[$i]['new_price'] != $games[$i]['old_price']){ ?>
-                            <p style="text-decoration: line-through; color: gray;"><?= $games[$i]['old_price']?></p>
-                            <p style="font-weight: bold; color: green; font-size: 30px"><?= $games[$i]['new_price']?></p>
+                        <h2><?= $game['game_name']?></h2>
+                        <p><?= $game['genre']?></p>
+                        <?php if($game['new_price'] != $game['old_price']){ ?>
+                            <p style="text-decoration: line-through; color: gray;"><?= $game['old_price']?></p>
+                            <p style="font-weight: bold; color: green; font-size: 30px"><?= $game['new_price']?></p>
                         <?php } else { ?>
-                            <p><?= $games[$i]['new_price']?></p>
+                            <p><?= $game['new_price']?></p>
                         <?php } ?>
                     </div>
                 </div>
             </div>
-
             <div class="about">
-                <h2><?= $games[$i]['game_name'] ?></h2>
-                <div class="info"><p>Date:</p><p><?= $games[$i]['release_date'] ?></p></div>
-                <div class="info"><p>Developers:</p><p><?= $games[$i]['developers'] ?></p></div>
-                <div class="info"><p>Genre:</p><p><?= $games[$i]['genre'] ?></p></div>
-                <div class="info"><p>Price:</p><p><?= $games[$i]['new_price'] ?></p></div>
-                <p>About game:<br><?= $games[$i]['description'] ?></p>
+                <h2><?= $game['game_name'] ?></h2>
+                <div class="info"><p>Date:</p><p><?= $game['release_date'] ?></p></div>
+                <div class="info"><p>Developers:</p><p><?= $game['developers'] ?></p></div>
+                <div class="info"><p>Genre:</p><p><?= $game['genre'] ?></p></div>
+                <div class="info"><p>Price:</p><p><?= $game['new_price'] ?></p></div>
+                <p>About game:<br><?= $game['description'] ?></p>
             </div>
 
             <div class="genre-container">
@@ -116,9 +104,9 @@
                 </button>
                 <div class="carousel">
                     <div class="carousel-line">
-                        <img src="<?=$games[$i]['screenshot_1']?>" alt="">
-                        <img src="<?=$games[$i]['screenshot_2']?>" alt="">
-                        <img src="<?=$games[$i]['screenshot_3']?>" alt="">
+                        <img src="<?=$game['screenshot_1']?>" alt="">
+                        <img src="<?=$game['screenshot_2']?>" alt="">
+                        <img src="<?=$game['screenshot_3']?>" alt="">
                     </div>
                 </div>
                 <button class="slider-next">
@@ -131,10 +119,35 @@
             </div>
         </div>
         <?php
-                }
             }
-        }   ?>
+        ?>
         <!-- Reviews container -->
+        <h2 style="margin:15px auto 0px; width: 65%">Buy <?=$game['game_name']?></h2>
+        <div class="purchase_section container" style="width:65%; margin: auto">
+            <img src="<?=$game['photo']?>" style = 'height:200px; width:200px; object-fit:cover;'alt="">
+            <div class="about_game_mini">
+                <h2><?=$game['game_name']?></h2>
+                <h4><?=$game['genre']?></h4>
+                <?php
+                        if($game['old_price']!=$game['new_price']){
+                            ?>
+                        <h2>Special Offer!</h2>
+                    <button class="purchase btn">
+                    Buy
+                    <p style="text-decoration: line-through; color: gray;"><?= $game['old_price']?></p>
+                    <p style="font-weight: bold; color: green; "><?= $game['new_price']?></p>
+                    <?php
+                        }
+                        else{
+                            ?>
+                    <button class="purchase btn">Buy
+                     <p><?= $game['old_price']?></p>
+                    <?php
+                        }
+                    ?>
+                </button>
+            </div>
+        </div>
         <h2 style="width: 65%; margin: 15px auto 15px">Reviews</h2>
         <div class="review_container">
             <div class="reviews-block">

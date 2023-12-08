@@ -3,6 +3,7 @@
 
 <head>
     <title>Game Store</title>
+    <link rel="icon" type="image/svg+xml" href="http://localhost/project_two/images/gamepad-solid.svg">
     <!-- Include CSS files -->
     <link rel="stylesheet" href="http://localhost/project_two/css/style.css">
     <link rel="stylesheet" href="http://localhost/project_two/css/carousel.css">
@@ -18,7 +19,7 @@
         $_SESSION['lastPage'] = 'http://localhost/project_two/index.php';
         include 'header.php';
         require_once 'db/connection.php';
-        $games = getGames();
+        $game = getGames();
     ?>
 
     <!-- Main Content -->
@@ -45,31 +46,31 @@
                     ?>
                         <!-- Poster Card -->
                         <div class="poster">
-                            <img src="<?= $games[$i]['poster'] ?>" alt="">
+                            <img src="<?= $game[$i]['poster'] ?>" alt="">
                             <div class="title">
                                 <div class="content">
                                     <!-- Link to full game details -->
-                                    <a href="fullGame.php?id=<?= $games[$i]['game_id'] ?>">
-                                        <?= $games[$i]['game_name'] ?>
+                                    <a href="fullGame.php?id=<?= $game[$i]['game_id'] ?>">
+                                        <?= $game[$i]['game_name'] ?>
                                     </a>
-                                    <p><?= $games[$i]['genre'] ?></p>
+                                    <p><?= $game[$i]['genre'] ?></p>
                                     <?php
                                     // Display prices with appropriate styles
-                                    if ($games[$i]['new_price'] != $games[$i]['old_price']) {
+                                    if ($game[$i]['new_price'] != $game[$i]['old_price']) {
                                     ?>
                                         <p class="price" style="text-decoration: line-through; color: gray;">
-                                            <?= $games[$i]['old_price'] ?>
+                                            <?= $game[$i]['old_price'] ?>
                                         </p>
                                         <p class="price" style="font-weight: bold; color: green;">
-                                            <?= $games[$i]['new_price'] ?>
+                                            <?= $game[$i]['new_price'] ?>
                                         </p>
                                     <?php
-                                    } elseif ($games[$i]['new_price'] == 0.00) {
-                                        $games[$i]['new_price'] = 'Free';
-                                        echo '<p class="price" style="font-weight: bold; color: green; font-size: 20px;">' . $games[$i]['new_price'] . '</p>';
+                                    } elseif ($game[$i]['new_price'] == 0.00) {
+                                        $game[$i]['new_price'] = 'Free';
+                                        echo '<p class="price" style="font-weight: bold; color: green; font-size: 20px;">' . $game[$i]['new_price'] . '</p>';
                                     } else {
                                     ?>
-                                        <p class="price"><?= $games[$i]['new_price'] ?></p>
+                                        <p class="price"><?= $game[$i]['new_price'] ?></p>
                                     <?php
                                     }
                                     ?>
@@ -109,24 +110,24 @@
             <div class="slider">
                 <?php
                 $counter = 0;
-                for ($i = 0; $i < count($games) && $counter < 7; $i++) {
+                for ($i = 0; $i < count($game) && $counter < 7; $i++) {
                     // Display slider cards for special offers
-                    if ($games[$i]['new_price'] != $games[$i]['old_price'] && $games[$i]['new_price'] != 'Free') {
+                    if ($game[$i]['new_price'] != $game[$i]['old_price'] && $game[$i]['new_price'] != 'Free') {
                         if ($counter == 0) {
                 ?>
                             <!-- Active slider card -->
                             <div class="slider-card active">
-                                <img src="<?= $games[$i]['photo'] ?>" alt="">
+                                <img src="<?= $game[$i]['photo'] ?>" alt="">
                                 <div class="title">
-                                    <a href="fullGame.php?id=<?= $games[$i]['game_id'] ?>">
-                                        <h2><?= $games[$i]['game_name'] ?></h2>
+                                    <a href="fullGame.php?id=<?= $game[$i]['game_id'] ?>">
+                                        <h2><?= $game[$i]['game_name'] ?></h2>
                                     </a>
-                                    <p><?= $games[$i]['genre'] ?></p>
+                                    <p><?= $game[$i]['genre'] ?></p>
                                     <p class="price" style="text-decoration: line-through; color: gray;">
-                                        <?= $games[$i]['old_price'] ?>
+                                        <?= $game[$i]['old_price'] ?>
                                     </p>
                                     <p class="price" style="font-weight: bold; color: green;">
-                                        <?= $games[$i]['new_price'] ?>
+                                        <?= $game[$i]['new_price'] ?>
                                     </p>
                                 </div>
                             </div>
@@ -136,17 +137,17 @@
                         ?>
                             <!-- Inactive slider card -->
                             <div class="slider-card">
-                                <img src="<?= $games[$i]['photo'] ?>" alt="">
+                                <img src="<?= $game[$i]['photo'] ?>" alt="">
                                 <div class="title">
-                                    <a href="fullGame.php?id=<?= $games[$i]['game_id'] ?>">
-                                        <h2><?= $games[$i]['game_name'] ?></h2>
+                                    <a href="fullGame.php?id=<?= $game[$i]['game_id'] ?>">
+                                        <h2><?= $game[$i]['game_name'] ?></h2>
                                     </a>
-                                    <p><?= $games[$i]['genre'] ?></p>
+                                    <p><?= $game[$i]['genre'] ?></p>
                                     <p class="price" style="text-decoration: line-through; color: gray;">
-                                        <?= $games[$i]['old_price'] ?>
+                                        <?= $game[$i]['old_price'] ?>
                                     </p>
                                     <p class="price" style="font-weight: bold; color: green;">
-                                        <?= $games[$i]['new_price'] ?>
+                                        <?= $game[$i]['new_price'] ?>
                                     </p>
                                 </div>
                             </div>

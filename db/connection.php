@@ -21,6 +21,17 @@ function getGames(){
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+function getGameById($game_id){
+    global $pdo;
+    $query ="SELECT g.`game_id`, g.`game_name`, g.`developers`, g.`old_price`, g.`new_price`, g.`release_date`, g.`photo`, g.`screenshot_1`, g.`screenshot_2`, g.`screenshot_3`, g.`description`, g.`poster`, gr.`genre_name` as genre
+    FROM games AS g
+    JOIN genres AS gr ON g.`genre` = gr.`genre_id`
+    WHERE g.game_id = $game_id;
+    ";
+    $stmt = $pdo->query($query);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
 // Function to register a new user
 function registerUser($username, $email, $password, $avatar_name)
 {

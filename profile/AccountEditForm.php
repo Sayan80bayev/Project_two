@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/svg+xml" href="http://localhost/project_two/images/gamepad-solid.svg">
     <link rel="stylesheet" href="http://localhost/project_two/css/profile.css">
     <link rel="stylesheet" href="http://localhost/project_two/css/style.css">
 </head>

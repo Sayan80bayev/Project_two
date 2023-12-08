@@ -4,6 +4,8 @@
 <head>
     <title>Category</title>
     <!-- Include CSS files -->
+    <link rel="icon" type="image/svg+xml" href="http://localhost/project_two/images/gamepad-solid.svg">
+
     <link rel="stylesheet" href="http://localhost/project_two/css/style.css">
 </head>
 <style>
@@ -23,19 +25,19 @@
     session_start();
     include 'header.php';
     require_once 'db/connection.php';
-    $games = getGames();
+    $game = getGames();
     ?>
     <div class="big-container">
         <div class="category">
             <?php include 'category.php'; 
                 if($_SERVER['REQUEST_METHOD']=='POST'){
-                    $games = searchGame($_POST['search']);
+                    $game = searchGame($_POST['search']);
                 }
             ?>
             <a href="http://localhost/project_two/index.php"><h2>Home</h2></a>
         </div>
         <main>
-            <?php   if(!empty($games)){ ?>
+            <?php   if(!empty($game)){ ?>
             <!-- Display category -->
             <div class="genre-container">
                 <h1>
@@ -54,30 +56,30 @@
             <!-- Display games based on the selected category -->
             <div class="game-container">
                 <?php
-                for ($i = 0; $i < count($games); $i++) {
+                for ($i = 0; $i < count($game); $i++) {
                     if (isset($_GET['cat']) && !empty($_GET['cat'])) {
-                        if ($_GET['cat'] == $games[$i]['genre']) {
+                        if ($_GET['cat'] == $game[$i]['genre']) {
                             ?>
                             <div class="game-card">
-                                <img src="<?= $games[$i]['photo'] ?>" alt="">
+                                <img src="<?= $game[$i]['photo'] ?>" alt="">
                                 <div class="min-info">
-                                    <a href="fullGame.php?id=<?= $games[$i]['game_id'] ?>">
-                                        <h2><?= $games[$i]['game_name'] ?></h2>
+                                    <a href="fullGame.php?id=<?= $game[$i]['game_id'] ?>">
+                                        <h2><?= $game[$i]['game_name'] ?></h2>
                                     </a>
-                                    <p><?= $games[$i]['genre'] ?></p>
+                                    <p><?= $game[$i]['genre'] ?></p>
                                     <?php
                                     // Display prices with formatting
-                                    if ($games[$i]['new_price'] != $games[$i]['old_price']) {
+                                    if ($game[$i]['new_price'] != $game[$i]['old_price']) {
                                     ?>
-                                        <p style="text-decoration: line-through; color: gray;"><?= $games[$i]['old_price'] ?></p>
-                                        <p style="font-weight: bold; color: green; font-size: 20px;"><?= $games[$i]['new_price'] ?></p>
+                                        <p style="text-decoration: line-through; color: gray;"><?= $game[$i]['old_price'] ?></p>
+                                        <p style="font-weight: bold; color: green; font-size: 20px;"><?= $game[$i]['new_price'] ?></p>
                                     <?php
-                                    } elseif ($games[$i]['new_price'] == 0.00) {
-                                        $games[$i]['new_price'] = 'Free';
-                                        echo '<p style="font-weight: bold; color: green; font-size: 20px;">' . $games[$i]['new_price'] . '</p>';
+                                    } elseif ($game[$i]['new_price'] == 0.00) {
+                                        $game[$i]['new_price'] = 'Free';
+                                        echo '<p style="font-weight: bold; color: green; font-size: 20px;">' . $game[$i]['new_price'] . '</p>';
                                     } else {
                                     ?>
-                                        <p><?= $games[$i]['new_price'] ?></p>
+                                        <p><?= $game[$i]['new_price'] ?></p>
                                     <?php
                                     }
                                     ?>
@@ -89,25 +91,25 @@
                         // Display games for 'All' category
                         ?>
                         <div class="game-card">
-                            <img src="<?= $games[$i]['photo'] ?>" alt="">
+                            <img src="<?= $game[$i]['photo'] ?>" alt="">
                             <div class="min-info">
-                                <a href="fullGame.php?id=<?= $games[$i]['game_id'] ?>">
-                                    <h2><?= $games[$i]['game_name'] ?></h2>
+                                <a href="fullGame.php?id=<?= $game[$i]['game_id'] ?>">
+                                    <h2><?= $game[$i]['game_name'] ?></h2>
                                 </a>
-                                <p><?= $games[$i]['genre'] ?></p>
+                                <p><?= $game[$i]['genre'] ?></p>
                                 <?php
                                 // Display prices with formatting
-                                if ($games[$i]['new_price'] != $games[$i]['old_price']) {
+                                if ($game[$i]['new_price'] != $game[$i]['old_price']) {
                                 ?>
-                                    <p style="text-decoration: line-through; color: gray;"><?= $games[$i]['old_price'] ?></p>
-                                    <p style="font-weight: bold; color: green; font-size: 20px;"><?= $games[$i]['new_price'] ?></p>
+                                    <p style="text-decoration: line-through; color: gray;"><?= $game[$i]['old_price'] ?></p>
+                                    <p style="font-weight: bold; color: green; font-size: 20px;"><?= $game[$i]['new_price'] ?></p>
                                 <?php
-                                } elseif ($games[$i]['new_price'] == 0.00) {
-                                    $games[$i]['new_price'] = 'Free';
-                                    echo '<p style="font-weight: bold; color: green; font-size: 20px;">' . $games[$i]['new_price'] . '</p>';
+                                } elseif ($game[$i]['new_price'] == 0.00) {
+                                    $game[$i]['new_price'] = 'Free';
+                                    echo '<p style="font-weight: bold; color: green; font-size: 20px;">' . $game[$i]['new_price'] . '</p>';
                                 } else {
                                 ?>
-                                    <p><?= $games[$i]['new_price'] ?></p>
+                                    <p><?= $game[$i]['new_price'] ?></p>
                                 <?php
                                 }
                                 ?>

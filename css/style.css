@@ -52,6 +52,7 @@ h2 {
 .header {
     background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
     justify-content: space-between;
+    align-items: center;
     margin: 0;
     padding: 16px;
     position: fixed;
@@ -78,8 +79,9 @@ a :hover{
 .left-side {
     align-items: center;
     height: 50px;
-    width: 500px;
+    width: max-content;
     display: flex;
+    gap : 15px;
     justify-content: space-between;
 }
 
@@ -152,6 +154,7 @@ a :hover{
     border: none;
     outline: none;
     cursor: pointer;
+    z-index: 1;
 }
 
 .menu-icon {
@@ -210,7 +213,6 @@ a :hover{
     width: 300px;
     background-color: rgba(0, 0, 0, 0.8);
     transition: transform 0.3s ease-in-out;
-    z-index: -9999;
 }
 
 .menu ul {
@@ -352,13 +354,14 @@ main {
 }
 
 footer {
-    width: 80%;
+    width: 100%;
     height: 200px;
     margin: auto;
 }
 
 footer ul {
-    width: 100%;
+    width: 80%;
+    margin: auto;
 }
 
 footer li {
@@ -421,3 +424,29 @@ footer li {
     font-size: 15px;
 }
 
+ /* Target WebKit browsers */
+ ::-webkit-scrollbar {
+    width: 12px; /* Set the width of the scrollbar */
+  }
+
+  /* Track (the area on which the thumb moves) */
+  ::-webkit-scrollbar-track {
+    background: #0b0e14; /* Set the color of the track */
+  }
+
+  /* Handle (the draggable part of the scrollbar) */
+  ::-webkit-scrollbar-thumb {
+    background: #888; /* Set the color of the handle */
+    border-radius: 6px; /* Set the border-radius to make it rounder */
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Change the color on hover */
+  }
+
+  /* Button (the buttons at the ends of the scrollbar) */
+  ::-webkit-scrollbar-button {
+    /* display: none; Hide the scrollbar buttons (optional) */
+    height: 5px;
+  }

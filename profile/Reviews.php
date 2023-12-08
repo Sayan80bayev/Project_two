@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="http://localhost/project_two/images/gamepad-solid.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Include your CSS links here -->
     <link rel="stylesheet" href="http://localhost/project_two/css/style.css">

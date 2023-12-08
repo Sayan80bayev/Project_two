@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Review Changing</title>
+    <link rel="icon" type="image/svg+xml" href="http://localhost/project_two/images/gamepad-solid.svg">
     <link href="http://localhost/project_two/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="http://localhost/project_two/css/fullPage.css">
     <style>

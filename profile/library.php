@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Library</title>
+    <link rel="icon" type="image/svg+xml" href="http://localhost/project_two/images/gamepad-solid.svg">
     <link rel="stylesheet" href="http://localhost/project_two/css/style.css">
     <style>
         .library-game{
@@ -44,14 +45,15 @@
     <?php
     session_start();
     require_once '../header.php';
+    require_once '../db/checkAuth.php';
     ?>
     <main style = "margin-top:70px" >
     <h1>Library</h1>
         <?php 
             require_once '../db/connection.php'; 
             $user_id = $_SESSION['user_id'] ?? '';
-            $games = getLibraryGames($user_id);
-            foreach($games as $game):
+            $game = getLibraryGames($user_id);
+            foreach($game as $game):
         ?>
         <div class="game-card library-game">
             <img src="<?= $game['photo'] ?>" alt="">
