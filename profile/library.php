@@ -44,7 +44,7 @@
 <body>
     <?php
     session_start();
-    require_once '../header.php';
+    include '../components/header.php';
     require_once '../db/checkAuth.php';
     ?>
     <main style = "margin-top:70px" >
@@ -71,6 +71,6 @@
         </div>
         <?php endforeach;?>
     </main>
-    <?php require_once '../footer.php';?>
+    <?php require_once '../components/footer.php';?>
 </body>
 </html>

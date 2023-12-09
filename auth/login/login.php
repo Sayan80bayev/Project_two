@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['status'] = ''; // Initialize session status
 
     // Include database connection file
-    require_once('../db/connection.php');
+    require_once '../../db/connection.php';
 
     // Validate password
     if (empty($password)) {

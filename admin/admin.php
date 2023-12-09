@@ -65,14 +65,12 @@
         }
     </style>
 </head>
-
-
 <body>
     <?php
     session_start();
     require_once '../db/checkAdmin.php';
     require_once 'adminconnection.php';
-    include '../header.php';
+    require_once '../components/header.php';
     ?>
     <h2 style="margin-top:70px;">Admin-panel</h2>
 
@@ -228,8 +226,8 @@
             </thead>
             <tbody>
                 <?php
-                $games = getGames();
-                foreach ($games as $game) {
+                $game = getGames();
+                foreach ($game as $game) {
                 ?>
                     <tr>
                         <form method="post" action="update/updateGame.php">
@@ -276,11 +274,6 @@
             </tbody>
         </table>
     </div>
-
-    <div id="games" class="content" style="display:none;">
-        <?php include 'delete_game.php'; ?>
-    </div>
-
     <?php
     unset($_SESSION['message']);
     unset($_SESSION['status']);

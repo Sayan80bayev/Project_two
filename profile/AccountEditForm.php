@@ -12,7 +12,7 @@
         <?php
         // Start the session and check if the user is authenticated
         session_start();
-        include '../header.php';
+        include '../components/header.php';
         include '../db/checkAuth.php';
 
         // Get the user's avatar URL, set a default if not available
@@ -42,7 +42,7 @@
         <div class="container">
             <div class="profile">
                 <!-- Display user's mini-profile -->
-                <form action="edit.php" method="post" enctype="multipart/form-data">
+                <form action="update/editAccount.php" method="post" enctype="multipart/form-data">
                     <img src='../images/user/<?= $avatar ?>' alt="Avatar" class="avatar">
                     <label for="editableNameInput"><h3>Name changing:</h3></label>
                     <input type="text" id="editableNameInput" name="new_name" class="form-control" value="<?= $name ?>">
@@ -74,7 +74,7 @@
     </main>
 
     <?php 
-    include '../footer.php'; 
+    include '../components/footer.php'; 
     unset($_SESSION['errors']);
     unset($_SESSION['status']);
     unset($_SESSION['success']);

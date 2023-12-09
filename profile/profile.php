@@ -12,7 +12,7 @@
         <?php
         // Start the session and check if the user is authenticated
         session_start();
-        include '../header.php';
+        include '../components/header.php';
         include '../db/checkAuth.php';
         // Get the user's avatar URL, set a default if not available
         $avatar = $_SESSION['avatar_url'] ?? 'no-avatar.jpg';
@@ -39,7 +39,7 @@
             </div>
         </div>
     </main>
-    <?php include '../footer.php';?>
+    <?php include '../components/footer.php';?>
 </body>
 
 </html>

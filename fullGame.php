@@ -44,6 +44,7 @@
             require_once 'db/connection.php';
             $game = getGameById($_GET['id']);
             $uses_id = $_SESSION['user_id'] ?? '';
+            $game_id = $_GET['id'];
             $lastPage = $_SESSION['lastPage'] ?? 'http://localhost/project_two/index.php';
             $reviews = getReviews($_GET['id']); //here is the game id
         // Iterate through games data
@@ -61,7 +62,7 @@
         </style>
 </head>
 <body>
-    <?php include 'header.php';?>
+    <?php include 'components/header.php';?>
     <main>
         <div class="container">
             <div class="little-container">
@@ -160,52 +161,7 @@
                     echo '<h1 style="margin-left:20px">There is no review yet</h1>';
                 } else {
                     for ($i = count($reviews) - 1; $i >= 0; $i--) :
-                    ?>
-                    <div class="review">
-                        <!-- Name, avatar, rate printing -->
-                        <div class="review-title">
-                            <div class="review-prof">
-                                <div class="profileLink" style="margin-right:5px">
-                                    <img src="http://localhost/project_two/images/user/<?= $reviews[$i]['avatar_url'] ?>">
-                                </div>
-                                <h1><?= $reviews[$i]['user_name'] ?></h1>   
-                            </div>
-                            <!-- Coloring the rate -->
-                            <?php
-                                if ($reviews[$i]['rating'] <= 10 && $reviews[$i]['rating'] > 6) {
-                                    $rating_color = 'green';
-                                } elseif ($reviews[$i]['rating'] <= 6 && $reviews[$i]['rating'] > 4) {
-                                    $rating_color = 'yellow';
-                                } else {
-                                    $rating_color = 'red';
-                                }
-                            ?>
-                            <div>
-                                <div class="rating <?= $rating_color ?>"><h1><?= $reviews[$i]['rating'] ?></h1></div>
-                                <?php if ($reviews[$i]['user_id'] == $user_id): ?>
-                                    <!-- modal of edit and delete -->
-                                    <button class='three-dots-button' id="openModalBtn">
-                                            <div class="dot"></div>
-                                            <div class="dot"></div>
-                                            <div class="dot"></div>
-                                    </button>
-                                    <div id="modal" class="modal">
-                                        <div class="modal-content">
-                                            <span class="close" onclick="closeModal()">&times;</span>
-                                            <ul>
-                                                <li><a href="http://localhost/project_two/review/EditReviewFrom.php?review_id=<?= $reviews[$i]['review_id'] ?>&game_id=<?= $_GET['id'] ?>">Edit</a></li>
-                                                <li><button href="" onclick="confirmDelete(<?= $reviews[$i]['review_id'] ?>)">Delete</button></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <?php $reviews[$i]['status'] = 'review has'; $index = $i; ?>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <p><?= $reviews[$i]['comment'] ?></p>
-                        <p class="date">Date: <?= $reviews[$i]['review_date'] ?></p>
-                    </div>
-                    <?php
+                        include 'components/reviews.php';
                     endfor;
                 }
                 ?>
@@ -215,14 +171,14 @@
                 if (isset($_SESSION['message']) && $_SESSION['status']=='error'){
                     echo '<h1 style="margin:auto 20px; color:red;">'. $_SESSION['message'] .'</h1>';
                 }
-                elseif(isset($_SESSION['message']) && $_SESSION['status']=='succes'){
+                elseif(isset($_SESSION['message']) && $_SESSION['status']=='success'){
                     echo '<h1 style="margin:auto 20px; color:green;">'. $_SESSION['message'] .'</h1>';
                 }
                 $result =array_column($reviews, "user_id");
                 if (!in_array($user_id, $result)):
             ?>
             <!-- Review writing-->
-            <form method="post" action="review/review.php" class="review_form"> 
+            <form method="post" action="review/reviewHandler.php" class="review_form"> 
                 <h1>Write a review</h1>
                 <label for="rating" style="font-size:30px">Rating:</label>
                 <select name="rating" style="height:30px; color: azure; border: 2px solid #ED500A;
@@ -243,52 +199,8 @@
         <?php
             unset($_SESSION['status']);
             unset($_SESSION['message']);
-            include 'footer.php';
+            include 'components/footer.php';
         ?>
     </main>
-    <script>
-        //carousel scripts
-        let offset = 0;
-        const sliderLine = document.querySelector('.carousel-line');
-        const width = 1003;
-
-        document.querySelector('.slider-next').addEventListener('click', function(){
-            offset = offset + width;
-            if (offset > width*2) {
-                offset = 0;
-            }
-            sliderLine.style.left = -offset + 'px';
-        });
-
-        document.querySelector('.slider-prev').addEventListener('click', function () {
-            offset = offset - width;
-            if (offset < 0) {
-                offset = width*2;
-            }
-            sliderLine.style.left = -offset + 'px';
-        });
-
-        //modal scripts
-        document.getElementById('openModalBtn').addEventListener('click', openModal);
-        function openModal() {
-            const modal = document.getElementById('modal');
-            modal.style.display = 'flex';
-            modal.style.zIndex = '1';
-        }
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-        }
-        //delete comfirmation
-        function confirmDelete(reviewId) {
-        // Use the window.confirm() method to show a confirmation dialog
-        const isConfirmed = window.confirm("Are you sure you want to delete this review?");
-
-        // If the user clicks "OK" in the confirmation dialog, proceed with the delete action
-        if (isConfirmed) {
-            // Redirect to the delete action, passing the review_id and game_id
-            window.location.href = `http://localhost/project_two/review/DeleteReview.php?review_id=${reviewId}&user_id=<?= $_SESSION['user_id']?>&game_id=<?= $_GET['id'] ?>`;
-        }
-    }
-    </script>
-</body>
+    <script src="http://localhost/project_two/scripts/fullgame.js" defer></script></body>
 </html>

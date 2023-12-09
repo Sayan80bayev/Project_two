@@ -14,7 +14,7 @@
         session_start();
         require_once '../db/connection.php';
         require_once '../db/checkAuth.php';
-        require_once '../header.php';
+        include '../components/header.php';
         $user_id = $_SESSION['user_id'] ?? '';
         $reviews = getUsersAllReviews($user_id);
     ?>
@@ -84,7 +84,7 @@
     </div>
 
     <!-- Your existing footer include -->
-    <?php require_once '../footer.php';?>
+    <?php require_once '../components/footer.php';?>
 
     <!-- Your existing script block -->
     <script> 

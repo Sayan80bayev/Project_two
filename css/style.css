@@ -431,7 +431,7 @@ footer li {
 
   /* Track (the area on which the thumb moves) */
   ::-webkit-scrollbar-track {
-    background: #0b0e14; /* Set the color of the track */
+    background: transparent; /* Set the color of the track */
   }
 
   /* Handle (the draggable part of the scrollbar) */

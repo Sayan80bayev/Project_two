@@ -57,7 +57,7 @@
     // Start the session and check if the user is authenticated
     session_start();
     include '../db/checkAuth.php';
-    include '../header.php';
+    include '../components/header.php';
 
     // Token generation
     $csrfToken = bin2hex(random_bytes(32));
@@ -76,7 +76,7 @@
         </div>
         <div class="container">
             <!-- Password change form -->
-            <form action="changePassword.php" method="post" class="passwordForm">
+            <form action="update/changePassword.php" method="post" class="passwordForm">
                 <h2 class="offset-md-4">Password changing</h2>
                 <!-- Password input -->
                 <label for="password"><h3>Password:</h3></label>
@@ -113,10 +113,10 @@
         </div>
     </main>
     <?php
-    include '../footer.php';
     // Unset errors session variable
     unset($_SESSION['errors']);
     unset($_SESSION['csrf-token']);
+    include '../components/footer.php';
     ?>
 </body>
 

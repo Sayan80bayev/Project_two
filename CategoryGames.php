@@ -23,13 +23,13 @@
     <?php
     // Include header and games data
     session_start();
-    include 'header.php';
     require_once 'db/connection.php';
     $game = getGames();
+    include 'components/header.php';
     ?>
     <div class="big-container">
         <div class="category">
-            <?php include 'category.php'; 
+            <?php include 'components/category.php'; 
                 if($_SERVER['REQUEST_METHOD']=='POST'){
                     $game = searchGame($_POST['search']);
                 }
@@ -71,15 +71,15 @@
                                     // Display prices with formatting
                                     if ($game[$i]['new_price'] != $game[$i]['old_price']) {
                                     ?>
-                                        <p style="text-decoration: line-through; color: gray;"><?= $game[$i]['old_price'] ?></p>
-                                        <p style="font-weight: bold; color: green; font-size: 20px;"><?= $game[$i]['new_price'] ?></p>
+                                        <p class="price" style="text-decoration: line-through; color: gray;"><?= $game[$i]['old_price'] ?></p>
+                                        <p  class="price" style="font-weight: bold; color: green; font-size: 20px;"><?= $game[$i]['new_price'] ?></p>
                                     <?php
                                     } elseif ($game[$i]['new_price'] == 0.00) {
                                         $game[$i]['new_price'] = 'Free';
-                                        echo '<p style="font-weight: bold; color: green; font-size: 20px;">' . $game[$i]['new_price'] . '</p>';
+                                        echo '<p  style="font-weight: bold; color: green; font-size: 20px;">' . $game[$i]['new_price'] . '</p>';
                                     } else {
                                     ?>
-                                        <p><?= $game[$i]['new_price'] ?></p>
+                                        <p class="price"><?= $game[$i]['new_price'] ?></p>
                                     <?php
                                     }
                                     ?>
@@ -101,15 +101,15 @@
                                 // Display prices with formatting
                                 if ($game[$i]['new_price'] != $game[$i]['old_price']) {
                                 ?>
-                                    <p style="text-decoration: line-through; color: gray;"><?= $game[$i]['old_price'] ?></p>
-                                    <p style="font-weight: bold; color: green; font-size: 20px;"><?= $game[$i]['new_price'] ?></p>
+                                    <p class="price" style="text-decoration: line-through; color: gray;"><?= $game[$i]['old_price'] ?></p>
+                                    <p class="price" style="font-weight: bold; color: green; font-size: 20px;"><?= $game[$i]['new_price'] ?></p>
                                 <?php
                                 } elseif ($game[$i]['new_price'] == 0.00) {
                                     $game[$i]['new_price'] = 'Free';
                                     echo '<p style="font-weight: bold; color: green; font-size: 20px;">' . $game[$i]['new_price'] . '</p>';
                                 } else {
                                 ?>
-                                    <p><?= $game[$i]['new_price'] ?></p>
+                                    <p class="price"><?= $game[$i]['new_price'] ?></p>
                                 <?php
                                 }
                                 ?>
@@ -123,11 +123,12 @@
         <?php
             }else{
         ?>
-        <h1 style="margin-left: 37.5%">Haven't found</h1>
-        <?php }?>
+        <!-- <div class="container" style="align-items: center; gap: 15px"> -->
+            <h1 style="margin-left: 37.5%">Haven't found</h1>
+                <?php }?>
+        <!-- </div> -->
         </main>
     </div>
-    <?php include 'footer.php';?>
 </body>
-
+<?php include 'components/footer.php';?>
 </html>

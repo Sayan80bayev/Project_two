@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors = [];
 
     // Include the database connection file
-    require_once('../db/connection.php');
+    require_once '../../db/connection.php';
 
     // Validate username
     if (empty($username)) {

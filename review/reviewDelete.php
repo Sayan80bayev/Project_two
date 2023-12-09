@@ -10,7 +10,7 @@
         if($review[0]['user_id'] == $_SESSION['user_id']){
             if(deleteReview($review_id)){
             $_SESSION['message'] = 'Succefully deleted!';
-            $_SESSION['status'] = 'succes';
+            $_SESSION['status'] = 'success';
             header ('Location: ../fullGame.php?id='.$game_id);
             exit;
             }

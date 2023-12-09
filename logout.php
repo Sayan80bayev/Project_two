@@ -2,5 +2,5 @@
 <?php
     session_start();
     session_destroy();
-    header("Location: login/LoginForm.php");
+    header("Location: http://localhost/project_two/auth/login/LoginForm.php");
 ?>
