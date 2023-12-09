@@ -12,10 +12,39 @@
         // Handle database connection exception
         echo $exception->getMessage();
     }
-
+    function searchUser($arr, $target) {
+        $left = 0;
+        $right = count($arr,  COUNT_NORMAL) - 1;
+    
+        while ($left <= $right) {
+            $mid = floor(($left + $right) / 2);
+            // Check if the target is present at the middle
+            if ($arr[$mid]['user_id'] == $target) {
+                return $mid;
+            }
+    
+            // If the target is greater, ignore the left half
+            if ($arr[$mid]['user_id']< $target) {
+                $left = $mid + 1;
+            }
+            // If the target is smaller, ignore the right half
+            else {
+                $right = $mid - 1;
+            }
+        }
+        // If we reach here, then the target is not present in the array
+        return -1;
+    }
     function getUsers(){
         global $pdo;
         $query = "SELECT u.user_id, u.user_name, u.password,u.registration_date, u.user_email, u.avatar_url, r.role_name as role, r.role_id FROM users as u JOIN roles as r on u.role = r.role_id";
+        $stmt = $pdo->query($query);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    function getUsersForCheck(){
+        global $pdo;
+        $query = "SELECT * FROM users ";
         $stmt = $pdo->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;

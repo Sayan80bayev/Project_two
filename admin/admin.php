@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://localhost/project_two/css/style.css">
-    <title>Админ-панель</title>
+    <title>Admin panel</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -105,17 +105,19 @@
             <tbody>
                 <?php
                 $users = getUsers();
+                $_SESSION['users'] = getUsersForCheck();
                 foreach ($users as $user) {
                 ?>
                     <tr>
                         <form method="post" action="update/updateUser.php">
                             <td><?= $user['user_id'] ?></td>
+                            <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
                             <td><input type="text" name="user_name" value="<?= $user['user_name'] ?>"></td>
                             <td><input type="email" name="user_email" value="<?= $user['user_email'] ?>"></td>
                             <td><?= $user['registration_date'] ?></td>
+                            <input type="hidden" name = 'registration_date'  value = "<?= $user['registration_date'] ?>">
                             <td><input type="text" name="avatar_url" value="<?= $user['avatar_url'] ?>"></td>
                             <td><input type="text" name="password" value="<?= $user['password'] ?>"></td>
-                            <input type="hidden" name="passwordCheck" value="<?= $user['password'] ?>">
                             <td>
                                 <select name="role">
                                     <?php
@@ -130,7 +132,6 @@
                                     ?>
                                 </select>
                             </td>
-                            <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
                             <td><input type="submit" value="Update"></td>
                         </form>
                         <td>
