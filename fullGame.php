@@ -46,7 +46,7 @@
             $uses_id = $_SESSION['user_id'] ?? '';
             $game_id = $_GET['id'];
             $lastPage = $_SESSION['lastPage'] ?? 'http://localhost/project_two/index.php';
-            $reviews = getReviews($_GET['id']); //here is the game id
+            $reviews = getReviews($game_id); //here is the game id
         // Iterate through games data
             if (isset($_GET['id']) && !empty($_GET['id'])) {
                     ?>
@@ -152,19 +152,20 @@
         <h2 style="width: 65%; margin: 15px auto 15px">Reviews</h2>
         <div class="review_container">
             <div class="reviews-block">
-                <?php
+            <?php
                 // Display reviews
-                $user_id = $_SESSION['user_id'] ?? '';
                 $rating_color = '';                
                 $index = 0;
+                $user_id = $_SESSION['user_id'];
                 if (count($reviews) == 0){
                     echo '<h1 style="margin-left:20px">There is no review yet</h1>';
                 } else {
-                    for ($i = count($reviews) - 1; $i >= 0; $i--) :
+                    foreach ($reviews as $i => $review) :
+                        $review['game_id'] = $game_id;
                         include 'components/reviews.php';
-                    endfor;
+                    endforeach;
                 }
-                ?>
+            ?>
             </div>
             <!-- Messages printing -->
             <?php
@@ -203,4 +204,5 @@
         ?>
     </main>
     <script src="http://localhost/project_two/scripts/fullgame.js" defer></script></body>
-</html>
+    <script src="http://localhost/project_two/scripts/review_modal.js" defer></script></body>
+    </html>

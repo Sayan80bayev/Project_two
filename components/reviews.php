@@ -1,37 +1,40 @@
-<div class="review">
+
+                    <div class="review">
                         <!-- Name, avatar, rate printing -->
                         <div class="review-title">
                             <div class="review-prof">
                                 <div class="profileLink" style="margin-right:5px">
-                                    <img src="http://localhost/project_two/images/user/<?= $reviews[$i]['avatar_url'] ?>">
+                                    <img src="http://localhost/project_two/images/user/<?= $review['avatar_url'] ?>">
                                 </div>
-                                <h1><?= $reviews[$i]['user_name'] ?></h1>   
+                                <h1><?= $review['user_name'] ?></h1>   
                             </div>
                             <!-- Coloring the rate -->
                             <?php
-                                if ($reviews[$i]['rating'] <= 10 && $reviews[$i]['rating'] > 6) {
+                                if ($review['rating'] <= 10 && $review['rating'] > 6) {
                                     $rating_color = 'green';
-                                } elseif ($reviews[$i]['rating'] <= 6 && $reviews[$i]['rating'] > 4) {
+                                } elseif ($review['rating'] <= 6 && $review['rating'] > 4) {
                                     $rating_color = 'yellow';
                                 } else {
                                     $rating_color = 'red';
                                 }
                             ?>
                             <div>
-                                <div class="rating <?= $rating_color ?>"><h1><?= $reviews[$i]['rating'] ?></h1></div>
-                                <?php if ($reviews[$i]['user_id'] == $user_id): ?>
-                                    <!-- modal of edit and delete -->
-                                    <button class='three-dots-button' id="openModalBtn">
-                                            <div class="dot"></div>
-                                            <div class="dot"></div>
-                                            <div class="dot"></div>
+                                <div class="rating <?= $rating_color ?>"><h1><?= $review['rating'] ?></h1></div>
+                                <?php if ($review['user_id'] == $user_id): ?>
+                                    <!-- Modal of edit and delete -->
+                                    <button class='three-dots-button openModalBtn'>
+                                        <div class="dot"></div>
+                                        <div class="dot"></div>
+                                        <div class="dot"></div>
                                     </button>
-                                    <div id="modal" class="modal">
+                                    <div class="modal">
                                         <div class="modal-content">
-                                            <span class="close" onclick="closeModal()">&times;</span>
+                                            <!-- Close button with onclick attribute -->
+                                            <span class="close" onclick="closeModal(event)">&times;</span>
+                                            <!-- Edit and delete options -->
                                             <ul>
-                                                <li><a href="http://localhost/project_two/review/EditReviewFrom.php?review_id=<?= $reviews[$i]['review_id'] ?>&game_id=<?=$game_id?>">Edit</a></li>
-                                                <li><button href="" onclick="confirmDelete(<?= $reviews[$i]['review_id']?>,  <?=$game_id?>, <?=$user_id?>)">Delete</button></li>
+                                                <li><a href="http://localhost/project_two/review/EditReviewFrom.php?review_id=<?=$review['review_id'] ?>&game_id=<?=$review['game_id']?>">Edit</a></li>
+                                                <li><button onclick="confirmDelete(<?= $review['review_id'] ?>,<?=$user_id?> , <?=$review['game_id'] ?>)"> Delete</button></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -39,6 +42,6 @@
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <p><?= $reviews[$i]['comment'] ?></p>
-                        <p class="date">Date: <?= $reviews[$i]['review_date'] ?></p>
+                        <p><?= $review['comment'] ?></p>
+                        <p class="date">Date: <?= $review['review_date'] ?></p>
                     </div>
