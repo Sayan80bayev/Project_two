@@ -18,8 +18,10 @@
         <!-- User Profile Link -->
         <?php 
             if(isset($_SESSION['user_name'])){
+                if($_SESSION['role'] == 'user'){
                 ?>
-        <a href="http://localhost/project_two/profile/library.php"><h3>Library</h3></a>
+                <a href="http://localhost/project_two/profile/library.php"><h3>Library</h3></a>
+                <?php }?>
         <a class="profileLink" href="http://localhost/project_two/profile/profile.php">
             <img src="http://localhost/project_two/images/user/<?=$avatar?>" alt="">
         </a>

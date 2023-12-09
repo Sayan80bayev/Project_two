@@ -7,9 +7,7 @@
     <!-- Include CSS files -->
     <link rel="stylesheet" href="http://localhost/project_two/css/style.css">
     <link rel="stylesheet" href="http://localhost/project_two/css/carousel.css">
-    <!-- Include JavaScript file with 'defer' attribute -->
 </head>
-
 <body>
     <!-- Header Section -->
     <?php 
@@ -17,10 +15,10 @@
         session_start();
         $_SESSION['lastPage'] = 'http://localhost/project_two/index.php';
         require_once 'db/connection.php';
+        require_once 'db/checkAuth.php';
         $game = getGames();        
         include 'components/header.php';
     ?>
-
     <!-- Main Content -->
     <div class="big-container">
         <div class="category">

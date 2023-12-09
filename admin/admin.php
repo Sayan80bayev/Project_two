@@ -100,6 +100,7 @@
                     <th>Avatar URL</th>
                     <th>Password</th>
                     <th>Role</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -132,6 +133,7 @@
                                     ?>
                                 </select>
                             </td>
+                            <td><?=$user['status']?></td>
                             <td><input type="submit" value="Update"></td>
                         </form>
                         <td>
@@ -139,6 +141,21 @@
                                 <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
                                 <input type="submit" value="Delete">
                             </form>
+                        </td>
+                        <td>
+                            <?php if($user['status']){?>
+                            <form action="banUser.php" method="post">
+                                <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
+                                <input type="hidden" name="status" value="<?= $user['status'] ?>">
+                                <input type="submit" value="Ban">
+                            </form>
+                            <?php }else{ ?>
+                                <form action="unBan.php" method="post">
+                                <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
+                                <input type="hidden" name="status" value="<?= $user['status'] ?>">
+                                <input type="submit" value="Unban">
+                            </form>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php

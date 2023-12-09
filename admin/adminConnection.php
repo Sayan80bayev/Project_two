@@ -37,7 +37,7 @@
     }
     function getUsers(){
         global $pdo;
-        $query = "SELECT u.user_id, u.user_name, u.password,u.registration_date, u.user_email, u.avatar_url, r.role_name as role, r.role_id FROM users as u JOIN roles as r on u.role = r.role_id";
+        $query = "SELECT u.user_id, u.user_name, u.password,u.registration_date, u.user_email, u.avatar_url, r.role_name as role, r.role_id , u.status FROM users as u JOIN roles as r on u.role = r.role_id";
         $stmt = $pdo->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -212,5 +212,32 @@
         $stmt =$pdo->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+    function banUser($user_id){
+        global $pdo;
+        $query = "UPDATE users SET status = 0 WHERE user_id = :user_id ";
+        $stmt = $pdo->prepare($query);
+        try{
+            $stmt->execute([
+                "user_id" => $user_id
+            ]);
+        }
+        catch(PDOException $e){
+            return $e;
+        }
+        return true;
+    }
+    function unbanUser($user_id){
+        global $pdo;
+        $query = "UPDATE users SET status = 1 WHERE user_id = :user_id ";
+        $stmt = $pdo->prepare($query);
+        try{
+            $stmt->execute([
+                "user_id" => $user_id
+            ]);
+        }
+        catch(PDOException $e){
+            return $e;
+        }
+        return true;
+    }
 ?>

@@ -65,7 +65,7 @@
     session_start();
     require_once('../db/checkDev.php');
     require_once('../db/connection.php');
-    include '../header.php';
+    include '../components/header.php';
   ?>
   <form action="addGame.php" method="post" enctype="multipart/form-data" class ="game_add">
     

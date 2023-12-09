@@ -62,7 +62,7 @@
             <div class="activity">
                 <ul>
                     <!-- Add other links as needed -->
-                    <li class="btn"><a href="accounteditform.php">Edit profile</a></li>
+                    <li class="btn"><a href="http://localhost/project_two/profile/accounteditform.php">Edit profile</a></li>
                     <li class="btn"><a href="">Screenshots</a></li>
                     <li class="btn"><a href="">Reviews</a></li>
                     <li class="btn"><a href="">Illustrations</a></li>

@@ -65,7 +65,7 @@ function loginUser($email, $password)
 {
     global $pdo;
 
-    $query = "SELECT u.user_id, u.user_name, u.password, u.user_email, u.avatar_url, r.role_name as role
+    $query = "SELECT u.user_id, u.user_name, u.password, u.user_email, u.avatar_url, r.role_name as role, u.status
               FROM users as u
               JOIN roles as r on u.role = r.role_id
               WHERE u.user_email = :email AND u.password = :password";

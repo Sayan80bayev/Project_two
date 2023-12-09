@@ -2,8 +2,8 @@
 session_start();
 
 // Include necessary files
-include '../db/checkAuth.php';
-require_once '../db/connection.php';
+include '../../db/checkAuth.php';
+require_once '../../db/connection.php';
 
 $errors = array();
 
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$time = time();
 		$avatar_name = $time.$avatar['name'];
 		$avatar_tmp_name = $avatar['tmp_name'];
-		$avatar_destination = '../images/user/' . $avatar_name;
+		$avatar_destination = '../../images/user/' . $avatar_name;
 		$allowed_format = ['image/png', 'image/jpg', 'image/jpeg'];
 		if(in_array($avatar['type'], $allowed_format)){
 			if($avatar['size'] < 5*1024*1024){
@@ -57,19 +57,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($errors)) {
         $_SESSION['status'] = 'error';
         $_SESSION['errors'] = $errors;
-        header('Location: accounteditform.php');
+        header('Location: http://localhost/project_two/profile/accounteditform.php');
         exit;
     }else{
         updateUser($user_id, $currentName, $avatar_name);
         $_SESSION['status'] = 'succes';
         $_SESSION['success']['message'] = 'Update!' ;
         // Redirect to the profile page after updating
-        header('Location: accounteditform.php');
+        header('Location: http://localhost/project_two/profile/accounteditform.php');
         exit();
     }
 } else {
     // Redirect to the profile page if accessed directly without form submission
-    header('Location: accounteditform.php');
+    header('Location: http://localhost/project_two/profile/accounteditform.php');
     exit();
 }
 ?>

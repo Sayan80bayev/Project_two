@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['login'] = "Invalid login!";
     } elseif ($user[0]["user_email"] != $email) {
-        $errors['login'] = "No such email!";
+        $errors['login'] = "No such email with such password!";
     }
 
     // Process login results
@@ -82,8 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = htmlspecialchars($user[0]['user_email']);
             $_SESSION['avatar_url'] = htmlspecialchars($user[0]['avatar_url']);
             $_SESSION['role'] = $user[0]['role'];
+            $_SESSION['userStatus'] = $user[0]['status'];
             $_SESSION['status'] = 'success';
-
             // Redirect to the index page upon successful login
             header("Location: ".$lastPage);
             exit();
