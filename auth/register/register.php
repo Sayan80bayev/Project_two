@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$time = time();
 		$avatar_name = $time . $avatar['name'];
 		$avatar_tmp_name = $avatar['tmp_name'];
-		$avatar_destination = '../images/user/' . $avatar_name;
+		$avatar_destination = '../../images/user/' . $avatar_name;
 		$allowed_format = ['image/png', 'image/jpg', 'image/jpeg'];
 		if(in_array($avatar['type'], $allowed_format)){
 			if($avatar['size'] < 5*1024*1024){
