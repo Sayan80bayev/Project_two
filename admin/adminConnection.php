@@ -49,11 +49,9 @@
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    function getReviews($game_id){
+    function getReviews(){
         global $pdo;
-        $query = "SELECT u.user_name, u.avatar_url, u.user_id, rev.review_date, rev.rating, rev.comment, rev.review_id
-        FROM reviews as rev JOIN users as u on rev.user_id = u.user_id 
-        WHERE rev.game_id = $game_id";
+        $query = "SELECT*FROM reviews ";
         $stmt = $pdo-> query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
