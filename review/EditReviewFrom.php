@@ -82,7 +82,7 @@
         <input type="hidden" value="<?= $game_id ?>" name='game_id'>
         <input type="hidden" value="<?= $review_id ?>" name='review_id'>
         <input type="submit" value="Submit Review" class="button" style="display:inline">
-        <a href="http://localhost/project_two/fullGame.php?id=<?=$_GET['game_id'];?>">Back</a>
+        <a href="<?=$_SESSION['lastPage']?>">Back</a>
     </form>
 </div>
     <?php }else{

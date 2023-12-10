@@ -31,7 +31,6 @@
                 }
                 if($genre == 'admin')
                 echo'<a href="admin/Admin.php"><h2>AdminPage</h2></a>';
-                echo'<a href="admin/AddCategoryForm.php"><h2>Add category</h2></a>'
             ?>
         </div>
         <main>

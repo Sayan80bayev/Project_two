@@ -16,6 +16,7 @@
         require_once '../db/checkAuth.php';
         include '../components/header.php';
         $user_id = $_SESSION['user_id'] ?? '';
+        $_SESSION['lastPage'] = 'http://localhost/project_two/profile/Reviews.php';
         $reviews = getUsersAllReviews($user_id);
     ?>
     <div class="review_container" style="margin-top: 70px;">

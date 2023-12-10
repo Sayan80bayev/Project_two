@@ -56,6 +56,8 @@
 		$user_id = $_SESSION['user_id'] ?? '';
 		$game_id = $_GET['id'];
 		$lastPage = $_SESSION['lastPage'] ?? 'http://localhost/project_two/index.php';
+		if($lastPage == 'http://localhost/project_two/fullGame.php?id='.$_GET['id'])
+			$lastPage = 'http://localhost/project_two/index.php';
 		$reviews = getReviews($game_id); //here is the game id
 		// Iterate through games data
 		if (isset($_GET['id']) && !empty($_GET['id'])) {
@@ -225,6 +227,7 @@
 			<?php endif;?>
 		</div>
 		<?php
+		$_SESSION['lastPage'] = 'http://localhost/project_two/fullGame.php?id='.$_GET['id'];
 		unset($_SESSION['status']);
 		unset($_SESSION['message']);
 		include 'components/footer.php';
