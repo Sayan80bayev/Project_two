@@ -16,14 +16,20 @@ try {
 
 function getGames(){
     global $pdo;    
-    $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo, g.screenshot_1, g.screenshot_2, g.screenshot_3, g.description,g.poster, gr.genre_name as genre FROM games as g JOIN genres as gr ON gr.genre_id=g.genre";
+    $query = 
+    "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo,
+     g.screenshot_1, g.screenshot_2, g.screenshot_3, g.description,g.poster, gr.genre_name as genre 
+     FROM games as g 
+     JOIN genres as gr ON gr.genre_id=g.genre";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 function getGameById($game_id){
     global $pdo;
-    $query ="SELECT g.`game_id`, g.`game_name`, g.`developers`, g.`old_price`, g.`new_price`, g.`release_date`, g.`photo`, g.`screenshot_1`, g.`screenshot_2`, g.`screenshot_3`, g.`description`, g.`poster`, gr.`genre_name` as genre
+    $query =
+    "SELECT g.`game_id`, g.`game_name`, g.`developers`, g.`old_price`, g.`new_price`, g.`release_date`, g.`photo`,
+     g.`screenshot_1`, g.`screenshot_2`, g.`screenshot_3`, g.`description`, g.`poster`, gr.`genre_name` as genre
     FROM games AS g
     JOIN genres AS gr ON g.`genre` = gr.`genre_id`
     WHERE g.game_id = $game_id;
@@ -223,7 +229,10 @@ function deleteReview($review_id){
 }
 function searchGame($search){
     global $pdo;
-    $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo, g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, gr.genre_name as genre FROM games as g JOIN genres as gr ON gr.genre_id=g.genre WHERE g.game_name like :search or gr.genre_name like :search";
+    $query = 
+    "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo,
+     g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, gr.genre_name as genre 
+     FROM games as g JOIN genres as gr ON gr.genre_id=g.genre WHERE g.game_name like :search or gr.genre_name like :search";
     $stmt = $pdo->prepare($query);
     $stmt->execute([
         "search" => '%'.$search.'%'
@@ -280,7 +289,9 @@ function registerGame($game_name, $developers, $old_price, $new_price, $release_
     }
     function getLibraryGames($user_id){
         global $pdo;
-        $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo, g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, g.description, gr.genre_name as genre FROM games as g JOIN genres as gr ON gr.genre_id=g.genre JOIN library as l ON g.game_id = l.game_id WHERE l.user_id = $user_id" ;
+        $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo,
+         g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, g.description, gr.genre_name as genre 
+         FROM games as g JOIN genres as gr ON gr.genre_id=g.genre JOIN library as l ON g.game_id = l.game_id WHERE l.user_id = $user_id" ;
         $stmt = $pdo->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -317,4 +328,25 @@ function registerGame($game_name, $developers, $old_price, $new_price, $release_
         $stmt= $pdo->query($query);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    function processImage($file, $destination){
+        $time = time();
+        $maxSize = 20 * 1024 * 1024; // 20MB in bytes
+        $allowed_format = ['image/png', 'image/jpg', 'image/jpeg'];
+        $file_name = $time . $file['name'];
+        $file_tmp_name = $file['tmp_name'];
+        $file_destination = '../images/'.$destination.'/' . $file_name;
+        $file_destination_base = 'images/'.$destination.'/' . $file_name;
+        // Check if the file size is within the allowed limit
+        if(in_array($file['type'], $allowed_format)){
+            if ($file['size'] > $maxSize) {
+                return 'Max size is 20mb';
+            }else{
+                move_uploaded_file($file_tmp_name, $file_destination);
+            }
+        }
+        else{
+            return "Incorrect file ext, only png, jpeg, jpg";
+        }
+        return [true, $file_destination_base];
+}
 ?>

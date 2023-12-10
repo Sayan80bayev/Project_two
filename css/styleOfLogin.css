@@ -90,3 +90,10 @@ input {
 .error{
   color: red;
 }
+.remember_me{
+  display: flex;
+  gap: 15px;
+}
+.remember_me > input{
+  width: max-content;
+}

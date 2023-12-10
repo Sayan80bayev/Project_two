@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if user credentials are valid
         if (count($user) > 0 && $user[0]["password"] == $password) {
             // Set user session data
-            if (isset($_POST["remember"])) {
+            if (isset($_POST["remember_me"])) {
                 setcookie("user_email", $email, time() + 30 * 24 * 60 * 60); // Remember user email for 30 days
             }
             //DEFENCE

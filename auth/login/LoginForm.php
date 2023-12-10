@@ -28,7 +28,7 @@
         <div class='form-group'>
             <!-- Login input -->
             Login:
-            <input type="text" class='form-control' id="email" name="email">
+            <input type="text" class='form-control' id="email" name="email" value="<?=$_COOKIE['user_email'] ?? ''?>">
             <p id="emailError" class='error'></p>
             <?php
                 // Display login error message
@@ -47,10 +47,13 @@
                     echo "<p class='text-danger'>{$errors['password']}</p>";
             ?>
         </div>
+        <div class="remember_me">
+            <input type="checkbox" name="remember_me"><span>Remember me</span>
+        </div>
         <input type="button" onclick="formCheck()" value="Login" class='button'>
         <p class='error'>
             <!-- Additional information -->
-            <p style="margin: 0 70px; width: 100%">Haven't registered yet? <a href="../register/registerform.php ">click here</a></p>
+        <p style="margin: 0 70px; width: 100%">Haven't registered yet? <a href="../register/registerform.php ">click here</a></p>
     </form>
 
     <?php

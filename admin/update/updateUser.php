@@ -38,12 +38,13 @@
         $passwordCheck = true;
     if($updated){
         if($passwordCheck){
-                $result = updateUser($arr_to_check['user_id'],
-                $arr_to_check['user_name'],
-                $arr_to_check['user_email'], 
-                $arr_to_check['avatar_url'], 
-                md5($arr_to_check['password']), 
-                $arr_to_check['role']);
+                $result = updateUser(
+                    $arr_to_check['user_id'],
+                    $arr_to_check['user_name'],
+                    $arr_to_check['user_email'], 
+                    $arr_to_check['avatar_url'], 
+                    md5($arr_to_check['password']), 
+                    $arr_to_check['role']);
             }
             else{
                 $result = updateUser($arr_to_check['user_id'],

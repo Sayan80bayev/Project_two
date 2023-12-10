@@ -244,33 +244,44 @@
                     <th>New Price</th>
                     <th>Release Date</th>
                     <th>Photo</th>
+                    <th></th>
                     <th>Screenshot 1</th>
+                    <th></th>
                     <th>Screenshot 2</th>
+                    <th></th>
                     <th>Screenshot 3</th>
+                    <th></th>
                     <th>Description</th>
                     <th>Poster</th>
+                    <th></th>
                     <th>Genre</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 $games = getGames();
+                $_SESSION['games'] = getGamesForCheck();
                 foreach ($games as $games) {
                 ?>
                     <tr>
-                        <form method="post" action="update/updateGame.php">
+                        <form method="post" action="update/updateGame.php" enctype="multipart/form-data">
                             <td><?= $games['game_id'] ?></td>
                             <td><input type="text" name="game_name" value="<?= $games['game_name'] ?>"></td>
                             <td><input type="text" name="developers" value="<?= $games['developers'] ?>"></td>
                             <td><input type="text" name="old_price" value="<?= $games['old_price'] ?>"></td>
                             <td><input type="text" name="new_price" value="<?= $games['new_price'] ?>"></td>
                             <td><input type="date" name="release_date" value="<?= $games['release_date'] ?>"></td>
-                            <td><input type="text" name="photo" value="<?= $games['photo'] ?>"></td>
-                            <td><input type="text" name="screenshot_1" value="<?= $games['screenshot_1'] ?>"></td>
-                            <td><input type="text" name="screenshot_2" value="<?= $games['screenshot_2'] ?>"></td>
-                            <td><input type="text" name="screenshot_3" value="<?= $games['screenshot_3'] ?>"></td>
+                            <td><?= $games['photo'] ?></td>
+                            <td><input type="file" name="photo"></td>
+                            <td><?= $games['screenshot_1'] ?></td>
+                            <td><input type="file" name="screenshot_1"></td>
+                            <td><?= $games['screenshot_2'] ?></td>
+                            <td><input type="file" name="screenshot_2"></td>
+                            <td><?= $games['screenshot_3']?></td>
+                            <td><input type="file" name="screenshot_3"></td>
                             <td><input type="text" name="description" value="<?= $games['description'] ?>"></td>
-                            <td><input type="text" name="poster" value="<?= $games['poster'] ?>"></td>
+                            <td><?= $games['poster']?></td>
+                            <td><input type="file" name="poster"></td>
                             <td>
                                 <select name="genre">
                                     <?php

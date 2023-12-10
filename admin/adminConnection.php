@@ -58,9 +58,33 @@
         // If we reach here, then the target is not present in the array
         return -1;
     }
+    function searchGameById($arr, $target) {
+        $left = 0;
+        $right = count($arr,  COUNT_NORMAL) - 1;
+    
+        while ($left <= $right) {
+            $mid = floor(($left + $right) / 2);
+            // Check if the target is present at the middle
+            if ($arr[$mid]['game_id'] == $target) {
+                return $mid;
+            }
+    
+            // If the target is greater, ignore the left half
+            if ($arr[$mid]['game_id']< $target) {
+                $left = $mid + 1;
+            }
+            // If the target is smaller, ignore the right half
+            else {
+                $right = $mid - 1;
+            }
+        }
+        // If we reach here, then the target is not present in the array
+        return -1;
+    }
     function getUsers(){
         global $pdo;
-        $query = "SELECT u.user_id, u.user_name, u.password,u.registration_date, u.user_email, u.avatar_url, r.role_name as role, r.role_id , u.status FROM users as u JOIN roles as r on u.role = r.role_id";
+        $query = "SELECT u.user_id, u.user_name, u.password,u.registration_date, u.user_email, u.avatar_url, r.role_name as role,
+         r.role_id , u.status FROM users as u JOIN roles as r on u.role = r.role_id";
         $stmt = $pdo->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -80,9 +104,18 @@
     }
     function getGames(){
         global $pdo;
-        $query = "SELECT g.`game_id`, g.`game_name`, g.`developers`, g.`old_price`, g.`new_price`, g.`release_date`, g.`photo`, g.`screenshot_1`, g.`screenshot_2`, g.`screenshot_3`, g.`description`, g.`poster`, gr.`genre_name` as genre
+        $query = 
+        "SELECT g.`game_id`, g.`game_name`, g.`developers`, g.`old_price`, g.`new_price`, g.`release_date`, g.`photo`,
+         g.`screenshot_1`, g.`screenshot_2`, g.`screenshot_3`, g.`description`, g.`poster`, gr.`genre_name` as genre
         FROM games AS g
         JOIN genres AS gr ON g.`genre` = gr.`genre_id`;" ;
+        $stmt = $pdo->query($query);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    function getGamesForCheck(){
+        global $pdo;
+        $query = "SELECT * FROM games" ;
         $stmt = $pdo->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -160,7 +193,9 @@
         }
         return true;
     }
-    function updateGame($game_id, $game_name, $developers, $old_price, $new_price, $release_date, $photo, $screenshot_1, $screenshot_2, $screenshot_3, $description, $poster, $genre) {
+    function updateGame(
+        $game_id, $game_name, $developers, $old_price, $new_price, $release_date, $photo,
+        $screenshot_1, $screenshot_2, $screenshot_3, $description, $poster, $genre) {
         global $pdo;
         $query = "
             UPDATE games
@@ -277,4 +312,25 @@
         }
         return true;
     }
+    function processImage($file, $destination){
+        $time = time();
+        $maxSize = 20 * 1024 * 1024; // 20MB in bytes
+        $allowed_format = ['image/png', 'image/jpg', 'image/jpeg'];
+        $file_name = $time . $file['name'];
+        $file_tmp_name = $file['tmp_name'];
+        $file_destination = '../../images/'.$destination.'/' . $file_name;
+        $file_destination_base = 'images/'.$destination.'/' . $file_name;
+        // Check if the file size is within the allowed limit
+        if(in_array($file['type'], $allowed_format)){
+            if ($file['size'] > $maxSize) {
+                return 'Max size is 20mb';
+            }else{
+                move_uploaded_file($file_tmp_name, $file_destination);
+            }
+        }
+        else{
+            return "Incorrect file ext, only png, jpeg, jpg";
+        }
+        return [true, $file_destination_base];
+}
 ?>

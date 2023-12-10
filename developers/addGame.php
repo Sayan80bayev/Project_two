@@ -41,32 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     );    
     
     //Checking images
-    function processImage($file, $destination){
-            $time = time();
-            $maxSize = 20 * 1024 * 1024; // 20MB in bytes
-            $allowed_format = ['image/png', 'image/jpg', 'image/jpeg'];
-            $file_name = $time . $file['name'];
-            $file_tmp_name = $file['tmp_name'];
-            $file_destination = '../images/'.$destination.'/' . $file_name;
-            $file_destination_base = 'images/'.$destination.'/' . $file_name;
-            // Check if the file size is within the allowed limit
-            if(in_array($file['type'], $allowed_format)){
-                if ($file['size'] > $maxSize) {
-                    return 'Max size is 20mb';
-                }else{
-                    move_uploaded_file($file_tmp_name, $file_destination);
-                }
-            }
-            else{
-                return "Incorrect file ext, only png, jpeg, jpg";
-            }
-            return [true, $file_destination_base];
-    }
     $photo = '';
     $screenshot_1 = '';
     $screenshot_2 = '';
     $screenshot_3 = '';
-    $posters = '';
+    $poster = '';
     foreach ($filesArray as $key => $file) {
         if (!empty($file['name'])) {
             // Include the file type in the destination path
@@ -98,11 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $screenshot_3 = $result[1];
                         break;
                     case 'posters':
-                        $posters = $result[1];
+                        $poster = $result[1];
                         break;
-                    default:
-                        // Handle any other cases if needed
-                        break;
+
                 }
             }
         }
@@ -123,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $screenshot_2,
             $screenshot_3,
             htmlspecialchars($description),
-            $posters,
+            $poster,
             htmlspecialchars($genre)
         );
     }
