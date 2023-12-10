@@ -1,1 +1,1 @@
-http://localhost/project_two/login/LoginForm.php
+http://localhost/project_two/auth/login/LoginForm.php
