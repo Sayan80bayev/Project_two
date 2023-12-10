@@ -16,7 +16,7 @@
         $_SESSION['lastPage'] = 'http://localhost/project_two/index.php';
         require_once 'db/connection.php';
         require_once 'db/checkAuth.php';
-        $game = getGames();        
+        $games = getGames();        
         include 'components/header.php';
     ?>
     <!-- Main Content -->

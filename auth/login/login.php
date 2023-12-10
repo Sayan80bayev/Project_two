@@ -83,6 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['avatar_url'] = htmlspecialchars($user[0]['avatar_url']);
             $_SESSION['role'] = $user[0]['role'];
             $_SESSION['userStatus'] = $user[0]['status'];
+            $_SESSION['wallet'] = $user[0]['wallet'];
             $_SESSION['status'] = 'success';
             // Redirect to the index page upon successful login
             header("Location: ".$lastPage);

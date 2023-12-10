@@ -7,31 +7,31 @@
                     ?>
                         <!-- Poster Card -->
                         <div class="poster">
-                            <img src="<?= $game[$i]['poster'] ?>" alt="">
+                            <img src="<?= $games[$i]['poster'] ?>" alt="">
                             <div class="title">
                                 <div class="content">
                                     <!-- Link to full game details -->
-                                    <a href="fullGame.php?id=<?= $game[$i]['game_id'] ?>">
-                                        <?= $game[$i]['game_name'] ?>
+                                    <a href="fullGame.php?id=<?= $games[$i]['game_id'] ?>">
+                                        <?= $games[$i]['game_name'] ?>
                                     </a>
-                                    <p><?= $game[$i]['genre'] ?></p>
+                                    <p><?= $games[$i]['genre'] ?></p>
                                     <?php
                                     // Display prices with appropriate styles
-                                    if ($game[$i]['new_price'] != $game[$i]['old_price']) {
+                                    if ($games[$i]['new_price'] != $games[$i]['old_price']) {
                                     ?>
                                         <p class="price" style="text-decoration: line-through; color: gray;">
-                                            <?= $game[$i]['old_price'] ?>
+                                            <?= $games[$i]['old_price'] ?>
                                         </p>
                                         <p class="price" style="font-weight: bold; color: green;">
-                                            <?= $game[$i]['new_price'] ?>
+                                            <?= $games[$i]['new_price'] ?>
                                         </p>
                                     <?php
-                                    } elseif ($game[$i]['new_price'] == 0.00) {
-                                        $game[$i]['new_price'] = 'Free';
-                                        echo '<p class="price" style="font-weight: bold; color: green; font-size: 20px;">' . $game[$i]['new_price'] . '</p>';
+                                    } elseif ($games[$i]['new_price'] == 0.00) {
+                                        $games[$i]['new_price'] = 'Free';
+                                        echo '<p class="price" style="font-weight: bold; color: green; font-size: 20px;">' . $games[$i]['new_price'] . '</p>';
                                     } else {
                                     ?>
-                                        <p class="price"><?= $game[$i]['new_price'] ?></p>
+                                        <p class="price"><?= $games[$i]['new_price'] ?></p>
                                     <?php
                                     }
                                     ?>

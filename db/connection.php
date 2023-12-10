@@ -65,7 +65,7 @@ function loginUser($email, $password)
 {
     global $pdo;
 
-    $query = "SELECT u.user_id, u.user_name, u.password, u.user_email, u.avatar_url, r.role_name as role, u.status
+    $query = "SELECT u.user_id, u.user_name, u.password, u.user_email, u.avatar_url, r.role_name as role, u.status, u.wallet
               FROM users as u
               JOIN roles as r on u.role = r.role_id
               WHERE u.user_email = :email AND u.password = :password";
@@ -283,5 +283,38 @@ function registerGame($game_name, $developers, $old_price, $new_price, $release_
         $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo, g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, g.description, gr.genre_name as genre FROM games as g JOIN genres as gr ON gr.genre_id=g.genre JOIN library as l ON g.game_id = l.game_id WHERE l.user_id = $user_id" ;
         $stmt = $pdo->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    function purchase($user_id, $game_id){
+        global $pdo;
+        $query =
+         "UPDATE users 
+         SET wallet = wallet - (SELECT new_price FROM games WHERE game_id = :game_id) 
+         WHERE user_id = :user_id;
+         INSERT INTO library (user_id, game_id) VALUES (:user_id, :game_id);
+         ";
+         $stmt = $pdo->prepare($query);
+         try{
+             $stmt->execute([
+                'game_id' => $game_id,                
+                'user_id' => $user_id                
+             ]);
+         }catch(PDOException $e){
+            return $e;
+         }
+         return true;
+    }
+    function getTotal($user_id, $game_id){
+        global $pdo;
+        $query =
+        "SELECT wallet -(SELECT new_price FROM games WHERE game_id = $game_id) FROM users WHERE user_id = $user_id";
+        $stmt= $pdo->query($query);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    function updateUserInfo($user_id){
+        global $pdo;
+        $query =
+        "SELECT status, wallet FROM users WHERE user_id = $user_id";
+        $stmt= $pdo->query($query);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 ?>

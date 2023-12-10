@@ -52,8 +52,8 @@
         <?php 
             require_once '../db/connection.php'; 
             $user_id = $_SESSION['user_id'] ?? '';
-            $game = getLibraryGames($user_id);
-            foreach($game as $game):
+            $games = getLibraryGames($user_id);
+            foreach($games as $game):
         ?>
         <div class="game-card library-game">
             <img src="<?= $game['photo'] ?>" alt="">
@@ -65,7 +65,7 @@
                         <p><?= $game['release_date'] ?></p>
                         <p><?= $game['description'] ?></p>
                         <br>
-                        <a class = "button"href="http://localhost/project_two/fullgame.php?id=<?= $game['game_id']?>">See in market page</a>
+                        <a class = "button" href="http://localhost/project_two/fullgame.php?id=<?=$game['game_id']?>">See in market page</a>
                     </div>
                 </div>
         </div>

@@ -244,44 +244,44 @@
             </thead>
             <tbody>
                 <?php
-                $game = getGames();
-                foreach ($game as $game) {
+                $games = getGames();
+                foreach ($games as $games) {
                 ?>
                     <tr>
                         <form method="post" action="update/updateGame.php">
-                            <td><?= $game['game_id'] ?></td>
-                            <td><input type="text" name="game_name" value="<?= $game['game_name'] ?>"></td>
-                            <td><input type="text" name="developers" value="<?= $game['developers'] ?>"></td>
-                            <td><input type="text" name="old_price" value="<?= $game['old_price'] ?>"></td>
-                            <td><input type="text" name="new_price" value="<?= $game['new_price'] ?>"></td>
-                            <td><input type="date" name="release_date" value="<?= $game['release_date'] ?>"></td>
-                            <td><input type="text" name="photo" value="<?= $game['photo'] ?>"></td>
-                            <td><input type="text" name="screenshot_1" value="<?= $game['screenshot_1'] ?>"></td>
-                            <td><input type="text" name="screenshot_2" value="<?= $game['screenshot_2'] ?>"></td>
-                            <td><input type="text" name="screenshot_3" value="<?= $game['screenshot_3'] ?>"></td>
-                            <td><input type="text" name="description" value="<?= $game['description'] ?>"></td>
-                            <td><input type="text" name="poster" value="<?= $game['poster'] ?>"></td>
+                            <td><?= $games['game_id'] ?></td>
+                            <td><input type="text" name="game_name" value="<?= $games['game_name'] ?>"></td>
+                            <td><input type="text" name="developers" value="<?= $games['developers'] ?>"></td>
+                            <td><input type="text" name="old_price" value="<?= $games['old_price'] ?>"></td>
+                            <td><input type="text" name="new_price" value="<?= $games['new_price'] ?>"></td>
+                            <td><input type="date" name="release_date" value="<?= $games['release_date'] ?>"></td>
+                            <td><input type="text" name="photo" value="<?= $games['photo'] ?>"></td>
+                            <td><input type="text" name="screenshot_1" value="<?= $games['screenshot_1'] ?>"></td>
+                            <td><input type="text" name="screenshot_2" value="<?= $games['screenshot_2'] ?>"></td>
+                            <td><input type="text" name="screenshot_3" value="<?= $games['screenshot_3'] ?>"></td>
+                            <td><input type="text" name="description" value="<?= $games['description'] ?>"></td>
+                            <td><input type="text" name="poster" value="<?= $games['poster'] ?>"></td>
                             <td>
                                 <select name="genre">
                                     <?php
                                     $genres = getGenres();
                                     foreach ($genres as $genre) {
                                         echo '<option value="' . $genre['genre_id'] . '">' . $genre['genre_name'] . '</option>';
-                                        if ($genre['genre_name'] == $game['genre']) {
+                                        if ($genre['genre_name'] == $games['genre']) {
                                             echo '<option value="' . $genre['genre_id'] . '" selected >' . $genre['genre_name'] . ' </option>';
                                         }
                                     }
                                     ?>
                                 </select>
                             </td>
-                            <input type="hidden" name="game_id" value="<?= $game['game_id'] ?>">
+                            <input type="hidden" name="game_id" value="<?= $games['game_id'] ?>">
                             <td>
                                 <input type="submit" value="Update">
                             </td>
                         </form>
                         <td>
                             <form action="delete/deleteGame.php" method="post">
-                                <input type="hidden" name="game_id" value="<?= $game['game_id'] ?>">
+                                <input type="hidden" name="game_id" value="<?= $games['game_id'] ?>">
                                 <input type="submit" value="Delete">
                             </form>
                         </td>

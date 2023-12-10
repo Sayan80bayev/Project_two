@@ -1,7 +1,12 @@
 <?php
     //A php.code that checks for status
-    if(isset($_SESSION['user_name']) && preg_match("/^[a-zA-Z0-9]+$/", $_SESSION['user_name']) && $_SESSION['userStatus']) 
+    if(isset($_SESSION['user_name']) && preg_match("/^[a-zA-Z0-9]+$/", $_SESSION['user_name']) && $_SESSION['userStatus']) {
+        require_once 'connection.php';
+        $uptInfUsr = updateUserInfo($_SESSION['user_id']);
         $name = $_SESSION['user_name'];
+        $_SESSION['wallet'] = $uptInfUsr['wallet']; 
+        $_SESSION['userStatus'] = $uptInfUsr['status']; 
+    }
     elseif(isset($_SESSION['user_name']) && !preg_match("/^[a-zA-Z0-9]+$/", $_SESSION['user_name']) ){
         $_SESSION['message'] = 'Warning: Incorrect user name';
         $_SESSION['status'] = 'error';

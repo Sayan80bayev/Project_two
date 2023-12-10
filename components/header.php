@@ -14,13 +14,13 @@
             <input id="search" type="search" placeholder="Search..." name="search"/>
             <button type="submit">Go</button>
         </form>
-        
         <!-- User Profile Link -->
         <?php 
             if(isset($_SESSION['user_name'])){
                 if($_SESSION['role'] == 'user'){
                 ?>
                 <a href="http://localhost/project_two/profile/library.php"><h3>Library</h3></a>
+                <h3>$<?=$_SESSION['wallet']?></h3>
                 <?php }?>
         <a class="profileLink" href="http://localhost/project_two/profile/profile.php">
             <img src="http://localhost/project_two/images/user/<?=$avatar?>" alt="">
@@ -30,7 +30,7 @@
             else{
         ?>
             <div class="login">
-                <a href="http://localhost/project_two/login/LoginForm.php/">Log in</a>
+                <a href="http://localhost/project_two/auth/login/LoginForm.php/">Log in</a>
             </div>
         <?php }
         ?>

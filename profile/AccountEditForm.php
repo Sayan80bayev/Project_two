@@ -58,18 +58,7 @@
                 </form>
                 <!-- Display user's information and links -->
             </div>
-
-            <div class="activity">
-                <ul>
-                    <!-- Add other links as needed -->
-                    <li class="btn"><a href="http://localhost/project_two/profile/accounteditform.php">Edit profile</a></li>
-                    <li class="btn"><a href="">Screenshots</a></li>
-                    <li class="btn"><a href="">Reviews</a></li>
-                    <li class="btn"><a href="">Illustrations</a></li>
-                    <li class="btn"><a href="changepasswordform.php">Change Password</a></li>
-                    <li class="btn"><a href="../logout.php">Logout</a></li>
-                </ul>
-            </div>
+            <?php include 'activity.php';?>
         </div>
     </main>
 
