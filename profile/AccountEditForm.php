@@ -2,66 +2,71 @@
 <html lang="en">
 
 <head>
-    <!-- Set the title of the page -->
-    <title>Registration</title>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Include custom CSS file -->
-    <link rel='stylesheet' href="http://localhost/project_two/css/styleOfLogin.css">
+    <link rel="icon" type="image/svg+xml" href="http://localhost/project_two/images/gamepad-solid.svg">
+    <link rel="stylesheet" href="http://localhost/project_two/css/profile.css">
+    <link rel="stylesheet" href="http://localhost/project_two/css/style.css">
 </head>
 
 <body>
-    <?php
-    // Start the session and check if the user is authenticated
-    session_start();
-    include '../db/checkAuth.php';
-    ?>
-
-    <div class="container mt-5">
+    <main>
         <?php
-        // Check for any session message and display it
+        // Start the session and check if the user is authenticated
+        session_start();
+        include '../components/header.php';
+        include '../db/checkAuth.php';
+
+        // Get the user's avatar URL, set a default if not available
+        $avatar = $_SESSION['avatar_url'] ?? 'no-avatar.jpg';
+        $name = $_SESSION['user_name'] ?? ''; // Replace with your actual session variable for the user's name
         $errors = $_SESSION['errors'] ?? [];
-        if (isset($_SESSION['message'])) {
-            echo '<h2 class="offset-md-4 text-success">' . $_SESSION['message'] . '</h2>';
-            unset($_SESSION['message']);
-        }
+        $status = $_SESSION['status'] ?? '';
+        $succes = $_SESSION['success'] ?? [];
         ?>
-        <!-- Display the header for the password changing section -->
-        <h2 class="offset-md-4">Password changing</h2>
 
-        <div class="col-md-6 offset-md-3">
-            <!-- Password change form -->
-            <form action="changePassword.php" method="post">
-                <!-- Password input -->
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control" name="password" id="password">
-                </div>
-                <!-- New password input -->
-                <div class="form-group">
-                    <label for="new_password">New-password:</label>
-                    <input type="password" class="form-control" name="new_password" id="new_password">
-                </div>
-                <!-- Confirm password input -->
-                <div class="form-group">
-                    <label for="confirm_password">Confirm-password:</label>
-                    <input type="password" class="form-control" name="confirm_password" id="confirm_password">
-                </div>
-                <?php
-                // Display password-related errors
-                if (isset($errors["password"]))
-                    echo "<p class='text-danger'>{$errors["password"]}</p>";
-                ?>
-                <!-- Confirm and Back buttons -->
-                <button type="submit" class="btn btn-primary">Confirm</button>
-                <a href="Profile.php" class="btn btn-primary">Back</a>
-            </form>
+        <div class="message">
+            <?php if (!empty($errors['message'])): ?>
+                <h1><?= $errors['message'] ?></h1>
+            <?php endif; ?>
+            <?php if (!empty($succes['message']) && $status == 'succes'): ?>
+                <h1 style="color:green;"><?= $succes['message'] ?></h1>
+            <?php endif; ?>
+            <?php if (!empty($errors['avatar'])): ?>
+                <h1 style="color: red;"><?= $errors['avatar'] ?></h1>
+            <?php endif; ?>
+
+            <?php if (!empty($errors['name'])): ?>
+                <h1 style="color: red;"><?= $errors['name'] ?></h1>
+            <?php endif; ?>
         </div>
-    </div>
 
-    <?php
-    // Unset errors session variable
+        <div class="container">
+            <div class="profile">
+                <!-- Display user's mini-profile -->
+                <form action="update/editAccount.php" method="post" enctype="multipart/form-data">
+                    <img src='../images/user/<?= $avatar ?>' alt="Avatar" class="avatar">
+                    <label for="editableNameInput"><h3>Name changing:</h3></label>
+                    <input type="text" id="editableNameInput" name="new_name" class="form-control" value="<?= $name ?>">
+                    <label for="avatar"><h3>Avatar changing</h3></label>
+                    <input type="file" name="new_avatar">
+                    <input type="hidden" name="user_id" value="<?=$_SESSION['user_id']?>">
+                    <div class="submit-check btn">
+                        <input type="submit" value="Save changes">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                            <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" fill="#f8e6de" />
+                        </svg>
+                    </div>
+                </form>
+                <!-- Display user's information and links -->
+            </div>
+            <?php include 'activity.php';?>
+        </div>
+    </main>
+
+    <?php 
+    include '../components/footer.php'; 
     unset($_SESSION['errors']);
+    unset($_SESSION['status']);
+    unset($_SESSION['success']);
     ?>
 </body>
 

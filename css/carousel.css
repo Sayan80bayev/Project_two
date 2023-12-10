@@ -36,11 +36,16 @@
     left: 50%;
     transform: translate(-50%, 0);
     z-index: 2;
-    color: #fff;
+    color: #f8e6de;
     visibility: visible;
     opacity: 1;
     padding: 1px;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0.1) );
+    transition: 0.5s;
+}
+a:hover{
+    transition: 0.5s;
+    color: #ED500A;
 }
 .carousel>.carousel-line>.poster>.title>.content> a {
     font-size: 30px;
@@ -53,7 +58,7 @@
     background: transparent;
     border: none;
     font-size: 2em;
-    color: #fff;
+    color: #f8e6de;
     cursor: pointer;
 }
 
@@ -77,11 +82,11 @@
 
 .chevron {
     fill: none;
-    stroke: whitesmoke;
+    stroke: #f8e6de;
     stroke-width: 3;
     transition: .2s all linear;
 }
 
 .btn-container-carousel button :hover>.chevron {
-    stroke: #FBBB43;
+    stroke: #ED500A;
 }

@@ -14,14 +14,38 @@ try {
     echo $exception->getMessage();
 }
 
+function getGames(){
+    global $pdo;    
+    $query = 
+    "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo,
+     g.screenshot_1, g.screenshot_2, g.screenshot_3, g.description,g.poster, gr.genre_name as genre 
+     FROM games as g 
+     JOIN genres as gr ON gr.genre_id=g.genre";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function getGameById($game_id){
+    global $pdo;
+    $query =
+    "SELECT g.`game_id`, g.`game_name`, g.`developers`, g.`old_price`, g.`new_price`, g.`release_date`, g.`photo`,
+     g.`screenshot_1`, g.`screenshot_2`, g.`screenshot_3`, g.`description`, g.`poster`, gr.`genre_name` as genre
+    FROM games AS g
+    JOIN genres AS gr ON g.`genre` = gr.`genre_id`
+    WHERE g.game_id = $game_id;
+    ";
+    $stmt = $pdo->query($query);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
 // Function to register a new user
-function registerUser($username, $email, $password)
+function registerUser($username, $email, $password, $avatar_name)
 {
     global $pdo;
     $password = md5($password); // Using MD5 for password hashing
     $errors = []; // Define $errors
-    $query = "INSERT INTO user (user_name, password, user_email, registration_date)
-            VALUES(:name, :password, :email , :registration_date)";
+    $query = "INSERT INTO users (user_name, password, user_email, registration_date, avatar_url)
+            VALUES(:name, :password, :email , :registration_date, :avatar)";
     $stmt = $pdo->prepare($query);
     date_default_timezone_set('Asia/Almaty');
     try {
@@ -30,7 +54,8 @@ function registerUser($username, $email, $password)
             'email' => $email,
             'name' => $username,
             'password' => $password,
-            'registration_date' => date("Y-m-d H:i:s", time())
+            'registration_date' => date("Y-m-d H:i:s", time()),
+            'avatar' => $avatar_name
         ]);
     } catch (PDOException $e) {
         // Handle any exception during user registration
@@ -45,17 +70,28 @@ function registerUser($username, $email, $password)
 function loginUser($email, $password)
 {
     global $pdo;
-    $query = "SELECT * FROM user WHERE user_email = '$email'";
-    $stmt = $pdo->query($query);
+
+    $query = "SELECT u.user_id, u.user_name, u.password, u.user_email, u.avatar_url, r.role_name as role, u.status, u.wallet
+              FROM users as u
+              JOIN roles as r on u.role = r.role_id
+              WHERE u.user_email = :email AND u.password = :password";
+
+    $stmt = $pdo->prepare($query);
+
+    // Assuming $password is already hashed
+    $stmt->execute([':email' => $email, ':password' => $password]);
+
     $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     return $user;
 }
+
 
 // Function to change user password
 function changePassword($email, $password)
 {
     global $pdo;
-    $query = "UPDATE user SET password = :password WHERE user_email = :email";
+    $query = "UPDATE users SET password = :password WHERE user_email = :email";
     $stmt = $pdo->prepare($query);
 
     try {
@@ -78,7 +114,7 @@ function getReviews($game_id)
 {
     global $pdo;
     $query = "SELECT u.user_name, u.avatar_url, u.user_id, rev.review_date, rev.rating, rev.comment , rev.review_id
-            FROM review as rev JOIN user as u on rev.user_id = u.user_id 
+            FROM reviews as rev JOIN users as u on rev.user_id = u.user_id 
             WHERE rev.game_id = $game_id";
     $stmt = $pdo->query($query);
     $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -89,7 +125,7 @@ function getReviews($game_id)
 function addReview($game_id, $user_id, $rating, $review)
 {
     global $pdo;
-    $query = "INSERT INTO `review` (`game_id`, `user_id`, `rating`, `comment`, `review_date`) 
+    $query = "INSERT INTO `reviews` (`game_id`, `user_id`, `rating`, `comment`, `review_date`) 
             VALUES (:game_id, :user_id, :rating, :comment, :review_date)";
     $stmt = $pdo->prepare($query);
 
@@ -113,13 +149,17 @@ function addReview($game_id, $user_id, $rating, $review)
 }
 
 // Function to get a user's review for a specific game
-function getUsersReview($user_id, $game_id)
+function getUsersReview($user_id, $game_id, $review_id)
 {
     global $pdo;
     $query = "SELECT u.user_name, u.avatar_url, u.user_id, rev.review_date, rev.rating, rev.comment, rev.review_id
-            FROM review as rev JOIN user as u on rev.user_id = u.user_id 
-            WHERE rev.game_id = $game_id AND u.user_id = $user_id";
+            FROM reviews as rev JOIN users as u on rev.user_id = u.user_id 
+            WHERE rev.game_id = $game_id AND u.user_id = $user_id AND rev.review_id = $review_id";
+    try{
     $stmt = $pdo->query($query);
+    }catch(PDOException $e){
+        return [];
+    }
     $review = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $review;
 }
@@ -128,7 +168,7 @@ function getUsersReview($user_id, $game_id)
 function changeReview($game_id, $user_id, $review_id, $rating, $comment)
 {
     global $pdo;
-    $query = "UPDATE review SET comment = :comment , rating= :rating
+    $query = "UPDATE reviews SET comment = :comment , rating= :rating
             WHERE game_id = :game_id AND user_id = :user_id
             AND  review_id = :review_id";
     $stmt = $pdo->prepare($query);
@@ -154,8 +194,159 @@ function changeReview($game_id, $user_id, $review_id, $rating, $comment)
 function getCategory()
 {
     global $pdo;
-    $query = "SELECT genre FROM game group by genre";
+    $query = "SELECT genre_name FROM genres";
     $stmt = $pdo->query($query);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
+
+function updateUser($user_id, $user_name, $avatar ){
+    global $pdo;
+    $query = "UPDATE users SET avatar_url = :avatar, user_name = :user_name WHERE user_id = $user_id";
+    $stmt = $pdo->prepare($query);
+    try{
+    $stmt->execute([
+        "avatar" => $avatar,
+        "user_name" => $user_name
+    ]);
+    } catch(PDOException $e){
+        return $e->getMessage();
+    }
+    return true;
+}
+function deleteReview($review_id){   
+    global $pdo;
+    $query = "DELETE FROM reviews WHERE review_id = :review_id";
+    $stmt = $pdo->prepare($query);
+    try{
+        $stmt->execute([
+            "review_id" => $review_id
+        ]);
+    }catch(PDOException $e){
+        return $e->getMessage();
+    }
+    return true;
+}
+function searchGame($search){
+    global $pdo;
+    $query = 
+    "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo,
+     g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, gr.genre_name as genre 
+     FROM games as g JOIN genres as gr ON gr.genre_id=g.genre WHERE g.game_name like :search or gr.genre_name like :search";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([
+        "search" => '%'.$search.'%'
+    ]);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function registerGame($game_name, $developers, $old_price, $new_price, $release_date, $photo, $screenshot_1, $screenshot_2, $screenshot_3, $description, $poster, $genre)
+{
+    global $pdo;
+    $query = "INSERT INTO `games` 
+            (`game_name`, `developers`, `old_price`, `new_price`, `release_date`, `photo`, `screenshot_1`, `screenshot_2`, `screenshot_3`, `description`, `poster`, `genre`) 
+            VALUES 
+            (:game_name, :developers, :old_price, :new_price, :release_date, :photo, :screenshot_1, :screenshot_2, :screenshot_3, :description, :poster, :genre)";
+    $stmt = $pdo->prepare($query);
+    try {
+        // Execute the prepared statement with parameters
+        $stmt->execute([
+            "game_name" => $game_name,
+            "developers" => $developers,
+            "old_price" => $old_price,
+            "new_price" => $new_price,
+            "release_date" => $release_date,
+            "photo" => $photo,
+            "screenshot_1" => $screenshot_1,
+            "screenshot_2" => $screenshot_2,
+            "screenshot_3" => $screenshot_3,
+            "description" => $description,
+            "poster" => $poster,
+            "genre" => $genre,
+        ]);
+    } catch (PDOException $e) {
+        // Handle any exception during game registration
+        return $e->getMessage();
+    }
+
+    return true;
+    }
+    function getGernres(){
+            global $pdo;
+            $query = "SELECT*FROM genres";
+            $stmt = $pdo->query($query);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+    }
+    function getUsersAllReviews($user_id){
+        global $pdo;
+        $query = "SELECT u.user_name, u.avatar_url, u.user_id, rev.review_date, rev.rating, rev.comment, rev.review_id, rev.game_id
+        FROM reviews as rev JOIN users as u on rev.user_id = u.user_id 
+        WHERE u.user_id = $user_id ";
+        $stmt = $pdo-> query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    function getLibraryGames($user_id){
+        global $pdo;
+        $query = "SELECT g.game_name, g.game_id, g.developers, g.old_price, g.new_price, g.release_date, g.photo,
+         g.screenshot_1, g.screenshot_2, g.screenshot_3, g.poster, g.description, gr.genre_name as genre 
+         FROM games as g JOIN genres as gr ON gr.genre_id=g.genre JOIN library as l ON g.game_id = l.game_id WHERE l.user_id = $user_id" ;
+        $stmt = $pdo->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    function purchase($user_id, $game_id){
+        global $pdo;
+        $query =
+         "UPDATE users 
+         SET wallet = wallet - (SELECT new_price FROM games WHERE game_id = :game_id) 
+         WHERE user_id = :user_id;
+         INSERT INTO library (user_id, game_id) VALUES (:user_id, :game_id);
+         ";
+         $stmt = $pdo->prepare($query);
+         try{
+             $stmt->execute([
+                'game_id' => $game_id,                
+                'user_id' => $user_id                
+             ]);
+         }catch(PDOException $e){
+            return $e;
+         }
+         return true;
+    }
+    function getTotal($user_id, $game_id){
+        global $pdo;
+        $query =
+        "SELECT wallet -(SELECT new_price FROM games WHERE game_id = $game_id) FROM users WHERE user_id = $user_id";
+        $stmt= $pdo->query($query);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    function updateUserInfo($user_id){
+        global $pdo;
+        $query =
+        "SELECT status, wallet, avatar_url FROM users WHERE user_id = $user_id";
+        $stmt= $pdo->query($query);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    function processImage($file, $destination){
+        $time = time();
+        $maxSize = 20 * 1024 * 1024; // 20MB in bytes
+        $allowed_format = ['image/png', 'image/jpg', 'image/jpeg'];
+        $file_name = $time . $file['name'];
+        $file_tmp_name = $file['tmp_name'];
+        $file_destination = '../images/'.$destination.'/' . $file_name;
+        $file_destination_base = 'images/'.$destination.'/' . $file_name;
+        // Check if the file size is within the allowed limit
+        if(in_array($file['type'], $allowed_format)){
+            if ($file['size'] > $maxSize) {
+                return 'Max size is 20mb';
+            }else{
+                move_uploaded_file($file_tmp_name, $file_destination);
+            }
+        }
+        else{
+            return "Incorrect file ext, only png, jpeg, jpg";
+        }
+        return [true, $file_destination_base];
+}
+?>
