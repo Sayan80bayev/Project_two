@@ -35,6 +35,29 @@
         // If we reach here, then the target is not present in the array
         return -1;
     }
+    function searchReview($arr, $target) {
+        $left = 0;
+        $right = count($arr,  COUNT_NORMAL) - 1;
+    
+        while ($left <= $right) {
+            $mid = floor(($left + $right) / 2);
+            // Check if the target is present at the middle
+            if ($arr[$mid]['review_id'] == $target) {
+                return $mid;
+            }
+    
+            // If the target is greater, ignore the left half
+            if ($arr[$mid]['review_id']< $target) {
+                $left = $mid + 1;
+            }
+            // If the target is smaller, ignore the right half
+            else {
+                $right = $mid - 1;
+            }
+        }
+        // If we reach here, then the target is not present in the array
+        return -1;
+    }
     function getUsers(){
         global $pdo;
         $query = "SELECT u.user_id, u.user_name, u.password,u.registration_date, u.user_email, u.avatar_url, r.role_name as role, r.role_id , u.status FROM users as u JOIN roles as r on u.role = r.role_id";
@@ -44,7 +67,7 @@
     }
     function getUsersForCheck(){
         global $pdo;
-        $query = "SELECT * FROM users ";
+        $query = "SELECT user_id, user_name , user_email, registration_date, avatar_url, password, role FROM users ";
         $stmt = $pdo->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -66,8 +89,9 @@
     }
     function deleteUser($user_id){
         global $pdo;
-        $query = "
-        DELETE FROM `reviews` WHERE `user_id` =:user_id;
+        $query =
+        "DELETE FROM `reviews` WHERE `user_id` =:user_id;
+        DELETE FROM `library` WHERE `user_id` =:user_id;
         DELETE FROM `users` WHERE `user_id` =:user_id;";
         $stmt = $pdo->prepare($query);
         try{
@@ -94,10 +118,11 @@
     }
     function deleteGame($game_id){
         global $pdo;
-        $query = "
-        SET FOREIGN_KEY_CHECKS=0;
+        $query = 
+        "SET FOREIGN_KEY_CHECKS=0;
         DELETE FROM `reviews` WHERE `game_id` =:game_id;
         DELETE FROM `games` WHERE `game_id` =:game_id;
+        DELETE FROM `library` WHERE `game_id` =:game_id;
         SET FOREIGN_KEY_CHECKS=1;";
         $stmt = $pdo->prepare($query);
         try{

@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once '../db/checkAuth.php';
-    include '../db/connection.php';
+    require_once '../db/connection.php';
     $user_id = $_GET['user_id'];
     $review_id = $_GET['review_id'];
     $game_id = $_GET['game_id'];

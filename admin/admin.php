@@ -107,10 +107,12 @@
                 <?php
                 $users = getUsers();
                 $_SESSION['users'] = getUsersForCheck();
+                $counter = 0;
                 foreach ($users as $user) {
-                ?>
+                    ?>
                     <tr>
                         <form method="post" action="update/updateUser.php">
+                            <?php $_SESSION['users'][$counter]['password_check'] = $user['password']; $counter++; ?>
                             <td><?= $user['user_id'] ?></td>
                             <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
                             <td><input type="text" name="user_name" value="<?= $user['user_name'] ?>"></td>
@@ -181,13 +183,15 @@
             <tbody>
                 <?php
                 $reviews = getReviews();
+                $_SESSION['reviews'] = $reviews;
                 foreach ($reviews as $review) {
                 ?>
                     <tr>
                         <form method="post" action="update/updateReview.php">
                             <td><?= $review['review_id'] ?></td>
-                            <td><input type="text" name="game_id" value="<?= $review['game_id'] ?>"></td>
-                            <td><input type="text" name="user_id" value="<?= $review['user_id'] ?>"></td>
+                            <input type="hidden" name="review_id" value="<?= $review['review_id'] ?>">
+                            <td><?= $review['game_id'] ?><input type="hidden" name="game_id" value="<?= $review['game_id'] ?>"></td>
+                            <td><?= $review['user_id'] ?><input type="hidden" name="user_id" value="<?= $review['user_id'] ?>"></td>
                             <td>
                                 <select name="rating" >
                                 <?php
@@ -202,8 +206,7 @@
                                 </select>
                             </td>
                             <td><input type="text" name="comment" value="<?= $review['comment'] ?>"></td>
-                            <td><?= $review['review_date'] ?></td>
-                            <input type="hidden" name="review_id" value="<?= $review['review_id'] ?>">
+                            <td><?= $review['review_date'] ?><input type="hidden" name="review_date" value="<?= $review['review_date'] ?>"></td>
                             <td>
                                 <input type="submit" value="Update">
                             </td>
