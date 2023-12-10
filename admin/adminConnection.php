@@ -264,4 +264,17 @@
         }
         return true;
     }
+    function addCat($category_name){
+        global $pdo;
+        $query = "INSERT INTO genres(genre_name) VALUES(:cat_name)";
+        $stmt = $pdo->prepare($query);
+        try{
+            $stmt ->execute([
+                "cat_name" => $category_name
+            ]);
+        }catch(PDOException $e){
+            return false;
+        }
+        return true;
+    }
 ?>

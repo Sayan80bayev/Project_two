@@ -23,6 +23,7 @@ main {
 }
 
 .profile {
+  display: grid;
   min-width: 590px;
   max-width: 100%;
   height: 100%;
@@ -54,6 +55,7 @@ main {
 
 .mini-profile {
   /* width: 40%; */
+  margin: auto;
   display: flex;
   align-items: center;
 }
@@ -140,7 +142,7 @@ input[type="text"] {
 
 .btn {
   background-color: #6D88BE;
-  padding: 5px;
+  padding: 10px;
   border-radius: 10px;
 }
 

@@ -86,10 +86,10 @@
 						<h2><?= $games['game_name']?></h2>
 						<p><?= $games['genre']?></p>
 						<?php if($games['new_price'] != $games['old_price']){ ?>
-						<p style="text-decoration: line-through; color: gray;"><?= $games['old_price']?></p>
-						<p style="font-weight: bold; color: green; font-size: 30px"><?= $games['new_price']?></p>
+						<p class="price" style="text-decoration: line-through; color: gray;"><?= $games['old_price']?></p>
+						<p class="price" style="font-weight: bold; color: green; font-size: 30px"><?= $games['new_price']?></p>
 						<?php } else { ?>
-						<p><?= $games['new_price']?></p>
+						<p class="price"><?= $games['new_price']?></p>
 						<?php } ?>
 					</div>
 				</div>
@@ -99,7 +99,7 @@
 				<div class="info"><p>Date:</p><p><?= $games['release_date'] ?></p></div>
 				<div class="info"><p>Developers:</p><p><?= $games['developers'] ?></p></div>
 				<div class="info"><p>Genre:</p><p><?= $games['genre'] ?></p></div>
-				<div class="info"><p>Price:</p><p><?= $games['new_price'] ?></p></div>
+				<div class="info"><p>Price:</p><p class="price"><?= $games['new_price'] ?></p></div>
 				<p>About game:<br><?= $games['description'] ?></p>
 			</div>
 
@@ -156,8 +156,8 @@
 					<h2>Special Offer!</h2>
 					<button type="submit" class="purchase btn">
 						Buy
-						<p style="text-decoration: line-through; color: #D3C2C2;"><?= $games['old_price']?></p>
-						<p style="font-weight: bold; color: #00BD42; "><?= $games['new_price']?></p>
+						<p class = "price" style="text-decoration: line-through; color: gray;"><?= $games['old_price']?></p>
+						<p class = "price" style="font-weight: bold; color: green; "><?= $games['new_price']?></p>
 						<?php
 					}
 					else{

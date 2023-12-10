@@ -63,6 +63,11 @@
             border-radius: 20px;
             padding: 5px;
         }
+        .add_game_form{
+            width: 30%;
+            margin: auto;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -78,6 +83,7 @@
         <div class="tab" onclick="openTab('users')">Users</div>
         <div class="tab" onclick="openTab('reviews')">Reviews</div>
         <div class="tab" onclick="openTab('games')">Games</div>
+        <div class="tab" onclick="openTab('add_category')">Add category</div>
     </div>
 
     <?php
@@ -98,6 +104,7 @@
                     <th>User Email</th>
                     <th>Registration Date</th>
                     <th>Avatar URL</th>
+                    <th></th>
                     <th>Password</th>
                     <th>Role</th>
                     <th>Status</th>
@@ -111,7 +118,7 @@
                 foreach ($users as $user) {
                     ?>
                     <tr>
-                        <form method="post" action="update/updateUser.php">
+                        <form method="post" action="update/updateUser.php" enctype="multipart/form-data">
                             <?php $_SESSION['users'][$counter]['password_check'] = $user['password']; $counter++; ?>
                             <td><?= $user['user_id'] ?></td>
                             <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
@@ -119,7 +126,7 @@
                             <td><input type="email" name="user_email" value="<?= $user['user_email'] ?>"></td>
                             <td><?= $user['registration_date'] ?></td>
                             <input type="hidden" name = 'registration_date'  value = "<?= $user['registration_date'] ?>">
-                            <td><input type="text" name="avatar_url" value="<?= $user['avatar_url'] ?>"></td>
+                            <td><?= $user['avatar_url'] ?></td><td><input type="file" name="avatar_url"></td>
                             <td><input type="text" name="password" value="<?= $user['password'] ?>"></td>
                             <td>
                                 <select name="role">
@@ -294,6 +301,18 @@
                 ?>
             </tbody>
         </table>
+    </div>
+    <div id="add_category"  class="content add_game_form" style="display:none;">
+        <h2>Add Category</h2>
+        <form  method="post" action="addCat.php">
+            <label for="category_name">Category Name:</label>
+            <br>
+            <br>
+            <input type="text" name="category_name" >
+            <br>
+            <br>
+            <input type="submit" value="Add Category">
+        </form>
     </div>
     <?php
     unset($_SESSION['message']);

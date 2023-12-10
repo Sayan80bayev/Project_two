@@ -226,11 +226,11 @@ main {
   gap: 5px;
   width: max-content;
   height: 40px;
-  background-color: #B87333;
+  background-color: transparent;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 10px;
   transition: .5s;
-  border: none;
+  border: 2px solid #ED500A ;
   color: #f8e6de;
 }
 .purchase.btn:hover{

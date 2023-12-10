@@ -6,6 +6,7 @@
         $name = $_SESSION['user_name'];
         $_SESSION['wallet'] = $uptInfUsr['wallet']; 
         $_SESSION['userStatus'] = $uptInfUsr['status']; 
+        $_SESSION['avatar_url'] = $uptInfUsr['avatar_url']; 
     }
     elseif(isset($_SESSION['user_name']) && !preg_match("/^[a-zA-Z0-9]+$/", $_SESSION['user_name']) ){
         $_SESSION['message'] = 'Warning: Incorrect user name';

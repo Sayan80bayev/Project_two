@@ -313,7 +313,7 @@ function registerGame($game_name, $developers, $old_price, $new_price, $release_
     function updateUserInfo($user_id){
         global $pdo;
         $query =
-        "SELECT status, wallet FROM users WHERE user_id = $user_id";
+        "SELECT status, wallet, avatar_url FROM users WHERE user_id = $user_id";
         $stmt= $pdo->query($query);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

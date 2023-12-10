@@ -25,7 +25,6 @@
                     <h1><?= $name ?></h1>
                 </div>
                 <!-- Display user's information and links -->
-                <h1>There's nothing yet!</h1>
             </div>
             <?php include 'activity.php';?>
         </div>
