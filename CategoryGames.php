@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>Category</title>
     <!-- Include CSS files -->
@@ -18,7 +17,6 @@
         margin-left: 50px ;
     }
 </style>
-
 <body>
     <?php
     // Include header and games data

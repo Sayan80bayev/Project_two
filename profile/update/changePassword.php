@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../db/connection.php';
+require_once '../../db/connection.php';
 //Checking for CSRF token
 if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']){
     $email = $_SESSION['email'] ?? '';

@@ -44,11 +44,6 @@
             <!-- Navigation Menu -->
             <div class="menu">
                 <!-- Social Media Icons -->
-                <div class="social-media">
-                    <img src="images/Facebook.png" alt="">
-                    <img src="images/Twitter.png" alt="">
-                    <img src="images/Instagramm.png" alt="">
-                </div>
 
                 <!-- Navigation Links -->
                 <ul>

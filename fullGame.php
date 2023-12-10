@@ -156,8 +156,8 @@
 					<h2>Special Offer!</h2>
 					<button type="submit" class="purchase btn">
 						Buy
-						<p style="text-decoration: line-through; color: gray;"><?= $games['old_price']?></p>
-						<p style="font-weight: bold; color: green; "><?= $games['new_price']?></p>
+						<p style="text-decoration: line-through; color: #D3C2C2;"><?= $games['old_price']?></p>
+						<p style="font-weight: bold; color: #00BD42; "><?= $games['new_price']?></p>
 						<?php
 					}
 					else{
@@ -174,6 +174,14 @@
 				<?php }?>
 			</div>
 		</div>
+		<?php
+			if (isset($_SESSION['message']) && $_SESSION['status']=='error'){
+				echo '<h1 style="margin:auto; color:red; width:max-content">'. $_SESSION['message'] .'</h1>';
+			}
+			elseif(isset($_SESSION['message']) && $_SESSION['status']=='success'){
+				echo '<h1 style="margin:auto; color:green; width:max-content">'. $_SESSION['message'] .'</h1>';
+			}
+			?>
 		<h2 style="width: 65%; margin: 15px auto 15px">Reviews</h2>
 		<div class="review_container">
 			<div class="reviews-block">
@@ -187,23 +195,17 @@
 				} else {
 					foreach ($reviews as $i => $review) :
 						$review['game_id'] = $game_id;
-						include 'components/reviews.php';
+						include	 'components/reviews.php';
 					endforeach;
 				}
 				?>
 			</div>
 			<!-- Messages printing -->
-			<?php
-			if (isset($_SESSION['message']) && $_SESSION['status']=='error'){
-				echo '<h1 style="margin:auto 20px; color:red;">'. $_SESSION['message'] .'</h1>';
-			}
-			elseif(isset($_SESSION['message']) && $_SESSION['status']=='success'){
-				echo '<h1 style="margin:auto 20px; color:green;">'. $_SESSION['message'] .'</h1>';
-			}
-			$result =array_column($reviews, "user_id");
+			
+			<!-- Review writing-->
+			<?php $result =array_column($reviews, "user_id");
 			if (!in_array($user_id, $result)):
 			?>
-			<!-- Review writing-->
 			<form method="post" action="review/reviewHandler.php" class="review_form"> 
 				<h1>Write a review</h1>
 				<label for="rating" style="font-size:30px">Rating:</label>
