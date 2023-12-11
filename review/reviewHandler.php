@@ -9,7 +9,6 @@ require_once("../db/checkAuth.php");
 if(isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
     // Include necessary files
     require_once("../db/connection.php");
-
     // Add a review and store the result in $result
     $result = addReview(
         $_POST["game_id"], $_SESSION["user_id"],
@@ -27,5 +26,6 @@ if(isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
     // Redirect to the fullGame page after adding the review
     header('Location: http://localhost/project_two/fullGame.php?id='.$_POST["game_id"].'');
     exit();
-}
+    }
+
 ?>

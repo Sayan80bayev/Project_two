@@ -75,6 +75,8 @@
                 echo "<h1 style = 'margin:auto; width:max-content' >You dont have any game in your library</h1>";
         ?>
     </main>
-    <?php require_once '../components/footer.php';?>
+    <?php
+    $_SESSION['lastPage'] = 'http://localhost/project_two/profile/library.php'; 
+    require_once '../components/footer.php';?>
 </body>
 </html>
