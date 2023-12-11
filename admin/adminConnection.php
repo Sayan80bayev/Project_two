@@ -154,8 +154,8 @@
         $query = 
         "SET FOREIGN_KEY_CHECKS=0;
         DELETE FROM `reviews` WHERE `game_id` =:game_id;
-        DELETE FROM `games` WHERE `game_id` =:game_id;
         DELETE FROM `library` WHERE `game_id` =:game_id;
+        DELETE FROM `games` WHERE `game_id` =:game_id;
         SET FOREIGN_KEY_CHECKS=1;";
         $stmt = $pdo->prepare($query);
         try{
