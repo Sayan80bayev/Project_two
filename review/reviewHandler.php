@@ -1,7 +1,6 @@
 <?php
 // Start the session to access session variables
 session_start();
-
 // Include the authentication check file
 require_once("../db/checkAuth.php");
 
@@ -14,7 +13,6 @@ if(isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
         $_POST["game_id"], $_SESSION["user_id"],
         $_POST["rating"], $_POST['review']
     ) ?? '';
-
     // Check if the review addition was successful
     if(!$result){
         // If the user already has a review, show a message and redirect
@@ -22,8 +20,9 @@ if(isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
         header('Location: http://localhost/project_two/fullGame.php?id='.$_POST["game_id"].'');
         exit();
     }
-
     // Redirect to the fullGame page after adding the review
+    $_SESSION['message'] = 'Review added successfully!';
+    $_SESSION['status'] = 'success';
     header('Location: http://localhost/project_two/fullGame.php?id='.$_POST["game_id"].'');
     exit();
     }
